@@ -1,13 +1,13 @@
 .footer-container {
-  background-color: #f2f2f2;
-  border-top: 2px solid #ddd;
   padding: 24px 0;
   text-align: center;
-  font-size: 1.4rem; /* Larger font */
+  font-size: 1.5rem;
+  border-top: 2px solid #ddd; /* Light separator */
+  background: none; /* No background color */
 }
 
 .footer-content a {
-  color: #007bff;
+  color: inherit; /* Uses default text color */
   text-decoration: none;
 }
 
