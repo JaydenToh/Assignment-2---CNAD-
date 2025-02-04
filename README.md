@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# 🌐 Datasphere
+# 🌐
 
 **Revolutionizing Self Assessment for Seniors to Use**
 
@@ -17,7 +17,7 @@ Currently, two official plugins are available:
 
 ## 👥 Team Members
 
-**🌟 Team Datasphere**
+**🌟 Team**
 
 - Jayden Toh Xuan Ming
 - Liew Zhan Yang
