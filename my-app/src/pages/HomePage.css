@@ -1,0 +1,81 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Hero Section - Increased font sizes */
+.hero-section {
+  background: #f9f9f9;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem; /* Bigger heading */
+  font-weight: bold;
+  color: #222;
+}
+
+.hero-content p {
+  font-size: 1.8rem; /* Increased readability */
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Large button for easier interaction */
+.cta-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 18px 36px; /* Larger click area */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #0056c1;
+}
+
+/* Features Section */
+.features-section {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #222; /* High contrast for accessibility */
+  color: #fff;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.features-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Increased readability for feature cards */
+.feature-card {
+  flex: 1 1 280px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 350px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.feature-card p {
+  font-size: 1.3rem;
+  color: #444;
+}

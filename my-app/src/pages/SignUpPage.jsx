@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/SignUp.css"; // or reuse "Login.css" if they share design
+import "./SignUp.css"; // or reuse "Login.css" if they share design
 import seniorsImage from "../assets/seniors.png"; // same image or a new one
 
 function SignUpPage() {
