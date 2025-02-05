@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header"; // ✅ Import Header
+import Header from "./Header";
 import Footer from "./Footer"; // ✅ Import Footer
 import "./HomePage.css"; // ✅ Ensure HomePage styles are applied
 

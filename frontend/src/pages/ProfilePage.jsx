@@ -1,123 +1,72 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "./ProfilePage.css";
-import userAvatar from "../assets/user-avatar.png"; // Placeholder avatar
+import userAvatar from "../assets/seniors.png"; // Placeholder image
 
 function ProfilePage() {
-  const [user, setUser] = useState({
-    firstName: "Sara",
-    lastName: "Tancredi",
-    email: "sara.tancredi@gmail.com",
+  const [formData, setFormData] = useState({
+    name: "John Doe",
+    email: "johndoe@example.com",
     phone: "+65 9123 4567",
-    location: "New York, USA",
-    postalCode: "23728167",
+    address: "123 Senior Home, Singapore",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div className="profile-container">
-      <Header />
-
-      <div className="profile-layout">
-        {/* Sidebar - Only 'User Info' & 'Logout' */}
-        <aside className="sidebar">
-          <h2>User Profile</h2>
-          <nav>
-            <Link to="/profile" className="active">
-              👤 User Info
-            </Link>
-          </nav>
-          <button className="logout-btn">🔴 Log out</button>
-        </aside>
-
-        {/* Profile Content */}
-        <section className="profile-content">
-          <div className="profile-header">
-            <img src={userAvatar} alt="User Avatar" className="profile-img" />
-            <div>
-              <h2 className="user-name">
-                {user.firstName} {user.lastName}
-              </h2>
-              <p className="user-location">{user.location}</p>
-            </div>
-          </div>
-
-          <div className="profile-form">
-            <div className="form-row">
-              <div className="input-group">
-                <label>First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={user.firstName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-group">
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={user.lastName}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="input-group">
-                <label>Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={user.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-group">
-                <label>Phone Number</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={user.phone}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="input-group">
-                <label>Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={user.location}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-group">
-                <label>Postal Code</label>
-                <input
-                  type="text"
-                  name="postalCode"
-                  value={user.postalCode}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-
-          <button className="save-btn">Save Changes</button>
-        </section>
+      <div className="profile-sidebar">
+        <img src={userAvatar} alt="Profile" className="profile-img" />
+        <button className="upload-btn">📷 Upload Photo</button>
+        <ul className="sidebar-menu">
+          <li className="active">👤 Profile</li>
+          <li>⚙️ Settings</li>
+          <li>🚪 Log Out</li>
+        </ul>
       </div>
 
-      <Footer />
+      <div className="profile-main">
+        <h1 className="profile-title">Profile</h1>
+
+        <div className="profile-info">
+          <label>Full Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+
+          <label>Email Address:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+
+          <label>Phone Number:</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+
+          <label>Home Address:</label>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button className="update-profile-btn">Update Information</button>
+      </div>
     </div>
   );
 }
