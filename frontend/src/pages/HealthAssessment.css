@@ -1,0 +1,122 @@
+/* Page Container - full width with horizontal padding so content never touches the edges */
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+  /* 10px on left and right */
+  box-sizing: border-box;
+}
+
+/* Main Container - full width with padding; no background color */
+.health-assessment-container {
+  width: 100%;
+  padding: 40px 10px; /* 40px top & bottom, 10px left & right */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* Greeting Section */
+.greeting-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.greeting-text h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.greeting-text p {
+  font-size: 24px;
+  color: #34495e;
+}
+
+/* Audio Button */
+.audio-button {
+  background: #ffffff;
+  border: 2px solid #2c3e50;
+  border-radius: 50%;
+  padding: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.audio-button:hover {
+  background-color: #ecf0f1;
+  transform: scale(1.1);
+}
+
+/* Options Section */
+.options-section {
+  margin-top: 20px;
+  text-align: left; /* Other content remains left-aligned */
+}
+
+.options-section p.options-prompt {
+  font-size: 28px;
+  margin-bottom: 32px;
+  color: #2c3e50;
+}
+
+/* Options Grid - now centered */
+.options-grid {
+  display: flex;
+  justify-content: center; /* Center the option boxes */
+  flex-wrap: wrap;
+  gap: 50px; /* Increased gap between cards */
+}
+
+/* Option Cards */
+.option-card {
+  background-color: #ffffff; /* Option card background remains white for visual clarity */
+  padding: 40px 20px;
+  border-radius: 16px;
+  text-align: center;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 22px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.option-card img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+.option-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .health-assessment-container {
+    padding: 20px 10px;
+  }
+
+  .options-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .option-card {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    padding: 30px 20px;
+    margin-bottom: 20px;
+  }
+}
