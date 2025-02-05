@@ -1,43 +1,73 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import Header from "./Header";
-import Footer from "./Footer"; // ✅ Import Footer
-import "./HomePage.css"; // ✅ Ensure HomePage styles are applied
+import Footer from "./Footer";
+import "./HomePage.css";
 
 function HomePage() {
+  const { language, setLanguage, translations, loading, updateTranslations } =
+    useContext(LanguageContext);
+
+  // Load the default translations (English) on mount if not already loaded.
+  useEffect(() => {
+    if (!translations.welcome) {
+      updateTranslations("en");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleLanguageChange = async (newLang) => {
+    setLanguage(newLang);
+    await updateTranslations(newLang);
+  };
+
+  if (loading) {
+    return <div className="loading">Loading translations...</div>;
+  }
+
   return (
     <div className="home-container">
-      {/* Reusable header at the top */}
       <Header />
 
-      {/* Hero Section */}
+      {/* Language Selector */}
+      <div className="language-switcher">
+        <select
+          value={language}
+          onChange={(e) => handleLanguageChange(e.target.value)}
+        >
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="ms">Bahasa Melayu</option>
+          <option value="ta">தமிழ்</option>
+        </select>
+      </div>
+
       <section className="hero-section">
         <div className="hero-content">
-          <h1>Welcome to My Senior App</h1>
-          <p>Empowering seniors to live healthy & independent lives.</p>
-          <button className="cta-button">Get Started</button>
+          <h1>{translations.welcome}</h1>
+          <p>{translations.empowering}</p>
+          <button className="cta-button">{translations.getStarted}</button>
         </div>
       </section>
 
-      {/* Some sample sections (features, testimonials, etc.) */}
       <section className="features-section">
-        <h2>Why Choose Our App?</h2>
+        <h2>{translations.whyChoose}</h2>
         <div className="features-grid">
           <div className="feature-card">
-            <h3>Fall Risk Assessment</h3>
-            <p>Quickly assess your fall risk at home.</p>
+            <h3>{translations.fallRisk}</h3>
+            <p>{translations.fallRiskDesc}</p>
           </div>
           <div className="feature-card">
-            <h3>Recommended Exercises</h3>
-            <p>Tailored workouts to build strength and stability.</p>
+            <h3>{translations.exercises}</h3>
+            <p>{translations.exercisesDesc}</p>
           </div>
           <div className="feature-card">
-            <h3>Nearby Clinics</h3>
-            <p>Locate the nearest healthcare provider in your area.</p>
+            <h3>{translations.clinics}</h3>
+            <p>{translations.clinicsDesc}</p>
           </div>
         </div>
       </section>
 
-      {/* Footer at the bottom */}
       <Footer />
     </div>
   );

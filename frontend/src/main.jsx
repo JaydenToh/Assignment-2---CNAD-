@@ -1,13 +1,23 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css"; // Optional: keep or remove if you want minimal styling
+import { LanguageProvider } from "./contexts/LanguageContext";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+// Get the root container element from the DOM
+const container = document.getElementById("root");
+
+// Create a root.
+const root = createRoot(container);
+
+// Render your application using the new root.render API.
+root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </LanguageProvider>
   </React.StrictMode>
 );
