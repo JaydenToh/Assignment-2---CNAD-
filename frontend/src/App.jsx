@@ -7,6 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import HealthAssessment from "./pages/HealthAssessment";
 import GeneralTest from "./pages/GeneralTest";
 import RulesPage from "./pages/RulesPage";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       {/* Default route to HomePage */}
       <Route path="/generalTest" element={<GeneralTest />} />
       <Route path="/rules" element={<RulesPage />} />
+      <Route path="/resultTest" element={<ResultPage />} />
     </Routes>
   );
 }
