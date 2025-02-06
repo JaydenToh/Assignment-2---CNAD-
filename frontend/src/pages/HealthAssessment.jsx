@@ -34,7 +34,7 @@ function HealthAssessment() {
         <div className="options-section">
           <p className="options-prompt">What would you like to do?</p>
           <div className="options-grid">
-            <Link to="/assessment" className="option-card">
+            <Link to="/Rules" className="option-card">
               <img src={assessmentIcon} alt="Assessment" />
               <span>Assessment</span>
             </Link>

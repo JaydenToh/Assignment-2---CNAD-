@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 import "./RulesPage.css";
 
 function RulesPage({ onAgree }) {
   const [isAgreed, setIsAgreed] = useState(false);
+  const navigate = useNavigate();
 
   const handleAgreeChange = (e) => {
     setIsAgreed(e.target.checked);
@@ -12,7 +14,7 @@ function RulesPage({ onAgree }) {
 
   const handleStartTest = () => {
     if (isAgreed) {
-      onAgree(); // Redirect to General Test
+      navigate("/generalTest");
     } else {
       alert("Please agree to the rules before proceeding.");
     }
