@@ -1,22 +1,19 @@
-export const translateText = async (text, targetLang) => {
+export const translateBatch = async (texts, targetLang) => {
   try {
     const response = await fetch("http://localhost:5000/translate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        q: text,
+        q: texts, // Send an array of texts for batch translation
         source: "en",
         target: targetLang,
         format: "text",
       }),
     });
-    return await response.json();
+
+    return await response.json(); // Returns an array of translated texts
   } catch (error) {
     console.error("Translation error:", error);
-    return text; // Return original text on failure
+    return texts; // Return original texts on failure
   }
-};
-
-export const translateMultiple = async (texts, targetLang) => {
-  return Promise.all(texts.map((text) => translateText(text, targetLang)));
 };
