@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import HealthAssessment from "./pages/HealthAssessment";
 import GeneralTest from "./pages/GeneralTest";
+import RulesPage from "./pages/RulesPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<HomePage />} />{" "}
       {/* Default route to HomePage */}
       <Route path="/generalTest" element={<GeneralTest />} />
+      <Route path="/rules" element={<RulesPage />} />
     </Routes>
   );
 }
