@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./HealthAssessment.css";
@@ -9,6 +9,38 @@ import clinicIcon from "../assets/seniors.png";
 import { FiVolume2 } from "react-icons/fi";
 
 function HealthAssessment() {
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/random-questions", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await response.json();
+      setQuestions(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="page-container">
       {/* Header */}
@@ -28,6 +60,16 @@ function HealthAssessment() {
           >
             <FiVolume2 size={28} />
           </button>
+        </div>
+
+        {/* Questions Section */}
+        <div className="questions-section">
+          <h2>Health Assessment Questions</h2>
+          <ul>
+            {questions.map((question, index) => (
+              <li key={index}>{question.question}</li>
+            ))}
+          </ul>
         </div>
 
         {/* Options Section */}

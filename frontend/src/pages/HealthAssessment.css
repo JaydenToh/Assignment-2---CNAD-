@@ -2,17 +2,20 @@
 .page-container {
   min-height: 100vh;
   width: 100%;
-  /* 10px on left and right */
+  padding: 0 10px; /* 10px on left and right */
   box-sizing: border-box;
+  margin: 0 auto; /* Center the container */
 }
 
 /* Main Container - full width with padding; no background color */
 .health-assessment-container {
   width: 100%;
-  padding: 40px 10px; /* 40px top & bottom, 10px left & right */
+  max-width: 1200px; /* Add a maximum width */
+  padding: 40px 20px; /* 40px top & bottom, 20px left & right */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   box-sizing: border-box;
+  margin: 0 auto; /* Center the container */
 }
 
 /* Greeting Section */
@@ -65,8 +68,8 @@
 /* Options Grid - now centered */
 .options-grid {
   display: flex;
-  justify-content: center; /* Center the option boxes */
   flex-wrap: wrap;
+  justify-content: center; /* Center the option boxes */
   gap: 50px; /* Increased gap between cards */
 }
 
@@ -76,7 +79,7 @@
   padding: 40px 20px;
   border-radius: 16px;
   text-align: center;
-  width: 280px;
+  width: calc(33.33% - 30px); /* Calculate the width for 3 columns */
   height: 280px;
   display: flex;
   flex-direction: column;
