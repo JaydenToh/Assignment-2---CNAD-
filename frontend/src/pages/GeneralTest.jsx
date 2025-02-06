@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./GeneralTest.css"; // Create this CSS file for styling
 import { FiVolume2 } from "react-icons/fi";
+import legImage from "../assets/leg.jpeg";
 
 function GeneralTest() {
   return (
@@ -16,7 +17,7 @@ function GeneralTest() {
 
         <div className="question-section">
           <img
-            src="https://via.placeholder.com/150" // Replace with actual image
+            src={legImage} 
             alt="Leg condition"
             className="question-image"
           />
