@@ -8,6 +8,7 @@ import HealthAssessment from "./pages/HealthAssessment";
 import GeneralTest from "./pages/GeneralTest";
 import RulesPage from "./pages/RulesPage";
 import ResultPage from "./pages/ResultPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/generalTest" element={<GeneralTest />} />
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/resultTest" element={<ResultPage />} />
+      <Route path="/landing" element={<LandingPage />} />
     </Routes>
   );
 }
