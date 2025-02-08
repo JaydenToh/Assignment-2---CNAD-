@@ -10,6 +10,9 @@ import RulesPage from "./pages/RulesPage";
 import ResultPage from "./pages/ResultPage";
 import LandingPage from "./pages/LandingPage";
 
+
+
+
 function App() {
   return (
     <Routes>
@@ -24,6 +27,8 @@ function App() {
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/resultTest" element={<ResultPage />} />
       <Route path="/landing" element={<LandingPage />} />
+
+      
     </Routes>
   );
 }
