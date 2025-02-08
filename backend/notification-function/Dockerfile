@@ -1,10 +1,18 @@
+# Use Node.js official image
 FROM node:lts-alpine
-ENV NODE_ENV=production
+
+# Set the working directory inside the container
 WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
+
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copy the rest of the application files
 COPY . .
+
+# Expose the port that the app runs on
 EXPOSE 3000
-RUN chown -R node /usr/src/app
-USER node
-CMD ["npm", "start"]
+
+# Start the application
+CMD ["node", "index.js"]
