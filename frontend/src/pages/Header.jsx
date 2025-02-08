@@ -23,12 +23,6 @@ function Header() {
 
       {/* Right side: Icons */}
       <div className="header-right">
-        {/* Language / Translate */}
-        <button className="translate-btn" title="Change Language">
-          <span>A</span>
-          <span style={{ fontSize: "0.8em", marginLeft: "4px" }}>言</span>
-        </button>
-
         {/* Notification Icon */}
         <button className="icon-btn" title="Notifications">
           <i className="bell-icon">🔔</i>

@@ -1,0 +1,121 @@
+/* Remove UL dots */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.exercise-container {
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+h1,
+h2,
+h3,
+p,
+li {
+  color: black;
+}
+
+.risk-buttons {
+  margin: 15px 0;
+}
+
+.risk-btn {
+  padding: 12px 18px;
+  margin: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  background: white;
+  color: black;
+}
+
+.risk-btn.active {
+  background: #007bff;
+  color: white;
+}
+
+.live-session,
+.progress-tracking,
+.fall-prevention {
+  background: #e8f4ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.join-live-btn,
+.track-btn {
+  background: #ff7f00;
+  color: white;
+  padding: 12px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/* Button styling */
+.track-btn {
+  background: #ff7f00;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px; /* Added spacing between button and progress bar */
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 80%;
+  background: #ddd;
+  height: 20px;
+  border-radius: 5px;
+  position: relative;
+  margin: 15px auto;
+  text-align: center;
+}
+
+/* Spacing for progress tracking */
+.progress-tracking {
+  background: #e8f4ff;
+  padding: 30px; /* More padding for spacing */
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.progress-fill {
+  background: #007bff;
+  color: black; /* Changed from white to black */
+  height: 100%;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Make video larger */
+.video-container {
+  width: 100%;
+  max-width: 700px; /* Increase size */
+  margin: 20px auto;
+  text-align: center;
+}
+
+video {
+  width: 100%; /* Makes the video responsive */
+  border-radius: 10px;
+}
+
+.fall-prevention {
+  background: #e8f4ff;
+  padding: 30px; /* Increased padding for spacing */
+  border-radius: 10px;
+  margin-top: 30px;
+}
