@@ -1,3 +1,4 @@
+require("dotenv").config(); // Load .env variables
 const express = require("express");
 const cors = require("cors");
 const sql = require("mssql");
@@ -9,14 +10,15 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Microsoft SQL Server Configuration
+// SQL Server Configuration (Now using Datasphere database)
 const dbConfig = {
-  user: "your_db_user",
-  password: "your_db_password",
-  server: "your_server_address",
-  database: "ClinicDB",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_DATABASE, // ✅ Uses Datasphere from .env
+  port: parseInt(process.env.DB_PORT, 10),
   options: {
-    encrypt: true,
+    encrypt: false,
     trustServerCertificate: true,
   },
 };
@@ -24,8 +26,8 @@ const dbConfig = {
 // Connect to SQL Server
 sql
   .connect(dbConfig)
-  .then(() => console.log("Connected to SQL Server"))
-  .catch((err) => console.error("DB Connection Error:", err));
+  .then(() => console.log("✅ Connected to SQL Server (Datasphere)"))
+  .catch((err) => console.error("❌ DB Connection Error:", err));
 
 /* -------------------- CLINIC ENDPOINTS -------------------- */
 
@@ -39,12 +41,14 @@ app.get("/api/clinics", async (req, res) => {
   }
 });
 
-// Fetch Available Doctors for a Specific Clinic
+// Fetch Doctors for a Clinic
 app.get("/api/doctors/:clinicId", async (req, res) => {
   try {
     const { clinicId } = req.params;
-    const result = await sql.query(
-      `SELECT * FROM Doctors WHERE ClinicID = ${clinicId}`
+    const request = new sql.Request();
+    request.input("clinicId", sql.Int, clinicId);
+    const result = await request.query(
+      "SELECT * FROM Doctors WHERE ClinicID = @clinicId"
     );
     res.json(result.recordset);
   } catch (error) {
@@ -58,9 +62,17 @@ app.get("/api/doctors/:clinicId", async (req, res) => {
 app.post("/api/appointments", async (req, res) => {
   try {
     const { userId, clinicId, doctorId, appointmentTime, type } = req.body;
-    const query = `INSERT INTO Appointments (UserID, ClinicID, DoctorID, AppointmentTime, Type) 
-                   VALUES (${userId}, ${clinicId}, ${doctorId}, '${appointmentTime}', '${type}')`;
-    await sql.query(query);
+    const request = new sql.Request();
+    request.input("userId", sql.Int, userId);
+    request.input("clinicId", sql.Int, clinicId);
+    request.input("doctorId", sql.Int, doctorId);
+    request.input("appointmentTime", sql.NVarChar, appointmentTime);
+    request.input("type", sql.NVarChar, type);
+
+    await request.query(`
+      INSERT INTO Appointments (UserID, ClinicID, DoctorID, AppointmentTime, Type) 
+      VALUES (@userId, @clinicId, @doctorId, @appointmentTime, @type)
+    `);
     res.json({ message: "Appointment booked successfully!" });
   } catch (error) {
     res.status(500).json({ error: "Error booking appointment" });
@@ -71,8 +83,10 @@ app.post("/api/appointments", async (req, res) => {
 app.get("/api/appointments/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const result = await sql.query(
-      `SELECT * FROM Appointments WHERE UserID = ${userId}`
+    const request = new sql.Request();
+    request.input("userId", sql.Int, userId);
+    const result = await request.query(
+      "SELECT * FROM Appointments WHERE UserID = @userId"
     );
     res.json(result.recordset);
   } catch (error) {
@@ -90,13 +104,13 @@ app.post("/api/appointments/reminders", async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "your-email@gmail.com",
-        pass: "your-password",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     let mailOptions = {
-      from: "your-email@gmail.com",
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Appointment Reminder",
       text: `Reminder: You have an appointment scheduled for ${appointmentTime}.`,
@@ -111,5 +125,5 @@ app.post("/api/appointments/reminders", async (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

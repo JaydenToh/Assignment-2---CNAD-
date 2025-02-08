@@ -6,6 +6,8 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import HealthAssessment from "./pages/HealthAssessment";
 import Exercise from "./pages/Exercise";
+import Clinic from "./pages/Clinic";
+
 function App() {
   return (
     <Routes>
@@ -14,6 +16,7 @@ function App() {
       <Route path="/home" element={<HomePage />} />
       <Route path="/assessment" element={<HealthAssessment />} />
       <Route path="/exercise" element={<Exercise />} />
+      <Route path="/clinic" element={<Clinic />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/" element={<HomePage />} />{" "}
       {/* Default route to HomePage */}
