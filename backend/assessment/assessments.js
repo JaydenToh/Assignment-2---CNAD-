@@ -4,7 +4,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 app.use(bodyParser.json());
+
+// Load Mongoose models
 const Question = require("../questions/Question");
+const Assessment = require("./Assessment");
+const Submission = require("./Submission");
 
 // Connect to MongoDB
 async function connectToMongoDB() {
@@ -18,14 +22,6 @@ async function connectToMongoDB() {
 
 // Call the connectToMongoDB function
 connectToMongoDB();
-
-// Define Assessment model
-const assessmentSchema = new mongoose.Schema({
-  name: String,
-  questions: [{ type: String }]
-});
-
-const Assessment = mongoose.model("Assessment", assessmentSchema);
 
 // Define routes
 app.get('/', (req, res) => {
@@ -59,21 +55,26 @@ app.get("/assessments", (req, res) => {
 });
 
 app.get("/random-questions", (req, res) => {
-    Question.aggregate([
-      { $sample: { size: 5 } }
-    ]).then((questions) => {
-      res.send(questions);
-    }).catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving random questions.");
-    });
+  Question.aggregate([
+    { $sample: { size: 5 } }
+  ]).then((questions) => {
+    res.send(questions);
+  }).catch((err) => {
+    console.error(err);
+    res.status(500).send("Error retrieving random questions.");
   });
+});
 
 app.post('/submit-survey', (req, res) => {
-  const answers = req.body;
-  // Store the answers in your database
-  // ...
-  res.json({ message: 'Survey submitted successfully' });
+  const { answers, totalScore } = req.body;
+  const newSubmission = new Submission({ answers, totalScore });
+  newSubmission.save().then(() => {
+    console.log("Submission saved!");
+    res.json({ message: 'Survey submitted successfully' });
+  }).catch((err) => {
+    console.error(err);
+    res.status(500).send("Error submitting survey.");
+  });
 });
 
 app.get('/quiz', (req, res) => {

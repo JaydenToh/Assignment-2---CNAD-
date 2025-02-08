@@ -1,0 +1,100 @@
+<!-- quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        /* Add some basic styling to make the quiz look better */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #questions {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="questions"></div>
+    <div id="result"></div>
+
+    <script>
+        // Fetch questions from the server
+        fetch('http://localhost:3001/random-questions')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(questions => {
+                console.log('Received questions:', questions);
+
+                // Render the quiz form
+                const questionsDiv = document.getElementById('questions');
+                questionsDiv.innerHTML = `
+                    <h1>Quiz</h1>
+                    <form id="quiz-form">
+                        ${questions.map((question, index) => `
+                            <div>
+                                <h2>Question ${index + 1}:</h2>
+                                <p>${question.question}</p>
+                                <div>
+                                    ${Array(5).fill(0).map((_, i) => `
+                                        <input type="radio" id="answer-${index}-${i + 1}" name="answer-${index}" value="${i + 1}">
+                                        <label for="answer-${index}-${i + 1}">${i + 1}</label>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                        <input type="submit" value="Submit Quiz">
+                    </form>
+                `;
+
+                // Handle the form submission event
+                const form = document.getElementById('quiz-form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log('Submit event triggered');
+
+                    // Get the user's answers
+                    const answers = {};
+                    let totalScore = 0;
+                    questions.forEach((question, index) => {
+                        const answer = form.querySelector(`input[name="answer-${index}"]:checked`).value;
+                        console.log(`Answer ${index + 1}:`, answer);
+                        answers[question._id] = parseInt(answer); // Convert answer to integer
+                        totalScore += parseInt(answer);
+                    });
+                    console.log('Answers:', answers);
+                    console.log('Total Score:', totalScore);
+
+                    // Display the total score
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `
+                        <h2>Your Total Score is: ${totalScore}</h2>
+                    `;
+
+                    // Submit the answers to the server
+                    fetch('http://localhost:3001/submit-survey', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ answers: answers, totalScore: totalScore }) // Send answers and total score as a nested object
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error submitting survey:', error));
+                });
+            })
+            .catch((error) => console.error('Error:', error));
+    </script>
+</body>
+</html>

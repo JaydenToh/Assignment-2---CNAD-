@@ -27,37 +27,48 @@ app.get('/', (req, res) => {
 })
 
 app.post("/question", (req, res) => {
-    const newQuestion = {
-      question: req.body.question,
-    };
-  
-    // Check for duplicate question
-    Question.findOne({ question: newQuestion.question })
-      .then((existingQuestion) => {
-        if (existingQuestion) {
-          res.status(409).send("Question already exists.");
-        } else {
-          const question = new Question(newQuestion);
-          question.save().then(() => {
-            console.log("Question Added!");
-            res.send("Question added successfully!");
-          }).catch((err) => {
-            console.error(err);
-            res.status(500).send("Error adding question.");
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error checking for duplicate question.");
-      });
-  });
+  if (!req.body.question) {
+    res.status(400).send("Question is required.");
+    return;
+  }
+
+  const newQuestion = {
+    question: req.body.question,
+  };
+
+  // Check for duplicate question
+  Question.findOne({ question: newQuestion.question })
+    .then((existingQuestion) => {
+      if (existingQuestion) {
+        res.status(409).send("Question already exists.");
+      } else {
+        const question = new Question(newQuestion);
+        question.save().then(() => {
+          console.log("Question Added!");
+          res.send("Question added successfully!");
+        }).catch((err) => {
+          console.error(err);
+          res.status(500).send("Error adding question.");
+        });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error checking for duplicate question.");
+    });
+});
 
 app.get("/questions", (req, res) => {
-    Question.find().then((questions) => {
-        console.log(questions);
+  Question.find()
+    .then((questions) => {
+      console.log(questions);
+      res.send(questions);
     })
-})
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving questions.");
+    });
+});
 
 // Start the server
 app.listen(3000, () => {

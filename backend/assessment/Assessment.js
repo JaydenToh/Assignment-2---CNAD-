@@ -1,8 +1,11 @@
-const mongoose = require("mongoose");
+// Assessment.js
+const mongoose = require('mongoose');
 
 const assessmentSchema = new mongoose.Schema({
   name: String,
-  questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }]
+  questions: [{ type: String }]
 });
 
-module.exports = mongoose.model("Assessment", assessmentSchema);
+const Assessment = mongoose.model('Assessment', assessmentSchema);
+
+module.exports = Assessment;
