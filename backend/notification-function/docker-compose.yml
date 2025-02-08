@@ -12,7 +12,7 @@ services:
       DB_PASSWORD: 19V299332n02
       DB_NAME: notification
     ports:
-      - "3000:3000"
+      - "3307"
     depends_on:
       - db
 

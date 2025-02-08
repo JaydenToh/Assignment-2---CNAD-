@@ -1,19 +1,17 @@
-const express = require("express");
-const db = require("./db");
-
+const express = require('express');
 const app = express();
+const db = require('./db');
 
-app.get("/", (req, res) => {
-  db.query("SELECT 1 + 1 AS result", (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Database query failed");
-    } else {
-      res.send(`Database connected! Result: ${results[0].result}`);
+app.get('/admins', async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM Admin');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).send(error.message);
     }
-  });
 });
 
-app.listen(3000, () => {
-  console.log("Backend running on port 3000");
+const PORT = 3000; // Ensure this matches the port in your Docker Compose
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
