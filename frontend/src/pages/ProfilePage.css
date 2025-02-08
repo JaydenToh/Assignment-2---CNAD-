@@ -1,0 +1,197 @@
+/* Container */
+.account-settings-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7fafc;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+.sidebar-btn:hover {
+  background-color: #edf2f7;
+}
+
+.sidebar-btn.active {
+  background-color: #edf2f7;
+  font-weight: bold;
+}
+
+/* Main Content */
+.settings-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.settings-title {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #2d3748;
+}
+
+.settings-box {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Image Section */
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.edit-photo-btn {
+  background-color: #3182ce;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-photo-btn:hover {
+  background-color: #2b6cb0;
+}
+
+/* Input Groups */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.input-box {
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-box label {
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.input-box input,
+.input-box select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Custom Select Styling */
+.select-input {
+  appearance: none;
+  background: white
+    url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D'http://www.w3.org/2000/svg'%20width%3D'292.4'%20height%3D'292.4'%3E%3Cpath%20fill%3D'%23131417'%20d%3D'M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z'%2F%3E%3C%2Fsvg%3E")
+    no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.65rem auto;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.checkbox-group input {
+  margin-right: 8px;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-btn {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.cancel-btn:hover {
+  background-color: #cbd5e0;
+}
+
+.save-btn {
+  background-color: #38a169;
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background-color: #2f855a;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .account-settings-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .settings-content {
+    padding: 20px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+}
