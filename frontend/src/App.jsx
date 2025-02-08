@@ -11,6 +11,7 @@ import GeneralTest from "./pages/GeneralTest";
 import RulesPage from "./pages/RulesPage";
 import ResultPage from "./pages/ResultPage";
 import LandingPage from "./pages/LandingPage";
+import ReactionTime from "./pages/ReactionTime";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <Route path="/exercise" element={<Exercise />} />
       <Route path="/clinic" element={<Clinic />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/reaction" element={<ReactionTime />} />
+
       <Route path="/" element={<HomePage />} />{" "}
       {/* Default route to HomePage */}
       <Route path="/generalTest" element={<GeneralTest />} />

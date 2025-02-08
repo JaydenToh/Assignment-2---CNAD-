@@ -75,10 +75,11 @@ function HealthAssessment() {
               <img src={exerciseIcon} alt="Recommended Exercise" />
               <span>{translations.exercises}</span>
             </Link>
-            <Link to="/clinic" className="option-card">
-              <img src={clinicIcon} alt="Clinic Nearby" />
-              <span>{translations.clinics}</span>
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
             </Link>
+
           </div>
         </div>
       </main>
