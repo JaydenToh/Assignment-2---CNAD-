@@ -1,4 +1,4 @@
-// App.jsx
+// src/App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -6,6 +6,7 @@ import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import HealthAssessment from "./pages/HealthAssessment";
+import DVTAssessment from "./pages/DVTAssessment"; // Import the new DVT page
 import Exercise from "./pages/Exercise";
 import Clinic from "./pages/Clinic";
 import GeneralTest from "./pages/GeneralTest";
@@ -23,6 +24,7 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/assessment" element={<HealthAssessment />} />
+      <Route path="/dvt-assessment" element={<DVTAssessment />} />
       <Route path="/exercise" element={<Exercise />} />
       <Route path="/clinic" element={<Clinic />} />
       <Route path="/profile" element={<ProfilePage />} />
