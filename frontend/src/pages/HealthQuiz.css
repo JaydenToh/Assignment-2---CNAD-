@@ -1,13 +1,38 @@
 /* General Page Styling */
-.health-quiz-container {
+  
+  .health-quiz-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+/* General Page Styling */
+.health-quiz-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+  }
+  
+  /* Header and Footer Styling */
+  header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    font-family: Arial, sans-serif;
     padding: 20px;
   }
   
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: auto;
+  }
+  
+  /* ... rest of your CSS ... */
   /* Quiz Form */
   #quiz-form {
     max-width: 800px;

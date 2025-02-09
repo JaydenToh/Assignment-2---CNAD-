@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './healthquiz.css';
+import Header from "./Header";
+import Footer from "./Footer";
 
 function HealthQuiz() {
   const [questions, setQuestions] = useState([]);
@@ -86,10 +88,14 @@ function HealthQuiz() {
   }
 
   return (
-    <div>
-      <h1>Risk Fall Assessment Survey</h1>
-      <div className="scale-text">
-        <p>
+    <div className="health-quiz-page">
+      <Header />
+
+      {/* Health Quiz Section */}
+      <div className="health-quiz-container">
+        <h1>Risk Fall Assessment Survey</h1>
+        <div className="scale-text">
+          <p>
             Please answer the questions based on the following scale:
             <br />
             1: Less likely
@@ -101,40 +107,43 @@ function HealthQuiz() {
             4: Somewhat likely
             <br />
             5: Highly likely
-        </p>
-      </div>
-      <form id="quiz-form" onSubmit={handleSubmit}>
-        {questions.map((question, index) => (
-          <div key={question._id || index}>
-            <h2>Question {index + 1}:</h2>
-            <p>{question.question}</p>
-            <div className="radio-group">
-              {[1, 2, 3, 4, 5].map((value) => (
-                <label key={value} className="radio-button">
-                  <input
-                    type="radio"
-                    name={`answer-${index}`}
-                    value={value}
-                    required
-                  />
-                  {value}
-                </label>
-              ))}
+          </p>
+        </div>
+        <form id="quiz-form" onSubmit={handleSubmit}>
+          {questions.map((question, index) => (
+            <div key={question._id || index}>
+              <h2>Question {index + 1}:</h2>
+              <p>{question.question}</p>
+              <div className="radio-group">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <label key={value} className="radio-button">
+                    <input
+                      type="radio"
+                      name={`answer-${index}`}
+                      value={value}
+                      required
+                    />
+                    {value}
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+          <button type="submit">Submit Quiz</button>
+        </form>
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2>Results</h2>
+              <p>Total Score: {totalScore}</p>
+              <p>Risk Category: {riskCategory}</p>
+              <button onClick={handleModalClose}>Close</button>
             </div>
           </div>
-        ))}
-        <button type="submit">Submit Quiz</button>
-      </form>
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>Results</h2>
-            <p>Total Score: {totalScore}</p>
-            <p>Risk Category: {riskCategory}</p>
-            <button onClick={handleModalClose}>Close</button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      <Footer />
     </div>
   );
 }
