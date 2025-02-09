@@ -10,8 +10,6 @@
 .health-assessment-container {
   width: 100%;
   padding: 40px 10px; /* 40px top & bottom, 10px left & right */
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
   box-sizing: border-box;
 }
 
