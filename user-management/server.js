@@ -5,8 +5,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 // Controllers
-const loginController = require("../controllers/loginController");
-const userController = require("../controllers/userController");
+const loginController = require("./controllers/loginController");
+const userController = require("./controllers/userController");
 const { validateUser, schemas } = require("./middlewares/validateUser");
 
 // Initialize Express
@@ -15,7 +15,8 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "10mb" })); // Increased limit for large images
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Database Connection
 sql
