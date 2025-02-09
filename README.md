@@ -72,25 +72,25 @@ We implemented redundancy and failover mechanisms to ensure high availability an
            |      (Handles request routing & security)       |
            +--------------------------------------------------+
                                |
-    ---------------------------------------------------------------
-    |                         |                                   |
-+------------------+   +-----------------------+   +----------------------+
-| Assessment       |   | Calculator Risk       |   | Notification Service  |
-| Management      |   | Management            |   | (Alerts & Reminders)  |
-| (Quiz Logic)    |   | (Risk Calculation)    |   |                      |
-+------------------+   +-----------------------+   +----------------------+
-          |                      |                            |
-+------------------+   +-----------------------+   +----------------------+
-| Question         |   | Eye-Test Management   |   | Exercise Management  |
-| Management      |   | (Vision-Related Quiz) |   | (Exercise Plans)      |
-| (Quiz DB)       |   |                       |   |                      |
-+------------------+   +-----------------------+   +----------------------+
-          |                                                 |
-+------------------+                           +----------------------+
-| Clinic Video     |                           | Database             |
-| Management       |                           | (User Data,          |
-| (Videos API)     |                           | Assessments, Scores) |
-+------------------+                           +----------------------+
+    -------------------------------------------------------------------------
+    |                                   |                                   |
++------------------+      +-----------------------+      +----------------------+
+| Assessment       |      | Calculator Risk       |      | Notification Service  |
+| Management      |      | Management            |      | (Alerts & Reminders)  |
+| (Quiz Logic)    |      | (Risk Calculation)    |      |                      |
++------------------+      +-----------------------+      +----------------------+
+          |                         |                              |
++------------------+      +-----------------------+      +----------------------+
+| Question         |      | Eye-Test Management   |      | Exercise Management  |
+| Management      |      | (Vision-Related Quiz) |      | (Exercise Plans)      |
+| (Quiz DB)       |      |                       |      |                      |
++------------------+      +-----------------------+      +----------------------+
+          |                         |                              |
++------------------+      +-----------------------+      +----------------------+
+| Clinic Video     |      | Database for Each    |      | Database for Each    |
+| Management      |      | Microservice         |      | Microservice         |
+| (Videos API)    |      | (MongoDB/Postgres)   |      | (MongoDB/Postgres)   |
++------------------+      +-----------------------+      +----------------------+
                                |
                                v
            +--------------------------------------------------+
