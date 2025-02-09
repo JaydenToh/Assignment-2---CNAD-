@@ -1,0 +1,20 @@
+CREATE TABLE eye_quiz_results (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    q1_blurry_vision INTEGER CHECK (q1_blurry_vision BETWEEN 1 AND 5),
+    q2_small_text INTEGER CHECK (q2_small_text BETWEEN 1 AND 5),
+    q3_night_vision INTEGER CHECK (q3_night_vision BETWEEN 1 AND 5),
+    q4_eye_rubbing INTEGER CHECK (q4_eye_rubbing BETWEEN 1 AND 5),
+    q5_eye_strain INTEGER CHECK (q5_eye_strain BETWEEN 1 AND 5),
+    q6_light_sensitivity INTEGER CHECK (q6_light_sensitivity BETWEEN 1 AND 5),
+    q7_tired_eyes INTEGER CHECK (q7_tired_eyes BETWEEN 1 AND 5),
+    q8_headaches INTEGER CHECK (q8_headaches BETWEEN 1 AND 5),
+    q9_worsening_vision INTEGER CHECK (q9_worsening_vision BETWEEN 1 AND 5),
+    q10_squinting INTEGER CHECK (q10_squinting BETWEEN 1 AND 5),
+    q11_boolean_1 BOOLEAN NOT NULL,
+    q12_boolean_2 BOOLEAN NOT NULL,
+    simple_test_1 BOOLEAN NOT NULL,
+    simple_test_2 BOOLEAN NOT NULL,
+    total_score INTEGER NOT NULL,  
+    risk_category TEXT CHECK (risk_category IN ('Excellent', 'Good', 'Medium Risk', 'High Risk')), 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
