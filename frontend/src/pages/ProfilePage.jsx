@@ -25,7 +25,7 @@ function ProfilePage() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/users/${userId}/details`
+          `http://localhost:4000/users/${userId}/details`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
@@ -85,7 +85,7 @@ function ProfilePage() {
     if (!userId) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+      const response = await fetch(`http://localhost:4000/users/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

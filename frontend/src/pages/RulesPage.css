@@ -1,0 +1,86 @@
+/* General page layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* Main container styling */
+.rules-container {
+  flex: 1;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.rules-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.rules-list {
+  list-style: none;
+  text-align: left;
+  margin: 20px auto;
+  padding: 0;
+  max-width: 800px;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.rules-list li {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Agreement section */
+.agreement-section {
+  margin-top: 30px;
+  font-size: 1.2rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Start test button */
+.start-test-button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-test-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.start-test-button:hover:not(.disabled) {
+  background-color: #45a049;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 1rem;
+}

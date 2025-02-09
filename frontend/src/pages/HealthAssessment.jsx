@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { LanguageContext } from "../contexts/LanguageContext"; // Import Language Context
+import { LanguageContext } from "../contexts/LanguageContext";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./HealthAssessment.css";
@@ -13,26 +13,33 @@ function HealthAssessment() {
   const { language, setLanguage, translations, loading, updateTranslations } =
     useContext(LanguageContext);
 
+  const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
+
   // Load default translations on mount if not already loaded
   useEffect(() => {
     if (!translations.welcome) {
-      updateTranslations("en"); // Default to English
+      updateTranslations("en");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [translations, updateTranslations]);
 
+  // Handle language change
   const handleLanguageChange = async (newLang) => {
     setLanguage(newLang);
     await updateTranslations(newLang);
   };
 
+  // Show loading if translations are still loading
   if (loading) {
     return <div className="loading">Loading translations...</div>;
   }
 
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="page-container">
-      {/* Header */}
       <Header />
 
       {/* Language Selector */}
@@ -67,7 +74,7 @@ function HealthAssessment() {
         <div className="options-section">
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
           <div className="options-grid">
-            <Link to="/assessment" className="option-card">
+            <Link to="/Rules" className="option-card">
               <img src={assessmentIcon} alt="Assessment" />
               <span>{translations.assessment}</span>
             </Link>
@@ -75,15 +82,22 @@ function HealthAssessment() {
               <img src={exerciseIcon} alt="Recommended Exercise" />
               <span>{translations.exercises}</span>
             </Link>
-            <Link to="/clinic" className="option-card">
-              <img src={clinicIcon} alt="Clinic Nearby" />
-              <span>{translations.clinics}</span>
+            <Link to="/healthquiz" className="option-card">
+              <img src={clinicIcon} alt="Health Quiz" />
+              <span>Health Quiz</span>
+            </Link>
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
+            </Link>
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
             </Link>
           </div>
         </div>
       </main>
 
-      {/* Footer at the bottom */}
       <Footer />
     </div>
   );
