@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/logo.jpg"; // Ensure correct logo path
 import defaultAvatar from "../assets/seniors.png"; // Default profile icon
@@ -8,6 +8,7 @@ function Header() {
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || defaultAvatar
   );
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -20,6 +21,10 @@ function Header() {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
+
+  const handleNotificationClick = () => {
+    navigate("/notification"); // Navigate to the notification page
+  };
 
   return (
     <header className="header-container">
@@ -41,11 +46,17 @@ function Header() {
         </Link>
       </nav>
 
-      {/* Right side: Profile Image instead of Icon */}
+      {/* Right side: Profile Image and Notifications */}
       <div className="header-right">
-        <button className="icon-btn" title="Notifications">
+        {/* Notification Button */}
+        <button
+          className="icon-btn"
+          title="Notifications"
+          onClick={handleNotificationClick}
+        >
           <i className="bell-icon">🔔</i>
         </button>
+        {/* Profile Image */}
         <Link to="/profile" className="profile-img-link">
           <img
             src={profileImage}
