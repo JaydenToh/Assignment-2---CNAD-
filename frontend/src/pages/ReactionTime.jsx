@@ -11,6 +11,7 @@ const ReactionTimeTest = () => {
   const [attempts, setAttempts] = useState(0); // Track 3 attempts
   const [currentReactionTime, setCurrentReactionTime] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
+  const [totalTime, setTotalTime] = useState(0); // ✅ New state for total time
 
   const startTest = () => {
     if (attempts >= 3) return; // Limit to 3 turns
@@ -51,6 +52,8 @@ const ReactionTimeTest = () => {
 
   const calculateFinalScore = async (times) => {
     const total = times.reduce((sum, time) => sum + time, 0);
+    setTotalTime(total.toFixed(2)); // ✅ Store total time in state
+
     let message = "Good";
     if (total >= 20) message = "High Risk"; // Adjusted for seconds
     else if (total >= 15) message = "Okay";
@@ -67,6 +70,7 @@ const ReactionTimeTest = () => {
           test_1: times[0],
           test_2: times[1],
           test_3: times[2],
+          total_time: total, // ✅ Sending total time
         }),
       });
       const data = await response.json();
@@ -94,7 +98,7 @@ const ReactionTimeTest = () => {
 
         {gameState === "waiting" && (
           <div className="reaction-box waiting">
-            <p className="big-white-text">Wait for <br /> green...</p>
+            <p className="big-white-text">Wait for green...</p>
           </div>
         )}
 
@@ -125,6 +129,7 @@ const ReactionTimeTest = () => {
             <h1>Test Complete!</h1>
             <p className="big-text">Your Risk Level:</p>
             <h2 className={`risk-text ${finalMessage.toLowerCase().replace(" ", "-")}`}>{finalMessage}</h2>
+            <p className="big-text">Total Time Taken: <strong>{totalTime} seconds</strong></p> {/* ✅ Display total time */}
           </div>
         )}
       </div>
@@ -141,9 +146,8 @@ const ReactionTimeTest = () => {
           Repeat the test <br /> 3 times.
         </div>
         <div className="instruction-step" data-step="4">
-          Your reaction time <br />determines your eye safety.
+          Your reaction time <br />determines your fall risk.
         </div>
-       
       </div>
 
       <Footer />
