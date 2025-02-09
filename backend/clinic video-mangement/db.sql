@@ -131,3 +131,47 @@ VALUES
     ('Goh Clinic & Surgery', 'Blk 204 Hougang Street 21 #01-101, Singapore 530204', '6386 3836'),
     ('Drs Lim & Chan Clinic (Hougang)', 'Blk 106 Hougang Avenue 1 #01-1235, Singapore 530106', '6280 0990');
 
+INSERT INTO Doctors (Name, Specialty, AvailableTimes, ClinicID)
+VALUES
+    -- Central 24-HR Clinic (Clementi)
+    ('Dr. Adrian Tan', 'General Practitioner', '08:00-12:00,14:00-18:00', 1),
+    ('Dr. Cheryl Lim', 'Cardiologist', '10:00-14:00,16:00-20:00', 1),
+    
+    -- Central 24-HR Clinic (Hougang)
+    ('Dr. Benjamin Lee', 'Orthopedic Specialist', '09:00-13:00,15:00-19:00', 2),
+    ('Dr. Amanda Koh', 'Dermatologist', '08:00-12:00,14:00-18:00', 2),
+    
+    -- Central 24-HR Clinic (Jurong West)
+    ('Dr. Daniel Wong', 'Neurologist', '10:00-14:00,16:00-20:00', 3),
+    ('Dr. Rachel Ng', 'Pediatrician', '08:00-12:00,14:00-18:00', 3),
+
+    -- Central 24-HR Clinic (Pasir Ris)
+    ('Dr. Jason Tan', 'Endocrinologist', '09:00-13:00,15:00-19:00', 5),
+    ('Dr. Susan Teo', 'Psychiatrist', '10:00-14:00,16:00-20:00', 5),
+
+    -- Macpherson Medical Clinic
+    ('Dr. Henry Goh', 'Gastroenterologist', '08:00-12:00,14:00-18:00', 11),
+    ('Dr. Kelly Tan', 'General Practitioner', '09:00-13:00,15:00-19:00', 11),
+
+    -- Tang Family Clinic
+    ('Dr. Alvin Yeo', 'Urologist', '10:00-14:00,16:00-20:00', 13),
+    ('Dr. Joanne Toh', 'Ophthalmologist', '08:00-12:00,14:00-18:00', 13),
+
+    -- Sunbeam Medical Clinic
+    ('Dr. Charles Lim', 'Rheumatologist', '09:00-13:00,15:00-19:00', 12),
+    ('Dr. Veronica Chan', 'Gynecologist', '10:00-14:00,16:00-20:00', 12),
+
+    -- Goh Clinic & Surgery
+    ('Dr. Edwin Lee', 'Pulmonologist', '08:00-12:00,14:00-18:00', 14),
+    ('Dr. Michelle Phua', 'General Practitioner', '09:00-13:00,15:00-19:00', 14),
+
+    -- Drs Lim & Chan Clinic (Hougang)
+    ('Dr. Kenneth Chan', 'Oncologist', '10:00-14:00,16:00-20:00', 15),
+    ('Dr. Serena Yeo', 'General Practitioner', '08:00-12:00,14:00-18:00', 15);
+
+ALTER TABLE Appointments ADD VerificationKey NVARCHAR(50);
+
+INSERT INTO Appointments (UserID, ClinicID, DoctorID, AppointmentTime, Type, VerificationKey)
+VALUES 
+    (1, 1, 1, '2024-02-10 10:00 AM', 'Virtual', 'SECRET123'),
+    (2, 2, 3, '2024-02-12 02:00 PM', 'In-Person', 'CONFIRM456');

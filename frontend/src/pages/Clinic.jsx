@@ -7,12 +7,15 @@ const Clinic = () => {
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [doctors, setDoctors] = useState([]);
-  const [appointments, setAppointments] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentType, setAppointmentType] = useState("Virtual");
 
-  // Fetch clinics
+  const [verificationKey, setVerificationKey] = useState("");
+  const [verificationResult, setVerificationResult] = useState(null);
+  const [error, setError] = useState("");
+
+  // Fetch clinics from backend
   useEffect(() => {
     fetch("http://localhost:3000/api/clinics")
       .then((res) => res.json())
@@ -28,39 +31,24 @@ const Clinic = () => {
       .catch((error) => console.error("Error fetching doctors:", error));
   };
 
-  // Fetch user appointments
-  useEffect(() => {
-    const userId = "12345"; // Replace with actual user ID
-    fetch(`http://localhost:3000/api/appointments/${userId}`)
-      .then((res) => res.json())
-      .then((data) => setAppointments(data))
-      .catch((error) => console.error("Error fetching appointments:", error));
-  }, []);
-
-  // Handle appointment booking
-  const bookAppointment = () => {
-    const userId = "12345"; // Replace with actual user ID
-    if (!selectedClinic || !selectedDoctor || !appointmentTime) {
-      alert("Please select a clinic, doctor, and appointment time.");
-      return;
-    }
-
-    fetch("http://localhost:3000/api/appointments", {
+  // Function to verify the entered key
+  const verifyKey = () => {
+    fetch("http://localhost:3000/api/verify-key", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId,
-        clinicId: selectedClinic,
-        doctorId: selectedDoctor,
-        appointmentTime,
-        type: appointmentType,
-      }),
+      body: JSON.stringify({ clinicId: selectedClinic, verificationKey }),
     })
       .then((res) => res.json())
-      .then(() => {
-        alert("Appointment booked successfully!");
+      .then((data) => {
+        if (data.success) {
+          setVerificationResult(data.appointment);
+          setError("");
+        } else {
+          setVerificationResult(null);
+          setError("Invalid verification key. Please try again.");
+        }
       })
-      .catch((error) => console.error("Error booking appointment:", error));
+      .catch(() => setError("Server error while verifying key."));
   };
 
   return (
@@ -70,6 +58,7 @@ const Clinic = () => {
       <div className="clinic-container">
         <h1>Virtual Consultation & Booking System</h1>
 
+        {/* Existing Clinic Selection Section */}
         <h2>Select a Clinic</h2>
         <select
           onChange={(e) => {
@@ -80,7 +69,7 @@ const Clinic = () => {
           <option value="">Select a Clinic</option>
           {clinics.map((clinic) => (
             <option key={clinic.ClinicID} value={clinic.ClinicID}>
-              {clinic.Name}
+              {clinic.Name} - {clinic.Location}
             </option>
           ))}
         </select>
@@ -92,7 +81,7 @@ const Clinic = () => {
               <option value="">Select a Doctor</option>
               {doctors.map((doctor) => (
                 <option key={doctor.DoctorID} value={doctor.DoctorID}>
-                  {doctor.Name}
+                  {doctor.Name} - {doctor.Specialty}
                 </option>
               ))}
             </select>
@@ -109,9 +98,37 @@ const Clinic = () => {
               <option value="In-Person">In-Person</option>
             </select>
 
-            <button onClick={bookAppointment}>Book Appointment</button>
+            <button className="appointment-btn">Book Appointment</button>
           </>
         )}
+
+        {/* New Section: Verification Key Input (Below Everything) */}
+        <div className="verification-section">
+          <h2>Enter Your Verification Key</h2>
+          <input
+            type="text"
+            placeholder="Enter Verification Key"
+            value={verificationKey}
+            onChange={(e) => setVerificationKey(e.target.value)}
+          />
+          <button onClick={verifyKey}>Verify Key</button>
+
+          {error && <p className="error-text">{error}</p>}
+          {verificationResult && (
+            <div className="appointment-details">
+              <h3>Appointment Details</h3>
+              <p>
+                <strong>Doctor:</strong> {verificationResult.DoctorID}
+              </p>
+              <p>
+                <strong>Time:</strong> {verificationResult.AppointmentTime}
+              </p>
+              <p>
+                <strong>Type:</strong> {verificationResult.Type}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       <Footer />
