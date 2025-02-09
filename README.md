@@ -550,6 +550,7 @@ _(Optional if you wish to develop locally without Docker)_
 3. **Run the database SQL files in SSMS (if using local MS SQL)**:
    - Locate the SQL scripts from **Notification Management** and **User Management** microservices.
    - Execute these scripts in your SQL Server (or equivalent setup) so that the necessary tables are created.
+   - The other three database are on Cloud so no Script is needed!
 4. **Build and launch** all microservices together:
    ```bash
    docker-compose up --build
