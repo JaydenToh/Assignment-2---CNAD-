@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { getQuestions, submitAssessment, getTTS } from "../services/dvtService";
-import "./DVTAssessment.css"; // Import the custom CSS for DVT assessment
+import "./DVTAssessment.css"; // Import custom DVT CSS
 import { FiVolume2 } from "react-icons/fi";
 
 const navTranslations = {
@@ -19,6 +19,7 @@ function DVTAssessment() {
   const [answers, setAnswers] = useState({});
   const [assessmentResult, setAssessmentResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [missingModalVisible, setMissingModalVisible] = useState(false);
 
   // Fetch questions when language changes
   useEffect(() => {
@@ -27,7 +28,7 @@ function DVTAssessment() {
       try {
         const data = await getQuestions(language);
         data.sort((a, b) => a.question_id - b.question_id);
-        setQuestions(data.slice(0, 20)); // Use first 20 questions
+        setQuestions(data.slice(0, 20));
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -54,7 +55,7 @@ function DVTAssessment() {
 
   const handleSubmit = async () => {
     if (Object.keys(answers).length < questions.length) {
-      alert("Please answer all questions before submitting.");
+      setMissingModalVisible(true);
       return;
     }
     const answersArray = questions.map(
@@ -91,7 +92,7 @@ function DVTAssessment() {
     );
   }
 
-  // Language selection view if no questions are loaded
+  // Show language selection view if no questions loaded.
   if (questions.length === 0 && !loading) {
     return (
       <div className="page-container dvt-assessment-container">
@@ -108,22 +109,18 @@ function DVTAssessment() {
     );
   }
 
-  // If assessment has been submitted, show the result.
+  // If assessment has been submitted, show result.
   if (assessmentResult) {
     return (
       <div className="page-container dvt-assessment-container">
         <Header />
         <div className="result-section" style={{ textAlign: "center" }}>
           <h2>Assessment Result</h2>
-          <p>
-            <strong>DVT Risk:</strong> {assessmentResult.risk_status_dvt}
-          </p>
+          <p><strong>DVT Risk:</strong> {assessmentResult.risk_status_dvt}</p>
           <p>
             <strong>Falling Risk:</strong> {assessmentResult.risk_status_falling}
           </p>
-          <p>
-            <strong>DVT Score:</strong> {assessmentResult.score_dvt}
-          </p>
+          <p><strong>DVT Score:</strong> {assessmentResult.score_dvt}</p>
           <p>
             <strong>Falling Score:</strong> {assessmentResult.score_falling}
           </p>
@@ -214,6 +211,16 @@ function DVTAssessment() {
           </div>
         </div>
       </div>
+
+      {missingModalVisible && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>Please answer all questions before submitting.</p>
+            <button onClick={() => setMissingModalVisible(false)}>OK</button>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

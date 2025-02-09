@@ -12,7 +12,7 @@
 /* DVT Assessment Container: full width */
 .dvt-assessment-container {
   width: 100%;
-  padding-top: 20px; /* Optional spacing at top */
+  padding-top: 20px;
 }
 
 /* Content Wrapper: centers the main assessment content */
@@ -25,7 +25,7 @@
   padding: 30px;
 }
 
-/* Language Switcher (top right) */
+/* Language Switcher at the top-right */
 .language-switcher {
   text-align: right;
   padding: 10px 20px;
@@ -40,18 +40,6 @@
   color: #2c3e50;
 }
 
-/* Greeting Section */
-.greeting-section {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.greeting-section h1 {
-  font-size: 32px;
-  color: #2c3e50; /* Blue */
-  margin-bottom: 10px;
-}
-
 /* Assessment Content Layout: Two columns */
 .assessment-content {
   display: flex;
@@ -59,7 +47,7 @@
   gap: 20px;
 }
 
-/* Question Container (main column) */
+/* Main Question Column */
 .question-container {
   flex: 3;
   display: flex;
@@ -91,7 +79,7 @@
   display: inline-block;
 }
 
-/* Audio Button: small padding, inline with question text */
+/* Audio Button: minimal padding, inline with question text */
 .audio-button {
   vertical-align: middle;
   margin-left: 10px;
@@ -192,6 +180,48 @@
   background-color: #FFA500;
   border-color: #FFA500;
   color: #fff;
+}
+
+/* Modal Styles for Missing Answers */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.modal-content button {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #34495e;
 }
 
 /* Responsive adjustments */
