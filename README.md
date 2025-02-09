@@ -99,9 +99,12 @@ We implemented redundancy and failover mechanisms to ensure high availability an
            +--------------------------------------------------+
 ```
 **Key Outcomes**  
-✅
-✅
-✅
+✅ Modular microservices architecture for scalability and easy maintenance.
+✅ Dockerized backend services for seamless containerized deployment.
+✅ Kubernetes orchestration enabling auto-scaling and fault tolerance.
+✅ REST API-based communication ensuring interoperability between services.
+✅ Secure database integration using Supabase and Microsoft SQL Server.
+✅ User-friendly UI/UX optimized for seniors with accessibility in mind (elderly centric design).
 
 ## **Deployment Strategy**
 - Each microservice runs in its own **Docker container**.
