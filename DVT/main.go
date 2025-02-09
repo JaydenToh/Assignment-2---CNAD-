@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -38,17 +37,24 @@ const (
 	fallingThreshold     = 3 // Falling risk threshold
 )
 
-// expectedAPIKey is read from the environment or set to a default.
-var expectedAPIKey = func() string {
-	if key := os.Getenv("API_KEY"); key != "" {
-		return key
-	}
-	return "secret_assignment_key"
-}()
+// Hardcoded API key for this microservice.
+var expectedAPIKey = "AIzaSyBruOTBaUluGiKITRCDXVIuoom8AlyaOow"
 
-// setCommonHeaders sets basic security and CORS headers.
+// handleCors sets the required CORS headers.  
+// If the request method is OPTIONS, it writes a 200 OK and returns true.
+func handleCors(w http.ResponseWriter, r *http.Request) bool {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-API-Key")
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return true
+	}
+	return false
+}
+
+// setCommonHeaders sets basic security and Content-Type headers.
 func setCommonHeaders(w http.ResponseWriter) {
-	w.Header().Set("Access-Control-Allow-Origin", "*") // Adjust for production!
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 }
@@ -113,6 +119,9 @@ func getCollectionName(lang string) string {
 
 // questionsHandler retrieves questions from Firestore.
 func questionsHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -165,6 +174,9 @@ type TranslateResponse struct {
 }
 
 func translateHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -197,6 +209,9 @@ type TTSResponse struct {
 }
 
 func ttsHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -244,6 +259,9 @@ func alertAuthorities(result AssessmentResult) {
 }
 
 func submitAssessmentHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -363,10 +381,8 @@ func main() {
 	http.HandleFunc("/api/tts", ttsHandler)
 	http.HandleFunc("/api/submit", submitAssessmentHandler)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	// Hardcode port to 8080.
+	port := "8080"
 	log.Printf("Server started at http://localhost:%s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatalf("Server failed to start: %v", err)

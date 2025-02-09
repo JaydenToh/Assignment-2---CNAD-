@@ -1,7 +1,7 @@
 // src/services/dvtService.js
 
-const API_BASE_URL = process.env.REACT_APP_DVT_API_URL || "http://localhost:8080";
-const API_KEY = process.env.REACT_APP_API_KEY || "secret_assignment_key";
+const API_BASE_URL = "http://localhost:8080";
+const API_KEY = "AIzaSyBruOTBaUluGiKITRCDXVIuoom8AlyaOow";
 
 export async function getQuestions(language) {
   const response = await fetch(
@@ -28,6 +28,24 @@ export async function submitAssessment(assessmentPayload) {
   });
   if (!response.ok) {
     throw new Error("Error submitting assessment");
+  }
+  return await response.json();
+}
+
+export async function getTTS(text, languageCode) {
+  const response = await fetch(`${API_BASE_URL}/api/tts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": API_KEY,
+    },
+    body: JSON.stringify({
+      text,
+      language_code: languageCode,
+    }),
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching TTS audio");
   }
   return await response.json();
 }
