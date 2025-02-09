@@ -38,7 +38,6 @@ function HomePage() {
           <option value="en">English</option>
           <option value="zh">中文</option>
           <option value="ms">Bahasa Melayu</option>
-          <option value="ta">தமிழ்</option>
         </select>
       </div>
 

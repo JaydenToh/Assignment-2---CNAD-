@@ -1,0 +1,61 @@
+/* General Page Styling */
+.clinic-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.clinic-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  flex: 1;
+}
+
+/* Headings */
+h1,
+h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Dropdowns & Inputs */
+select,
+input {
+  width: 60%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons */
+button {
+  background: #ff7f00;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #e66b00;
+}
+
+/* Appointments List */
+.appointments {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.appointments div {
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}

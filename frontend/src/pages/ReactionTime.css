@@ -1,0 +1,108 @@
+/* General Page Styling */
+.reaction-test-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Reaction Test Section */
+.reaction-test-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  flex: 1;
+}
+
+/* Instructions Section */
+.instructions-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+.instructions-container h2 {
+  text-align: center;
+  color: #333;
+}
+
+.instructions-container ul {
+  list-style-type: square;
+  padding-left: 20px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.instructions-container .green-text {
+  color: green;
+  font-weight: bold;
+}
+
+/* Headings */
+h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Reaction Box */
+.reaction-box {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  border-radius: 10px;
+  display: none;
+  cursor: pointer;
+}
+
+/* State Styles */
+.reaction-box.waiting {
+  background-color: red;
+  display: block;
+}
+
+.reaction-box.ready {
+  background-color: green;
+  display: block;
+}
+
+/* Buttons */
+button {
+  background: #008CBA;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #005f73;
+}
+
+/* Reaction Time Result */
+.result-message {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.result-message.good {
+  color: green;
+}
+
+.result-message.okay {
+  color: orange;
+}
+
+.result-message.high-risk {
+  color: red;
+}
