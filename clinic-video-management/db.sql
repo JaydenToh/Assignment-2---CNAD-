@@ -17,7 +17,7 @@ END
 GO
 
 -- Create new Login
-CREATE LOGIN [Datasphere_User] WITH PASSWORD = 'Fullstack';
+CREATE LOGIN [Datasphere_User] WITH PASSWORD = 'localhost';
 GO
 
 -- Switch to the Datasphere database

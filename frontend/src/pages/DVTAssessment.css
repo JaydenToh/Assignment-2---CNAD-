@@ -59,7 +59,7 @@
 .question-block {
   width: 100%;
   background-color: #ecf0f1;
-  border: 2px solid #FFA500; /* Orange */
+  border: 2px solid #ffa500; /* Orange */
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -147,7 +147,6 @@
 
 /* Sidebar Navigation Grid */
 .sidebar {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,8 +176,8 @@
 }
 
 .nav-item.selected {
-  background-color: #FFA500;
-  border-color: #FFA500;
+  background-color: #ffa500;
+  border-color: #ffa500;
   color: #fff;
 }
 
@@ -189,7 +188,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

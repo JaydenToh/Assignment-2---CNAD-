@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculaterisk-management
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: calculaterisk-management
+  template:
+    metadata:
+      labels:
+        app: calculaterisk-management
+    spec:
+      containers:
+        - name: calculaterisk-management
+          image: calculaterisk-management:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calculaterisk-management
+spec:
+  type: ClusterIP
+  selector:
+    app: calculaterisk-management
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

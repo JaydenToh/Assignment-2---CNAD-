@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvt
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dvt
+  template:
+    metadata:
+      labels:
+        app: dvt
+    spec:
+      containers:
+        - name: dvt
+          image: dvt:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dvt
+spec:
+  type: ClusterIP
+  selector:
+    app: dvt
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

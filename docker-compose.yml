@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   frontend:
     build: ./frontend
@@ -57,3 +58,35 @@ services:
       - "8080:8080"
     depends_on:
       - user-management
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "3050:3050"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: 19V29933n02
+      DB_NAME: notification
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 19V29933n02
+      MYSQL_DATABASE: notification
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  mysql_data:

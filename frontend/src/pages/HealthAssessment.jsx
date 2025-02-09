@@ -6,8 +6,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./HealthAssessment.css";
 import assessmentIcon from "../assets/seniors.png";
-import exerciseIcon from "../assets/seniors.png";
-import clinicIcon from "../assets/seniors.png";
+import quizIcon from "../assets/quiz.jpg";
+import eyeIcon from "../assets/eye1.jpg";
+import dvtIcon from "../assets/dvt.jpg";
+import assesIcon from "../assets/assess.jpg";
+import reactionIcon from "../assets/reactiontime.jpg";
 import { FiVolume2 } from "react-icons/fi";
 
 function HealthAssessment() {
@@ -58,13 +61,6 @@ function HealthAssessment() {
             <h1>{translations.welcome}</h1>
             <p>{translations.empowering}</p>
           </div>
-          <button
-            className="audio-button"
-            title="Read Aloud"
-            aria-label="Read Aloud"
-          >
-            <FiVolume2 size={28} />
-          </button>
         </div>
 
         {/* Options Section */}
@@ -72,23 +68,23 @@ function HealthAssessment() {
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
           <div className="options-grid">
             <Link to="/Rules" className="option-card">
-              <img src={assessmentIcon} alt="Assessment" />
+              <img src={assesIcon} alt="Assessment" />
               <span>{translations.assessment}</span>
             </Link>
-            <Link to="/exercise" className="option-card">
-              <img src={exerciseIcon} alt="Recommended Exercise" />
-              <span>{translations.exercises}</span>
+            <Link to="/reaction" className="option-card">
+              <img src={reactionIcon} alt="DVT Assessment" />
+              <span>Reaction Time</span>
             </Link>
             <Link to="/healthquiz" className="option-card">
-              <img src={clinicIcon} alt="Health Quiz" />
+              <img src={quizIcon} alt="Health Quiz" />
               <span>Health Quiz</span>
             </Link>
             <Link to="/eye-test" className="option-card">
-              <img src={clinicIcon} alt="Eye quiz" />
-              <span>Eye quiz</span>
+              <img src={eyeIcon} alt="Eye quiz" />
+              <span>Eye Quiz</span>
             </Link>
             <Link to="/dvt-assessment" className="option-card">
-              <img src={assessmentIcon} alt="DVT Assessment" />
+              <img src={dvtIcon} alt="DVT Assessment" />
               <span>DVT Assessment</span>
             </Link>
           </div>
