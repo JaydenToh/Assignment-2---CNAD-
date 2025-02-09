@@ -118,52 +118,43 @@ By adhering to these design considerations, the system delivers a robust, secure
 ```
 plaintext
 
-                                 +---------------------------------------------------------+
-                                 |  React Frontend Microservice (UI & Client-Side Logic)   |
-                                 |    (Containerized: assignment-2---cnad---frontend)      |
-                                 +---------------------------------------------------------+
-                                                         |
-                                                         v
-                                 +---------------------------------------------------------+
-                                 |              API Gateway (Optional)                     |
-                                 |      (Handles request routing & security)               |
-                                 +---------------------------------------------------------+
-                                                         |
--------------------------------------------------------------------------------------------------------------------------
-|                  |                      |                           |                      |                         |
-|                  |                      |                           |                      |                         |
-+------------------+    +-----------------+     +---------------------+     +----------------+     +--------------------+
-|   User           |    | Assessment      |     | Calculatorisk       |     | Notification   |     | DVT               |
-| Management       |    | Management      |     | Management          |     | Service        |     | (Deep Vein        |
-| (User Accounts)  |    | (Quiz Logic)    |     | (Risk Evaluation)   |     | (Alerts/Email) |     | Thrombosis Quiz)  |
-|(assignment-2--   |    |(assignment-2--  |     |(assignment-2--      |     |(assignment-2-- |     |(assignment-2--    |
-|-cnad---user-     |    |-cnad---assessment-    |-cnad---calculatori- |     |-cnad---notific|     |-cnad---dvt)       |
-|management)       |    |management)      |     |sk-management)       |     |ation-service)  |     |                   |
-+------------------+    +-----------------+     +---------------------+     +----------------+     +--------------------+
-                                             (Other Microservices below)
--------------------------------------------------------------------------------------------------------------------------
-|                 |              |             |                    |             |
-+-----------------+   +----------+   +---------+   +--------------+   +----------+
-| Questions       |   | Eye-Test |   | Exercise|   | Clinic Video |   | Eye-Quiz |
-| Management      |   | Management|  | Management| | Management   |   | Management
-| (Quiz DB)       |   |(assignment- | |(assignment| (assignment-  |   |(assignment-
-|(assignment-2--  |   |-cnad---eye- | -2--cnad--- | 2--cnad---clin|   |2--cnad---eye-
-|cnad---questions- |   |test-managem| exercise-man| ic-video-manag|   |quiz-managemen
-|management)      |   |ent)       | agement)    | ement)         |   |t)
-+-----------------+   +----------+   +---------+   +--------------+   +----------+
-                                                         |
-                                                         v
-                                 +---------------------------------------------------------+
-                                 |        Database Layer (MySQL, etc.)                     |
-                                 |     Stores User Data, Assessments & Quiz Results        |
-                                 +---------------------------------------------------------+
-                                                         |
-                                                         v
-                                 +---------------------------------------------------------+
-                                 |   Cloud Infrastructure (AWS/GCP/Azure) + Kubernetes     |
-                                 |          Docker + CI/CD Pipeline                         |
-                                 +---------------------------------------------------------+
+                                                        +------------------------------------------------------+
+                                                        | React Frontend                                       |
+                                                        | (assignment-2---cnad---frontend)                     |
+                                                        | (UI & Client-Side Logic)                              |
+                                                        +---------------------------+----------------------------+
+                                                                            |
+                                                                            v
+                                                        +------------------------------------------------------+
+                                                        |         API Gateway (Optional)                       |
+                                                        | (Handles request routing & security)                 |
+                                                        +---------------------------+----------------------------+
+                                                                            |
+---------------------------------------------------------------------------------------------------------------------------------
+|                                 |                        |                            |                        |             |
+|                                 |                        |                            |                        |             |
++---------------------------------+      +-----------------+----------------+     +------+---------------+   +---------------+  +-----------------+
+| User Management (MSSQL)         |      | Assessment Management (No DB)    |     | Calculatorisk       |   | Notification   |  |      DVT        |
+| (assignment-2---cnad---user-    |      | (assignment-2---cnad---          |     | (MongoDB)           |   | (MSSQL)        |  | (Firebase)      |
+| management)                     |      | assessment-management)           |     | (assignment-2---    |   | (assignment-2- |  | (assignment-2---|
++--------------------v------------+      +-----------------+----------------+     | cnad---calculatorisk|   |-cnad---notific|  |cnad---dvt)       |
+                     |                                 |                         | -management)         |   |ation-service)  |  +--------v--------+
+        DB: MSSQL (User Mgmt)                           |                         +---------v------------+   +-------v--------+          |
+                                                         |                                  |                    |                      DB: Firebase
+                                                         |                         DB: MongoDB (Calculatorisk)   |
+                                                         |                                                     DB: MSSQL (Notification)
+---------------------------------------------------------------------------------------------------------------------------------
+|      Eye Test (Supabase)     |      Eye Quiz (Supabase)      |     Clinic Video (MSSQL)      | Exercise Mgmt (No DB)   | Questions Mgmt (No DB)
+| (assignment-2---cnad---      | (assignment-2---cnad---       | (assignment-2---cnad---clinic | (assignment-2---cnad--- | (assignment-2---cnad---
+| eye-test-management)         | eye-quiz-management)          | -video-management)            | exercise-management)    | questions-management)
++--------------v--------------+  +--------------v--------------+ +--------------v--------------+ +-----------------------+ +----------------------+
+               |                               |                                |                                    |                             |
+     DB: Supabase (Eye Test)         DB: Supabase (Eye Quiz)          DB: MSSQL (Clinic Video)                     No DB                      No DB
 
+                                                        +------------------------------------------------------+
+                                                        | Cloud Infrastructure (AWS/GCP/Azure) + Kubernetes    |
+                                                        | Docker + CI/CD Pipeline                                |
+                                                        +------------------------------------------------------+
 ```
 
 **Key Outcomes**  
@@ -640,3 +631,6 @@ You can open multiple terminals if you want to run different microservices separ
 ---
 
 ## ✅ Project is Now Set Up! 🎉
+
+**Container Evidence**
+![alt text](frontend/src/assets/image.png)
