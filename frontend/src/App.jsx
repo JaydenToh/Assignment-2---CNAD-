@@ -15,6 +15,7 @@ import ResultPage from "./pages/ResultPage";
 import LandingPage from "./pages/LandingPage";
 import ReactionTime from "./pages/ReactionTime";
 import HealthQuiz from "./pages/HealthQuiz";
+import Notification from "./pages/Notification";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/resultTest" element={<ResultPage />} />
       <Route path="/landing" element={<LandingPage />} />
-      <Route path="/" element={<HomePage />} />
+      <Route path="/notification" element={<Notification />} /> {/* Notification page */}
+      <Route path="/" element={<HomePage />} /> {/* Default route to HomePage */}
     </Routes>
   );
 }
