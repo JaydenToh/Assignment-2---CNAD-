@@ -4,18 +4,21 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const ReactionTimeTest = () => {
-  const [gameState, setGameState] = useState("idle"); // 'idle' | 'waiting' | 'ready'
+  const [gameState, setGameState] = useState("idle"); // 'idle' | 'waiting' | 'tooSoon' | 'ready' | 'result' | 'complete'
   const [reactionTimes, setReactionTimes] = useState([]); // Stores multiple attempts
   const [startTime, setStartTime] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
   const [attempts, setAttempts] = useState(0); // Track 3 attempts
+  const [currentReactionTime, setCurrentReactionTime] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
 
   const startTest = () => {
     if (attempts >= 3) return; // Limit to 3 turns
 
     setGameState("waiting");
-    const randomDelay = Math.floor(Math.random() * 3000) + 2000; // Random delay (2s-5s)
+    setCurrentReactionTime(null);
+
+    const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2s-5s delay
 
     const id = setTimeout(() => {
       setStartTime(Date.now());
@@ -28,16 +31,20 @@ const ReactionTimeTest = () => {
   const handleClick = () => {
     if (gameState === "waiting") {
       clearTimeout(timeoutId);
-      setGameState("idle");
-      alert("Too soon! Try again.");
-    } else if (gameState === "ready") {
-      const timeTaken = Date.now() - startTime;
+      setGameState("tooSoon"); // Change state to tooSoon
+      return;
+    }
+
+    if (gameState === "ready") {
+      const timeTaken = (Date.now() - startTime) / 1000; // Convert ms to seconds
+      setCurrentReactionTime(timeTaken.toFixed(2) + " seconds"); // Round to 2 decimal places
       setReactionTimes([...reactionTimes, timeTaken]);
       setAttempts(attempts + 1);
-      setGameState("idle");
 
       if (attempts === 2) {
         calculateFinalScore([...reactionTimes, timeTaken]);
+      } else {
+        setGameState("result"); // Switch to result screen
       }
     }
   };
@@ -45,10 +52,11 @@ const ReactionTimeTest = () => {
   const calculateFinalScore = async (times) => {
     const total = times.reduce((sum, time) => sum + time, 0);
     let message = "Good";
-    if (total >= 20000) message = "High Risk";
-    else if (total >= 15000) message = "Okay";
+    if (total >= 20) message = "High Risk"; // Adjusted for seconds
+    else if (total >= 15) message = "Okay";
 
     setFinalMessage(message);
+    setGameState("complete"); // Change gameState to "complete"
 
     // Save to backend
     try {
@@ -72,31 +80,70 @@ const ReactionTimeTest = () => {
     <div className="reaction-test-page">
       <Header />
 
-      {/* Reaction Time Test Section */}
-      <div className="reaction-test-container">
-        <h1>Reaction Time Test</h1>
-        {attempts < 3 && <button onClick={startTest}>Start Test {attempts + 1}/3</button>}
-        {gameState === "waiting" && <p>Wait for the color to change...</p>}
-        {gameState === "ready" && <p>CLICK NOW!</p>}
-        <div className={`reaction-box ${gameState}`} onClick={handleClick}></div>
+      {/* Reaction Test Box (TOP) */}
+      <div className={`reaction-test-container ${gameState}`} onClick={gameState === "ready" || gameState === "waiting" ? handleClick : null}>
+        {gameState === "idle" && (
+          <div className="reaction-box idle">
+            <h1>Reaction Time Test</h1>
+            <p>Click the button to start the test.</p>
+            <button className="start-btn" onClick={startTest}>
+              Start Test ({attempts + 1}/3)
+            </button>
+          </div>
+        )}
 
-        {finalMessage && (
-          <p className={`result-message ${finalMessage.toLowerCase()}`}>
-            Your risk level: {finalMessage}
-          </p>
+        {gameState === "waiting" && (
+          <div className="reaction-box waiting">
+            <p className="big-white-text">Wait for <br /> green...</p>
+          </div>
+        )}
+
+        {gameState === "tooSoon" && (
+          <div className="reaction-box tooSoon">
+            <p className="big-text">Clicked too soon!</p>
+            <button className="start-btn" onClick={startTest}>Try Again</button>
+          </div>
+        )}
+
+        {gameState === "ready" && (
+          <div className="reaction-box ready">
+            <p className="big-white-text">CLICK NOW!</p>
+          </div>
+        )}
+
+        {gameState === "result" && (
+          <div className="reaction-box result">
+            <p className="big-text">Your reaction time: <strong>{currentReactionTime}</strong></p>
+            <button className="start-btn" onClick={startTest}>
+              Next Test ({attempts + 1}/3)
+            </button>
+          </div>
+        )}
+
+        {gameState === "complete" && (
+          <div className={`reaction-box final ${finalMessage.toLowerCase().replace(" ", "-")}`}>
+            <h1>Test Complete!</h1>
+            <p className="big-text">Your Risk Level:</p>
+            <h2 className={`risk-text ${finalMessage.toLowerCase().replace(" ", "-")}`}>{finalMessage}</h2>
+          </div>
         )}
       </div>
 
-      {/* Instructions Section */}
+      {/* Instructions Section (BOTTOM) */}
       <div className="instructions-container">
-        <h2>How to Take the Reaction Test</h2>
-        <ul>
-          <li>Click the "Start Test" button to begin.</li>
-          <li>Wait for the screen to turn <span className="green-text">green</span>.</li>
-          <li>Click as quickly as possible once it turns green.</li>
-          <li>Repeat this 3 times to get your final result.</li>
-          <li>Your reaction time will determine your fall risk category.</li>
-        </ul>
+        <div className="instruction-step" data-step="1">
+          Click on <span className="highlight">"Start Test"</span>.
+        </div>
+        <div className="instruction-step" data-step="2">
+          Wait for the screen <br /> to turn green.
+        </div>
+        <div className="instruction-step" data-step="3">
+          Repeat the test <br /> 3 times.
+        </div>
+        <div className="instruction-step" data-step="4">
+          Your reaction time <br />determines your eye safety.
+        </div>
+       
       </div>
 
       <Footer />
