@@ -1,0 +1,205 @@
+/* DVTAssessment.css */
+
+/* Page Container */
+.page-container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  
+  /* DVT Assessment Container */
+  .dvt-assessment-container {
+    width: 100%;
+    padding: 40px 10px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  
+  /* Greeting Section */
+  .greeting-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .greeting-section h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  /* Language Switcher */
+  .language-switcher {
+    margin-top: 10px;
+    text-align: center;
+  }
+  .language-switcher select {
+    font-size: 18px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #333;
+    background-color: #fff;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+  }
+  
+  .language-switcher select:hover {
+    border-color: #555;
+    background-color: #f5f5f5;
+  }
+  
+  /* Question Section */
+  .question-section {
+    margin-bottom: 40px;
+  }
+  
+  .question-section h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  /* Question Block */
+  .question-block {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  .question-block h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .question-block form {
+    margin-top: 10px;
+  }
+  
+  /* Options Styling */
+  .option {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .option input[type="radio"] {
+    accent-color: #2c3e50;
+    margin-right: 10px;
+  }
+  
+  .option label {
+    font-size: 18px;
+    color: #34495e;
+  }
+  
+  /* Navigation Buttons */
+  .nav-buttons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .nav-buttons button {
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-buttons button:hover {
+    background-color: #34495e;
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-item {
+    background-color: #ccc;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .nav-item.selected {
+    background-color: #2c3e50;
+  }
+  
+  .sidebar button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2c3e50;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar button:hover {
+    background-color: #34495e;
+  }
+  
+  /* Audio Button */
+  .audio-button {
+    border: 2px solid #2c3e50;
+    border-radius: 50%;
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .audio-button:hover {
+    background-color: #ecf0f1;
+    transform: scale(1.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dvt-assessment-container {
+      padding: 20px 10px;
+    }
+    .nav-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .sidebar {
+      width: 200px;
+    }
+  }
+  

@@ -1,3 +1,4 @@
+// src/pages/HealthAssessment.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/LanguageContext";
@@ -16,20 +17,17 @@ function HealthAssessment() {
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
-  // Load default translations on mount if not already loaded
   useEffect(() => {
     if (!translations.welcome) {
       updateTranslations("en");
     }
   }, [translations, updateTranslations]);
 
-  // Handle language change
   const handleLanguageChange = async (newLang) => {
     setLanguage(newLang);
     await updateTranslations(newLang);
   };
 
-  // Show loading if translations are still loading
   if (loading) {
     return <div className="loading">Loading translations...</div>;
   }
@@ -90,9 +88,9 @@ function HealthAssessment() {
               <img src={clinicIcon} alt="Reaction Time Test" />
               <span>Reaction Time Test</span>
             </Link>
-            <Link to="/reaction" className="option-card">
-              <img src={clinicIcon} alt="Reaction Time Test" />
-              <span>Reaction Time Test</span>
+            <Link to="/dvt-assessment" className="option-card">
+              <img src={assessmentIcon} alt="DVT Assessment" />
+              <span>DVT Assessment</span>
             </Link>
           </div>
         </div>
