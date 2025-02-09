@@ -70,13 +70,7 @@ const translations = {
     finish: "完成",
     errorAnswer: "请先回答问题再继续。",
     enterAnswer: "在这里输入答案",
-    scaleOptions: [
-      "强烈不同意",
-      "不同意",
-      "中立",
-      "同意",
-      "强烈同意",
-    ],
+    scaleOptions: ["强烈不同意", "不同意", "中立", "同意", "强烈同意"],
     booleanTrue: "是",
     booleanFalse: "否",
     languageToggle: "切换到英语 🇬🇧",
@@ -100,20 +94,86 @@ const translations = {
 };
 
 const questions = [
-  { id: 1, text: "Do you experience blurry vision throughout the day?", image: sampleImage1, type: "scale" },
-  { id: 2, text: "Do you struggle to read small text on your phone/computer?", image: sampleImage2, type: "scale" },
-  { id: 3, text: "Do you find it hard to see at night compared to the daytime?", image: sampleImage3, type: "scale" },
-  { id: 4, text: "Do you frequently rub your eyes due to discomfort or dryness?", image: sampleImage4, type: "scale" },
-  { id: 5, text: "Do you experience eye strain after using screens for long periods?", image: sampleImage5, type: "scale" },
-  { id: 6, text: "Do bright lights (e.g., sunlight, car headlights) bother your eyes?", image: sampleImage6, type: "scale" },
-  { id: 7, text: "Do your eyes feel tired even after getting enough sleep?", image: sampleImage7, type: "scale" },
-  { id: 8, text: "Do you experience frequent headaches after reading or screen use?", image: sampleImage8, type: "scale" },
-  { id: 9, text: "Do you feel like your vision is worse than before?", image: sampleImage9, type: "scale" },
-  { id: 10, text: "Do you squint often to see things clearly?", image: sampleImage10, type: "scale" },
-  { id: 11, text: "Is the image below clear to you?", image: trueFalseImage1, type: "boolean" },
-  { id: 12, text: "Do you see 4 animals in the image below?", image: trueFalseImage2, type: "boolean" },
+  {
+    id: 1,
+    text: "Do you experience blurry vision throughout the day?",
+    image: sampleImage1,
+    type: "scale",
+  },
+  {
+    id: 2,
+    text: "Do you struggle to read small text on your phone/computer?",
+    image: sampleImage2,
+    type: "scale",
+  },
+  {
+    id: 3,
+    text: "Do you find it hard to see at night compared to the daytime?",
+    image: sampleImage3,
+    type: "scale",
+  },
+  {
+    id: 4,
+    text: "Do you frequently rub your eyes due to discomfort or dryness?",
+    image: sampleImage4,
+    type: "scale",
+  },
+  {
+    id: 5,
+    text: "Do you experience eye strain after using screens for long periods?",
+    image: sampleImage5,
+    type: "scale",
+  },
+  {
+    id: 6,
+    text: "Do bright lights (e.g., sunlight, car headlights) bother your eyes?",
+    image: sampleImage6,
+    type: "scale",
+  },
+  {
+    id: 7,
+    text: "Do your eyes feel tired even after getting enough sleep?",
+    image: sampleImage7,
+    type: "scale",
+  },
+  {
+    id: 8,
+    text: "Do you experience frequent headaches after reading or screen use?",
+    image: sampleImage8,
+    type: "scale",
+  },
+  {
+    id: 9,
+    text: "Do you feel like your vision is worse than before?",
+    image: sampleImage9,
+    type: "scale",
+  },
+  {
+    id: 10,
+    text: "Do you squint often to see things clearly?",
+    image: sampleImage10,
+    type: "scale",
+  },
+  {
+    id: 11,
+    text: "Is the image below clear to you?",
+    image: trueFalseImage1,
+    type: "boolean",
+  },
+  {
+    id: 12,
+    text: "Do you see 4 animals in the image below?",
+    image: trueFalseImage2,
+    type: "boolean",
+  },
   { id: 13, text: "Solve this: 5 + 3 = ?", answer: "8", type: "input" },
-  { id: 14, text: "What word do you see in the image below?", image: trueFalseImage3, answer: "Vision", type: "input" },
+  {
+    id: 14,
+    text: "What word do you see in the image below?",
+    image: trueFalseImage3,
+    answer: "Vision",
+    type: "input",
+  },
 ];
 
 const EyeQuiz = () => {
@@ -168,7 +228,7 @@ const EyeQuiz = () => {
     console.log("📊 Risk Category:", category);
     // ✅ Send data to backend
     try {
-      const response = await fetch("http://localhost:4000/api/eye-quiz", {
+      const response = await fetch("http://localhost:4050/api/eye-quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -187,7 +247,7 @@ const EyeQuiz = () => {
           simple_test_1: answers[12] === "8",
           simple_test_2: answers[13]?.toLowerCase() === "vision",
           total_score: score,
-          risk_category: category
+          risk_category: category,
         }),
       });
       const data = await response.json();
@@ -209,10 +269,16 @@ const EyeQuiz = () => {
 
       {/* Language Toggle using provided design */}
       <div className="language-switch">
-        <button onClick={() => toggleLanguage("en")} className={language === "en" ? "active" : ""}>
+        <button
+          onClick={() => toggleLanguage("en")}
+          className={language === "en" ? "active" : ""}
+        >
           English
         </button>
-        <button onClick={() => toggleLanguage("zh")} className={language === "zh" ? "active" : ""}>
+        <button
+          onClick={() => toggleLanguage("zh")}
+          className={language === "zh" ? "active" : ""}
+        >
           中文
         </button>
       </div>
@@ -225,12 +291,20 @@ const EyeQuiz = () => {
             <p className="result-score">
               {translations[language].totalScore}: {totalScore}
             </p>
-            <h3 className={`risk-category ${riskMessage.replace(" ", "-").toLowerCase()}`}>
+            <h3
+              className={`risk-category ${riskMessage
+                .replace(" ", "-")
+                .toLowerCase()}`}
+            >
               {riskMessage}
             </h3>
 
             {/* ✅ Fall Risk Category Display */}
-            <p className={`fall-risk-text ${riskMessage.replace(" ", "-").toLowerCase()}`}>
+            <p
+              className={`fall-risk-text ${riskMessage
+                .replace(" ", "-")
+                .toLowerCase()}`}
+            >
               <strong>{translations[language].fallRisk}</strong>{" "}
               {riskMessage === "Excellent"
                 ? "Minimal fall risk. Your vision health is in great condition!"
@@ -244,7 +318,10 @@ const EyeQuiz = () => {
             {/* ⚠️ High-Risk Warning Message */}
             {riskMessage === "High Risk" && (
               <p className="high-risk-warning">
-                ⚠️ <strong>WARNING:</strong> Your results indicate a <strong>High Fall Risk</strong>. It is strongly recommended that you consult an eye specialist immediately for further clinical assessment.
+                ⚠️ <strong>WARNING:</strong> Your results indicate a{" "}
+                <strong>High Fall Risk</strong>. It is strongly recommended that
+                you consult an eye specialist immediately for further clinical
+                assessment.
               </p>
             )}
           </div>
@@ -252,12 +329,17 @@ const EyeQuiz = () => {
           // ✅ Show quiz while taking the test
           <>
             <h2 className="question-text">
-              {translations[language].questions[currentQuestion] || questions[currentQuestion].text}
+              {translations[language].questions[currentQuestion] ||
+                questions[currentQuestion].text}
             </h2>
 
             {questions[currentQuestion].image && (
               <div className="question-image-container">
-                <img src={questions[currentQuestion].image} alt="Question" className="question-image" />
+                <img
+                  src={questions[currentQuestion].image}
+                  alt="Question"
+                  className="question-image"
+                />
               </div>
             )}
 
@@ -266,7 +348,9 @@ const EyeQuiz = () => {
                 translations[language].scaleOptions.map((option, index) => (
                   <button
                     key={index}
-                    className={`answer-btn ${answers[currentQuestion] === index + 1 ? "selected" : ""}`}
+                    className={`answer-btn ${
+                      answers[currentQuestion] === index + 1 ? "selected" : ""
+                    }`}
                     onClick={() => handleAnswer(index + 1)}
                   >
                     {option}
@@ -275,10 +359,20 @@ const EyeQuiz = () => {
 
               {questions[currentQuestion].type === "boolean" && (
                 <div>
-                  <button className={`answer-btn ${answers[currentQuestion] === true ? "selected" : ""}`} onClick={() => handleAnswer(true)}>
+                  <button
+                    className={`answer-btn ${
+                      answers[currentQuestion] === true ? "selected" : ""
+                    }`}
+                    onClick={() => handleAnswer(true)}
+                  >
                     {translations[language].booleanTrue}
                   </button>
-                  <button className={`answer-btn ${answers[currentQuestion] === false ? "selected" : ""}`} onClick={() => handleAnswer(false)}>
+                  <button
+                    className={`answer-btn ${
+                      answers[currentQuestion] === false ? "selected" : ""
+                    }`}
+                    onClick={() => handleAnswer(false)}
+                  >
                     {translations[language].booleanFalse}
                   </button>
                 </div>

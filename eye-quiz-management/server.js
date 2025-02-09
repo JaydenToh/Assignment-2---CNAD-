@@ -1,17 +1,21 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { createEyeQuizResult, fetchAllEyeQuizResults, fetchEyeQuizResultById } = require("./controllers/eyeQuizController");
+const {
+  createEyeQuizResult,
+  fetchAllEyeQuizResults,
+  fetchEyeQuizResultById,
+} = require("./controllers/eyeQuizController");
 
 const app = express();
-const PORT = process.env.PORT || 4000; // Different port to avoid conflict
+const PORT = process.env.PORT || 4050; // Different port to avoid conflict
 
 app.use(cors());
 app.use(express.json());
 
 // ✅ Root Route
 app.get("/", (req, res) => {
-    res.send("Eye Quiz API is running!");
+  res.send("Eye Quiz API is running!");
 });
 
 // ✅ API Endpoints (Calling Controllers)
@@ -21,5 +25,5 @@ app.get("/api/eye-quiz/:id", fetchEyeQuizResultById);
 
 // ✅ Start Server
 app.listen(PORT, () => {
-    console.log(`Eye Quiz API running on http://localhost:${PORT}`);
+  console.log(`Eye Quiz API running on http://localhost:${PORT}`);
 });

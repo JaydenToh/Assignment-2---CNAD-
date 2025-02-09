@@ -40,3 +40,13 @@ services:
     build: ./questions-management
     ports:
       - "9000:9000"
+
+  eye-quiz-management:
+    build: ./eye-quiz-management
+    ports:
+      - "4050:4050"
+
+  eye-test-management:
+    build: ./eye-test-management
+    ports:
+      - "8500:8500"
