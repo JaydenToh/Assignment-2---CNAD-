@@ -1,0 +1,94 @@
+/* Header container - increased height */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  height: 70px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Profile Image in Header */
+.profile-header-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile-img-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo adjustments */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 60px; /* Adjusted for a well-fitted look */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Navigation links - larger font and spacing */
+.nav-links {
+  display: flex;
+  gap: 32px; /* Increased spacing */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.5rem; /* Bigger font size */
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+/* Right-side icons - bigger for accessibility */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.translate-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.2rem; /* Bigger icon */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.translate-btn:hover {
+  background-color: #333;
+}
+
+/* Increase size for bell and user icons */
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Increased size */
+  color: #333;
+}
+
+.icon-btn:hover {
+  color: #007bff;
+}
+
+/* Better spacing for the entire header */
+.header-right .icon-btn {
+  padding: 10px; /* More clickable area */
+}

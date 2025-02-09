@@ -1,0 +1,122 @@
+/* Main layout */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #fff; /* White background */
+  padding: 0 40px;
+}
+
+/* Left section with logo */
+.auth-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
+}
+
+.tagline {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Right section with the form */
+.auth-right {
+  flex: 1;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 80px;
+}
+
+/* Form title */
+.auth-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input fields */
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #fff; /* Force white background */
+  color: #000; /* Set text color to black */
+}
+
+.auth-form input::placeholder {
+  color: #aaa; /* Placeholder text color (light gray) */
+}
+
+/* Login button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #002855; /* Navy blue */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.login-button:hover {
+  background-color: #004080; /* Slightly lighter navy */
+}
+
+/* Signup button */
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #d4b45f; /* Gold */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: #e2c070; /* Slightly lighter gold */
+}
+
+/* Or section with a horizontal line */
+.or-section {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.or-section span {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.or-section::before,
+.or-section::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+/* Footer text */
+.footer-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
