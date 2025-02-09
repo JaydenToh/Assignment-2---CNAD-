@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './healthquiz.css';
 
 function HealthQuiz() {
   const [questions, setQuestions] = useState([]);
@@ -6,6 +7,7 @@ function HealthQuiz() {
   const [riskCategory, setRiskCategory] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -68,6 +70,11 @@ function HealthQuiz() {
       console.error("Error submitting survey:", err);
     }
     setLoading(false);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   if (loading) {
@@ -81,14 +88,21 @@ function HealthQuiz() {
   return (
     <div>
       <h1>Risk Fall Assessment Survey</h1>
-      <p>Please answer the questions based on the following scale:</p>
-      <ul>
-        <li>1: Less likely</li>
-        <li>2: Somewhat unlikely</li>
-        <li>3: Neutral</li>
-        <li>4: Somewhat likely</li>
-        <li>5: Highly likely</li>
-      </ul>
+      <div className="scale-text">
+        <p>
+            Please answer the questions based on the following scale:
+            <br />
+            1: Less likely
+            <br />
+            2: Somewhat unlikely
+            <br />
+            3: Neutral
+            <br />
+            4: Somewhat likely
+            <br />
+            5: Highly likely
+        </p>
+      </div>
       <form id="quiz-form" onSubmit={handleSubmit}>
         {questions.map((question, index) => (
           <div key={question._id || index}>
@@ -111,8 +125,16 @@ function HealthQuiz() {
         ))}
         <button type="submit">Submit Quiz</button>
       </form>
-      {totalScore > 0 && <h2>Your Total Score: {totalScore}</h2>}
-      {riskCategory && <h2>Your Risk Category: {riskCategory}</h2>}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Results</h2>
+            <p>Total Score: {totalScore}</p>
+            <p>Risk Category: {riskCategory}</p>
+            <button onClick={handleModalClose}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
