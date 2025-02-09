@@ -43,6 +43,7 @@ function Header() {
 
       {/* Right side: Profile Image instead of Icon */}
       <div className="header-right">
+        {/* Notification Icon */}
         <button className="icon-btn" title="Notifications">
           <i className="bell-icon">🔔</i>
         </button>

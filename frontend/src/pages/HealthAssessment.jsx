@@ -67,7 +67,7 @@ function HealthAssessment() {
         <div className="options-section">
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
           <div className="options-grid">
-            <Link to="/assessment" className="option-card">
+            <Link to="/Rules" className="option-card">
               <img src={assessmentIcon} alt="Assessment" />
               <span>{translations.assessment}</span>
             </Link>
@@ -75,9 +75,9 @@ function HealthAssessment() {
               <img src={exerciseIcon} alt="Recommended Exercise" />
               <span>{translations.exercises}</span>
             </Link>
-            <Link to="/clinic" className="option-card">
-              <img src={clinicIcon} alt="Clinic Nearby" />
-              <span>{translations.clinics}</span>
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
             </Link>
           </div>
         </div>

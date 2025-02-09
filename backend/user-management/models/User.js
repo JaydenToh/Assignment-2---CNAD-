@@ -116,8 +116,13 @@ class User {
         .input("role", sql.VarChar, data.role)
         .input("age", sql.Int, data.age || null)
         .input("interest", sql.VarChar, data.interest || null).query(`
+<<<<<<< HEAD
           INSERT INTO endUser (userName, email, password, contactNumber, role)
           VALUES (@userName, @email, @password, @contactNumber, @role, @age);
+=======
+          INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
+          VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role, @age, @interest);
+>>>>>>> e17c32c094023ce72800f956b50997261aba51d2
           SELECT SCOPE_IDENTITY() AS userID;
         `);
       return result.recordset[0].userID;
