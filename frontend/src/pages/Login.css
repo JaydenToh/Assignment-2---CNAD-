@@ -9,9 +9,6 @@
   padding: 0 40px;
 }
 
-body {
-  background-color: white;
-}
 /* Left section with logo */
 .auth-left {
   flex: 1;
@@ -20,12 +17,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 100px;
-}
-
-.logo {
-  width: 350px !important; /* Forces the width */
-  height: auto !important; /* Maintains the aspect ratio */
-  object-fit: contain; /* Ensures proper scaling */
 }
 
 .tagline {

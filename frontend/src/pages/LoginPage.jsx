@@ -103,7 +103,6 @@ function LoginPage() {
             </button>
           </Link>
         </form>
-        <p className="footer-text">Where learning meets achievement.</p>
       </div>
     </div>
   );
