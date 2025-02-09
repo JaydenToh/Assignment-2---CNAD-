@@ -12,7 +12,7 @@ const getAllNotifications = async (req, res) => {
 const getNotificationById = async (req, res) => {
   try {
     const notification = await notificationModel.getNotificationById(
-      req.params.id
+      req.params.notificationId // Updated to match the column `notificationId`
     );
     if (notification) {
       res.status(200).json(notification);
@@ -28,9 +28,18 @@ const getNotificationById = async (req, res) => {
 
 const createNotification = async (req, res) => {
   try {
-    const newNotification = await notificationModel.createNotification(
-      req.body
-    );
+    const { title, content, status } = req.body; // Extract data from request body
+    if (!title || !status) {
+      return res.status(400).send({
+        success: false,
+        message: "Title and status are required fields",
+      });
+    }
+    const newNotification = await notificationModel.createNotification({
+      title,
+      content: content || "", // Default empty content if not provided
+      status,
+    });
     res.status(201).json(newNotification);
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
@@ -39,9 +48,16 @@ const createNotification = async (req, res) => {
 
 const updateNotification = async (req, res) => {
   try {
+    const { title, content, status } = req.body; // Extract data from request body
+    if (!title || !status) {
+      return res.status(400).send({
+        success: false,
+        message: "Title and status are required fields",
+      });
+    }
     const updatedNotification = await notificationModel.updateNotification(
-      req.params.id,
-      req.body
+      req.params.notificationId, // Updated to match the column `notificationId`
+      { title, content: content || "", status }
     );
     res.status(200).json(updatedNotification);
   } catch (error) {
@@ -51,8 +67,8 @@ const updateNotification = async (req, res) => {
 
 const deleteNotification = async (req, res) => {
   try {
-    await notificationModel.deleteNotification(req.params.id);
-    res.status(204).send();
+    await notificationModel.deleteNotification(req.params.notificationId); // Updated to match the column `notificationId`
+    res.status(204).send(); // No content for successful delete
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }

@@ -1,29 +1,43 @@
 const db = require("../dbconfig");
 
+// Fetch all notifications
 const getAllNotifications = async () => {
-  const [rows] = await db.query("SELECT * FROM notifications");
+  const [rows] = await db.query("SELECT * FROM notification");
   return rows;
 };
 
-const getNotificationById = async (id) => {
-  const [rows] = await db.query("SELECT * FROM notifications WHERE id = ?", [
-    id,
-  ]);
+// Fetch a single notification by its ID
+const getNotificationById = async (notificationId) => {
+  const [rows] = await db.query(
+    "SELECT * FROM notification WHERE notificationId = ?",
+    [notificationId]
+  );
   return rows[0];
 };
 
+// Create a new notification
 const createNotification = async (data) => {
-  const [result] = await db.query("INSERT INTO notifications SET ?", [data]);
-  return { id: result.insertId, ...data };
+  const [result] = await db.query(
+    "INSERT INTO notification (title, content, status) VALUES (?, ?, ?)",
+    [data.title, data.content, data.status]
+  );
+  return { notificationId: result.insertId, ...data };
 };
 
-const updateNotification = async (id, data) => {
-  await db.query("UPDATE notifications SET ? WHERE id = ?", [data, id]);
-  return { id, ...data };
+// Update an existing notification
+const updateNotification = async (notificationId, data) => {
+  await db.query(
+    "UPDATE notification SET title = ?, content = ?, status = ? WHERE notificationId = ?",
+    [data.title, data.content, data.status, notificationId]
+  );
+  return { notificationId, ...data };
 };
 
-const deleteNotification = async (id) => {
-  await db.query("DELETE FROM notifications WHERE id = ?", [id]);
+// Delete a notification by its ID
+const deleteNotification = async (notificationId) => {
+  await db.query("DELETE FROM notification WHERE notificationId = ?", [
+    notificationId,
+  ]);
 };
 
 module.exports = {
