@@ -11,7 +11,9 @@ const Question = require("./Question"); // Assuming your model is in a file call
 // Connect to MongoDB
 async function connectToMongoDB() {
   try {
-    await mongoose.connect("mongodb+srv://ym:Password123@cluster0.sswvw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    await mongoose.connect(
+      "mongodb+srv://ym:Password123@cluster0.sswvw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
     console.log("Database is connected!");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
@@ -22,9 +24,9 @@ async function connectToMongoDB() {
 connectToMongoDB();
 
 // Define routes
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send("This is the mainpoint");
-})
+});
 
 app.post("/question", (req, res) => {
   if (!req.body.question) {
@@ -43,13 +45,16 @@ app.post("/question", (req, res) => {
         res.status(409).send("Question already exists.");
       } else {
         const question = new Question(newQuestion);
-        question.save().then(() => {
-          console.log("Question Added!");
-          res.send("Question added successfully!");
-        }).catch((err) => {
-          console.error(err);
-          res.status(500).send("Error adding question.");
-        });
+        question
+          .save()
+          .then(() => {
+            console.log("Question Added!");
+            res.send("Question added successfully!");
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send("Error adding question.");
+          });
       }
     })
     .catch((err) => {
@@ -71,6 +76,6 @@ app.get("/questions", (req, res) => {
 });
 
 // Start the server
-app.listen(3000, () => {
+app.listen(9000, () => {
   console.log("Up and running!");
-})
+});

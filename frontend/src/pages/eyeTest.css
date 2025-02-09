@@ -1,0 +1,313 @@
+/* General Page Styling */
+.eye-quiz-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+/* Main Container - Full Width */
+.eye-quiz-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+}
+
+/* Question Styling */
+.question-text {
+  font-size: 30px; /* Increased font size */
+  font-weight: bold;
+  margin-bottom: 25px;
+  max-width: 900px;
+}
+
+/* Image Container */
+.question-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.question-image {
+  width: 650px; /* Wider images */
+  height: 400px; /* Increased height */
+  object-fit: cover; /* Ensures images are properly cropped */
+  border-radius: 15px;
+  border: 4px solid #ddd;
+}
+
+/* Answer Options - Now Below the Image */
+.answer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Answer Buttons - Centered Below */
+.answer-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
+  margin-top: 25px;
+}
+
+/* Answer Buttons - Larger Size */
+.answer-btn {
+  padding: 20px 36px; /* Increased padding */
+  font-size: 22px; /* Bigger text */
+  font-weight: bold;
+  min-width: 220px;
+  border: none;
+  border-radius: 50px;
+  background-color: #FFB000;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease-in-out;
+  text-align: center;
+  flex: 1;
+  max-width: 260px;
+}
+
+/* Hover & Click Effects */
+.answer-btn:hover {
+  background-color: #e0a800;
+}
+
+.answer-btn:active {
+  transform: scale(0.97);
+}
+
+/* Highlight Selected Button */
+.answer-btn.selected {
+  background-color: #e0a800;
+}
+
+/* Text Input (Matching Button Size) */
+.text-input {
+  width: 260px; /* Bigger width */
+  padding: 18px; /* Bigger padding */
+  font-size: 22px; /* Bigger text */
+  text-align: center;
+  border: 3px solid #FFB000;
+  border-radius: 50px;
+  margin-top: 15px;
+}
+
+/* Next Button Positioned to the Right */
+.next-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 30px;
+}
+
+.next-btn {
+  padding: 20px 36px; /* Bigger size */
+  font-size: 22px; /* Bigger text */
+  font-weight: bold;
+  background-color: #FFB000;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.next-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 20px; /* Bigger text */
+  margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .question-image {
+    width: 550px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .eye-quiz-container {
+    max-width: 100%;
+  }
+
+  .question-text {
+    font-size: 26px;
+  }
+
+  .question-image {
+    width: 500px;
+    height: 320px;
+  }
+
+  .answer-btn, .next-btn {
+    font-size: 20px;
+    padding: 18px 30px;
+    min-width: 200px;
+  }
+
+  .text-input {
+    font-size: 20px;
+    width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .answer-options {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .question-image {
+    width: 450px;
+    height: 280px;
+  }
+
+  .answer-btn, .next-btn {
+    font-size: 18px;
+    padding: 16px 28px;
+    min-width: 180px;
+  }
+
+  .text-input {
+    font-size: 18px;
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .question-image {
+    width: 400px;
+    height: 250px;
+  }
+
+  .answer-btn, .next-btn {
+    font-size: 16px;
+    padding: 14px 24px;
+    min-width: 160px;
+  }
+
+  .text-input {
+    font-size: 16px;
+    width: 200px;
+  }
+}
+
+/* Results Page Container */
+.results-container {
+  text-align: center;
+  padding: 40px;
+}
+
+/* Enlarged Quiz Result Title */
+.results-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Enlarged Total Score */
+.result-score {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Enlarged Risk Category */
+.risk-category {
+  font-size: 34px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Enlarged Fall Risk Text */
+.fall-risk-text {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Colors for Different Risk Levels */
+.fall-risk-text.high-risk {
+  color: red;
+  background-color: #ffe6e6;
+  border: 3px solid red;
+}
+
+.fall-risk-text.medium-risk {
+  color: orange;
+  background-color: #fff3cd;
+  border: 3px solid orange;
+}
+
+.fall-risk-text.good {
+  color: green;
+  background-color: #d4edda;
+  border: 3px solid green;
+}
+
+.fall-risk-text.excellent {
+  color: green;
+  background-color: #ffffff;
+  border: 3px solid green;
+}
+
+/* ⚠️ High-Risk Warning Message */
+.high-risk-warning {
+  font-size: 26px;
+  font-weight: bold;
+  color: red;
+  background-color: #ffe6e6;
+  border: 4px solid red;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.language-switch {
+  text-align: center;
+  margin: 20px;
+}
+
+.language-switch button {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.language-switch button.active {
+  background-color: #FFB000;
+  color: white;
+}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { getQuestions, submitAssessment, getTTS } from "../services/dvtService";
+import { getQuestions, submitAssessment, getTTS } from "../services/dvtservice";
 import "./DVTAssessment.css"; // Import custom DVT CSS
 import { FiVolume2 } from "react-icons/fi";
 
@@ -98,7 +98,10 @@ function DVTAssessment() {
       <div className="page-container dvt-assessment-container">
         <Header />
         <div className="language-switcher" style={{ textAlign: "center" }}>
-          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
             <option value="en-US">English</option>
             <option value="ms-MY">Malay</option>
             <option value="zh-CN">Chinese</option>
@@ -116,11 +119,16 @@ function DVTAssessment() {
         <Header />
         <div className="result-section" style={{ textAlign: "center" }}>
           <h2>Assessment Result</h2>
-          <p><strong>DVT Risk:</strong> {assessmentResult.risk_status_dvt}</p>
           <p>
-            <strong>Falling Risk:</strong> {assessmentResult.risk_status_falling}
+            <strong>DVT Risk:</strong> {assessmentResult.risk_status_dvt}
           </p>
-          <p><strong>DVT Score:</strong> {assessmentResult.score_dvt}</p>
+          <p>
+            <strong>Falling Risk:</strong>{" "}
+            {assessmentResult.risk_status_falling}
+          </p>
+          <p>
+            <strong>DVT Score:</strong> {assessmentResult.score_dvt}
+          </p>
           <p>
             <strong>Falling Score:</strong> {assessmentResult.score_falling}
           </p>
@@ -155,7 +163,11 @@ function DVTAssessment() {
               <h3 style={{ display: "inline-block" }}>
                 {currentQuestion.question_text}
               </h3>
-              <button className="audio-button" title="Listen" onClick={handleTTS}>
+              <button
+                className="audio-button"
+                title="Listen"
+                onClick={handleTTS}
+              >
                 <FiVolume2 size={28} />
               </button>
               <form>
@@ -201,7 +213,9 @@ function DVTAssessment() {
               {questions.map((q, index) => (
                 <div
                   key={q.question_id}
-                  className={`nav-item ${currentIndex === index ? "selected" : ""}`}
+                  className={`nav-item ${
+                    currentIndex === index ? "selected" : ""
+                  }`}
                   onClick={() => setCurrentIndex(index)}
                 >
                   {index + 1}

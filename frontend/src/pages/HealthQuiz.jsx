@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './healthquiz.css';
+import "./HealthQuiz.css";
 import Header from "./Header";
 import Footer from "./Footer";
 

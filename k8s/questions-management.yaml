@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: questions-management
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: questions-management
+  template:
+    metadata:
+      labels:
+        app: questions-management
+    spec:
+      containers:
+        - name: questions-management
+          image: questions-management:latest
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: questions-management
+spec:
+  type: ClusterIP
+  selector:
+    app: questions-management
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

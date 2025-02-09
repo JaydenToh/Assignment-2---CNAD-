@@ -15,6 +15,7 @@ import ResultPage from "./pages/ResultPage";
 import LandingPage from "./pages/LandingPage";
 import ReactionTime from "./pages/ReactionTime";
 import HealthQuiz from "./pages/HealthQuiz";
+import EyeTest from "./pages/eyeTest";
 import Notification from "./pages/Notification";
 
 function App() {
@@ -30,12 +31,19 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/reaction" element={<ReactionTime />} />
       <Route path="/healthquiz" element={<HealthQuiz />} />
+      <Route path="/eye-test" element={<EyeTest />} />
+      <Route path="/" element={<HomePage />} />{" "}
+      {/* Default route to HomePage */}
       <Route path="/generalTest" element={<GeneralTest />} />
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/resultTest" element={<ResultPage />} />
       <Route path="/landing" element={<LandingPage />} />
-      <Route path="/notification" element={<Notification />} /> {/* Notification page */}
-      <Route path="/" element={<HomePage />} /> {/* Default route to HomePage */}
+      <Route path="/" element={<HomePage />} />{" "}
+      {/* Default route to HomePage */}
+      <Route path="/notification" element={<Notification />} />{" "}
+      {/* Notification page */}
+      <Route path="/" element={<HomePage />} />{" "}
+      {/* Default route to HomePage */}
     </Routes>
   );
 }

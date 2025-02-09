@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   frontend:
     build: ./frontend
@@ -5,6 +6,9 @@ services:
       - "3000:80"
     depends_on:
       - user-management
+      - assessment-management
+      - calculaterisk-management # ✅ Fixed name
+      - questions-management
 
   user-management:
     build: ./user-management
@@ -20,3 +24,69 @@ services:
     build: ./clinic-video-management
     ports:
       - "6000:6000"
+
+  assessment-management:
+    build: ./assessment-management
+    ports:
+      - "7000:7000"
+    depends_on:
+      - questions-management
+
+  calculaterisk-management:
+    build: ./calculaterisk-management
+    ports:
+      - "8000:8000"
+
+  questions-management:
+    build: ./questions-management
+    ports:
+      - "9000:9000"
+
+  eye-quiz-management:
+    build: ./eye-quiz-management
+    ports:
+      - "4050:4050"
+
+  eye-test-management:
+    build: ./eye-test-management
+    ports:
+      - "8500:8500"
+
+  dvt: # ✅ New DVT service
+    build: ./dvt
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-management
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "3050:3050"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: 19V29933n02
+      DB_NAME: notification
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 19V29933n02
+      MYSQL_DATABASE: notification
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  mysql_data:
