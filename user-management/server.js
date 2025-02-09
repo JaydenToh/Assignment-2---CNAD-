@@ -11,7 +11,7 @@ const { validateUser, schemas } = require("./middlewares/validateUser");
 
 // Initialize Express
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors());

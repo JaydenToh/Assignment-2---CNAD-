@@ -20,7 +20,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:4000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ function LoginPage() {
         // Fetch the user role
         try {
           const roleResponse = await fetch(
-            `http://localhost:3000/users/${data.userId}/role`
+            `http://localhost:4000/users/${data.userId}/role`
           );
           if (roleResponse.ok) {
             const roleData = await roleResponse.json();
