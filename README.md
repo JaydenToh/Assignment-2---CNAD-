@@ -150,13 +150,16 @@ Supports versioning or updates to quiz questions.
 
 ### Haziq
 
-DVT Assessment
-To assess the elderly by asking questions that could identify if said elderly was facing Deep Vein Thrombosis (DVT). Upon completion of the assessment, they will be able to find out if they are at risk of DVT/Falling as both is caused mainly by the legs being too weak hence causing the elderly to fall. 
+- 📸 DVT Assessment Management:
+Responsibilities:
+To assess the elderly by asking questions that could identify if said elderly was facing Deep Vein Thrombosis (DVT).
+Allow users to find out if they are at risk of DVT/Falling as both is caused mainly by the legs being too weak hence causing the elderly to fall. 
 Integrated multi-language support and text-to-speech for increase user experience.
 
 ### Yong Xiang
 
-Reaction Time
+- 🎥 Reaction Time
+Responsibilities:
 To assess the elderly reaction time. Stores the reaction time and deduces if it's high or low risk of falling.
 Eye Assessment Quiz
 Asks questions about the eye to deduce if the elderly is more prone to falling
