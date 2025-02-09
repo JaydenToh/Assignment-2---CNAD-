@@ -448,11 +448,52 @@ docker-compose up -d
 ### Yong Xiang
 
 - 🎥 Reaction Time  
-  Responsibilities:  
-  To assess the elderly reaction time. Stores the reaction time and deduces if it's high or low risk of falling.
+   Responsibilities:  
+   To assess the elderly reaction time. Stores the reaction time and deduces if it's high or low risk of falling.
 
   **Eye Assessment Quiz**  
-  Asks questions about the eye to deduce if the elderly is more prone to falling
+   Asks questions about the eye to deduce if the elderly is more prone to falling
+  -👀 Elderly Fall Risk Assessment System.  
+  This system is designed to assess fall risks in elderly individuals through two key tests: Reaction Time Test and Eye Assessment Quiz.  
+  The goal is to provide early detection of fall risks by evaluating reaction time and vision health.
+
+📌 Features  
+🎥 Reaction Time Test  
+Measures how fast an elderly individual reacts to a stimulus.  
+Stores reaction times to analyze trends over multiple attempts.
+
+Risk Classification:  
+Low Risk – Faster reaction time, minimal fall risk.  
+Medium Risk - Fast reaction time, minimal fall risk.  
+High Risk – Slow reaction time, potential fall risk.
+
+---
+
+👁️ Eye Assessment Quiz
+A set of questions analyzing vision health to determine fall risk.  
+Questions assess blurry vision, eye strain, sensitivity to light, and double vision.
+
+Risk Classification based on total score:
+
+-High Risk (40-50 points) – Significant vision problems, high fall risk.  
+-Medium Risk (30-39 points) – Some vision concerns, moderate fall risk  
+-Good (20-29 points) – Minor vision issues, low fall risk.  
+-Excellent (0-19 points) – No significant vision problems.
+
+## 📦 Dependencies
+
+| Package  | Description                          |
+| -------- | ------------------------------------ |
+| express  | Backend framework for Node.js        |
+| cors     | Handles cross-origin requests        |
+| dotenv   | Manages environment variables        |
+| supabase | Database & authentication management |
+| react    | Frontend UI framework                |
+
+🌐 Supported Languages  
+English (EN)  
+中文 (ZH)  
+Users can switch languages within the UI for better accessibility.
 
 ---
 
