@@ -12,11 +12,9 @@ CREATE TABLE eye_quiz_results (
     q10_squinting INTEGER CHECK (q10_squinting BETWEEN 1 AND 5),
     q11_boolean_1 BOOLEAN NOT NULL,
     q12_boolean_2 BOOLEAN NOT NULL,
-    q13_boolean_3 BOOLEAN NOT NULL,
     simple_test_1 BOOLEAN NOT NULL,
     simple_test_2 BOOLEAN NOT NULL,
-    simple_test_3 BOOLEAN NOT NULL,
-    total_score INTEGER NOT NULL CHECK (total_score BETWEEN 0 AND 30),
-    risk_category TEXT CHECK (risk_category IN ('Safe', 'Good', 'Risk')),
+    total_score INTEGER NOT NULL,  
+    risk_category TEXT CHECK (risk_category IN ('Excellent', 'Good', 'Medium Risk', 'High Risk')), 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
