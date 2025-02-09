@@ -1,4 +1,5 @@
 /* General Page Styling */
+<<<<<<< HEAD
   
   .health-quiz-container {
     max-width: 800px;
@@ -41,12 +42,32 @@
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+=======
+.health-quiz-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Quiz Form */
+  .quiz-form {
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+>>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
   }
   
   /* Headings */
   h1, h2 {
     color: #333;
     text-align: center;
+<<<<<<< HEAD
     margin-bottom: 10px;
   }
   
@@ -54,6 +75,12 @@
     text-align: left;
     margin-top: 15px;
     font-size: 18px;
+=======
+  }
+  
+  h2 {
+    margin-top: 15px;
+>>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
   }
   
   /* Question Container */
@@ -68,6 +95,7 @@
   /* Radio Buttons */
   .radio-group {
     display: flex;
+<<<<<<< HEAD
     justify-content: space-around;
     margin-top: 10px;
   }
@@ -84,6 +112,18 @@
     text-align: left;
     display: inline-block;
   }
+=======
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .radio-group label {
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+>>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
   /* Submit Button */
   .quiz-submit-button {
     display: block;
@@ -110,7 +150,10 @@
     padding: 10px;
     border-radius: 5px;
     margin-top: 20px;
+<<<<<<< HEAD
     background-color: #f0f0f0;
+=======
+>>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
   }
   
   .result-message.low-risk {
@@ -124,6 +167,7 @@
   .result-message.high-risk {
     color: red;
   }
+<<<<<<< HEAD
 
 /* Modal Styles */
 .modal-overlay {
@@ -171,3 +215,6 @@
   .modal-content button:hover {
     background-color: #005f73;
   }
+=======
+  
+>>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
