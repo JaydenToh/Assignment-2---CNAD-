@@ -1,0 +1,92 @@
+/* General Page Styling */
+.health-quiz-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  /* Quiz Form */
+  #quiz-form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Headings */
+  h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+  
+  /* Question Container */
+  .question-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Radio Buttons */
+  .radio-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  .radio-button {
+    margin-right: 20px;
+  }
+  
+  /* Submit Button */
+  .quiz-submit-button {
+    display: block;
+    width: 100%;
+    background: #008CBA;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .quiz-submit-button:hover {
+    background: #005f73;
+  }
+  
+  /* Result Section */
+  .result-message {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .result-message.low-risk {
+    color: green;
+  }
+  
+  .result-message.medium-risk {
+    color: orange;
+  }
+  
+  .result-message.high-risk {
+    color: red;
+  }

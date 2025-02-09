@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 app.use(bodyParser.json());
 
 // Load Mongoose models
-const Question = require("../questions/Question");
+const Question = require("../questions-management/Question");
 const Assessment = require("./Assessment");
 const Submission = require("./Submission");
 
@@ -22,6 +22,12 @@ async function connectToMongoDB() {
 
 // Call the connectToMongoDB function
 connectToMongoDB();
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Define routes
 app.get('/', (req, res) => {
