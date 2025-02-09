@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS notification (
 -- Insert sample data into the notifications table
 INSERT INTO notification (title, content, status) VALUES
 ('New Program', 'A new program will be introduced by this October, looking forward', 'general'),
-('System Maintenance', 'System will be down for maintenance on Friday', 'urgent'),
-('Event Update', 'Join us for the upcoming tech talk this weekend!', 'general'),
-('Urgent Notification', 'Security issue reported, please reset your passwords.', 'urgent');
+('System Maintenance', 'System will be down for maintenance on Friday', 'general'),
+('High Risk Alert', ' We recommend you visit the nearest clinic as soon as possible', 'urgent'),
+('High Risk Information', 'We have notified your children and your doctor. ', 'urgent');
 
 
 SELECT * FROM notification
