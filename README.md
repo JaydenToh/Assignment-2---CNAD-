@@ -38,10 +38,10 @@ How might we use Technology to offer an easy and user-friendly way for seniors t
 preliminary self-assessment in the comfort of their own homes, with vulnerable cases being
 highlighted for further clinical assessment by doctors?
 
-## Overview
+## 📝 Overview
 This project is a cloud-native microservices-based system designed to help seniors assess their fall risk from the comfort of their homes. It consists of multiple microservices running in containers, orchestrated using Kubernetes.
 
-**Our Solution**  
+** 💡 Our Solution**  
 A comprehensive platform featuring:  
 🔹1. Modularity and Scalability
 We adopted a microservices architecture to ensure modularity and scalability. Each microservice is designed to handle a specific domain or functionality, making it easier to maintain, update, and scale individual components without affecting the entire system.
