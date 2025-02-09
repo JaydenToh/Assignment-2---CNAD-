@@ -56,45 +56,7 @@ Our microservices are designed to communicate with each other seamlessly, using 
 We implemented redundancy and failover mechanisms to ensure high availability and reliability. Our solution can detect and recover from failures, minimizing downtime and ensuring continuous service.
 🔹  
 🔹
---- Mermaid
-graph LR
-participant User as "Elderly User"
-participant ReactApp as "React Web Application"
-participant APIGateway as "API Gateway (NGINX)"
-participant AssessmentService as "Assessment Management"
-participant CalculatorService as "Calculator Risk Management"
-participant ClinicVideoService as "Clinic Video Management"
-participant ExerciseService as "Exercise Management"
-participant EyeTestService as "Eye Test Management"
-participant QuestionService as "Question Management"
-participant NotificationService as "Notification Function"
-participant Database as "Database (PostgreSQL)"
-participant Kubernetes as "Kubernetes Cluster"
 
-User->>ReactApp: Interacts with website
-ReactApp->>APIGateway: Sends requests
-APIGateway->>AssessmentService: Routes requests
-APIGateway->>CalculatorService: Routes requests
-APIGateway->>ClinicVideoService: Routes requests
-APIGateway->>ExerciseService: Routes requests
-APIGateway->>EyeTestService: Routes requests
-APIGateway->>QuestionService: Routes requests
-APIGateway->>NotificationService: Routes requests
-AssessmentService->>Database: Stores and retrieves data
-CalculatorService->>Database: Stores and retrieves data
-ClinicVideoService->>Database: Stores and retrieves data
-ExerciseService->>Database: Stores and retrieves data
-EyeTestService->>Database: Stores and retrieves data
-QuestionService->>Database: Stores and retrieves data
-NotificationService->>Database: Stores and retrieves data
-Kubernetes->>APIGateway: Manages API Gateway
-Kubernetes->>AssessmentService: Manages Assessment Service
-Kubernetes->>CalculatorService: Manages Calculator Service
-Kubernetes->>ClinicVideoService: Manages Clinic Video Service
-Kubernetes->>ExerciseService: Manages Exercise Service
-Kubernetes->>EyeTestService: Manages Eye Test Service
-Kubernetes->>QuestionService: Manages Question Service
-Kubernetes->>NotificationService: Manages Notification Service
 **Key Outcomes**  
 ✅
 ✅
