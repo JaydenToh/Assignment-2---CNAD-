@@ -1,4 +1,4 @@
 .env
 node_modules
-DVT/googleCredentials.json
-DVT/serviceAccountKey.json
+googleCredentials.json
+serviceAccountKey.json

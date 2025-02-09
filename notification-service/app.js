@@ -2,8 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const notificationRoutes = require("./routes/notificationRoutes");
 const emailRoutes = require("./routes/emailRoutes");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json()); // Middleware to parse JSON body
 
