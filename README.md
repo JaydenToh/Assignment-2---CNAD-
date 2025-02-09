@@ -325,32 +325,32 @@ Integrated multi-language support and text-to-speech for increase user experienc
 
 ### Yong Xiang
 
-👀 Elderly Fall Risk Assessment System
-This system is designed to assess fall risks in elderly individuals through two key tests: Reaction Time Test and Eye Assessment Quiz. 
+-👀 Elderly Fall Risk Assessment System.  
+This system is designed to assess fall risks in elderly individuals through two key tests: Reaction Time Test and Eye Assessment Quiz.   
 The goal is to provide early detection of fall risks by evaluating reaction time and vision health.
 
 
 📌 Features
-🎥 Reaction Time Test
-Measures how fast an elderly individual reacts to a stimulus.
+🎥 Reaction Time Test  
+Measures how fast an elderly individual reacts to a stimulus.  
 Stores reaction times to analyze trends over multiple attempts.
 
-Risk Classification:
-Low Risk – Faster reaction time, minimal fall risk.
-Medium Risk - Fast reaction time, minimal fall risk
+Risk Classification:  
+Low Risk – Faster reaction time, minimal fall risk.  
+Medium Risk - Fast reaction time, minimal fall risk.   
 High Risk – Slow reaction time, potential fall risk.
 
 ---------------------------------------------------------------------------------------
 
 👁️ Eye Assessment Quiz
-A set of questions analyzing vision health to determine fall risk.
+A set of questions analyzing vision health to determine fall risk.    
 Questions assess blurry vision, eye strain, sensitivity to light, and double vision.
 
 Risk Classification based on total score:
 
--High Risk (40-50 points) – Significant vision problems, high fall risk.
--Medium Risk (30-39 points) – Some vision concerns, moderate fall risk.
--Good (20-29 points) – Minor vision issues, low fall risk.
+-High Risk (40-50 points) – Significant vision problems, high fall risk.    
+-Medium Risk (30-39 points) – Some vision concerns, moderate fall risk    
+-Good (20-29 points) – Minor vision issues, low fall risk.      
 -Excellent (0-19 points) – No significant vision problems.
 
 ## 📦 Dependencies
@@ -363,9 +363,9 @@ Risk Classification based on total score:
 | supabase  | Database & authentication management |
 | react     | Frontend UI framework              |
 
-🌐 Supported Languages
-English (EN)
-中文 (ZH)
+🌐 Supported Languages     
+English (EN)        
+中文 (ZH)         
 Users can switch languages within the UI for better accessibility.
 
 ---
