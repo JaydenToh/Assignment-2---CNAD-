@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fff8e1; /* Light pastel yellow background */
+  background-color: #ffffff; /* Light pastel yellow background */
 }
 
 /* 🔸 Hero Section */
@@ -115,18 +115,4 @@
 .language-switcher select option {
   font-size: 18px;
   text-align: center;
-}
-
-/* 🔹 Footer */
-.footer-container {
-  background-color: white; /* Deep blue for footer */
-  color: black;
-  padding: 24px 0;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.footer-content a {
-  color: black;
-  text-decoration: none;
 }

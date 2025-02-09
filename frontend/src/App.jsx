@@ -24,7 +24,6 @@ function App() {
       <Route path="/clinic" element={<Clinic />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/reaction" element={<ReactionTime />} />
-
       <Route path="/" element={<HomePage />} />{" "}
       {/* Default route to HomePage */}
       <Route path="/generalTest" element={<GeneralTest />} />

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { LanguageContext } from "../contexts/LanguageContext"; // Import Language Context
+import { LanguageContext } from "../contexts/LanguageContext";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./HealthAssessment.css";
@@ -13,26 +13,33 @@ function HealthAssessment() {
   const { language, setLanguage, translations, loading, updateTranslations } =
     useContext(LanguageContext);
 
+  const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
+
   // Load default translations on mount if not already loaded
   useEffect(() => {
     if (!translations.welcome) {
-      updateTranslations("en"); // Default to English
+      updateTranslations("en");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [translations, updateTranslations]);
 
+  // Handle language change
   const handleLanguageChange = async (newLang) => {
     setLanguage(newLang);
     await updateTranslations(newLang);
   };
 
+  // Show loading if translations are still loading
   if (loading) {
     return <div className="loading">Loading translations...</div>;
   }
 
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="page-container">
-      {/* Header */}
       <Header />
 
       {/* Language Selector */}
@@ -63,6 +70,50 @@ function HealthAssessment() {
           </button>
         </div>
 
+        {/* Questions Section - Commented Out */}
+        {/*
+        <div className="questions-section">
+          <h2>Health Assessment Questions</h2>
+          <form onSubmit={handleSubmit} id="quiz-form">
+            {questions.map((question, index) => (
+              <div key={question._id || index} className="question-block">
+                <h3>Question {index + 1}:</h3>
+                <p>{question.question}</p>
+                <div className="options">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <span key={value} className="option">
+                      <input
+                        type="radio"
+                        id={`answer-${index}-${value}`}
+                        name={`answer-${index}`}
+                        value={value}
+                        required
+                      />
+                      <label htmlFor={`answer-${index}-${value}`}>
+                        {value}
+                      </label>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <button type="submit">Submit Quiz</button>
+          </form>
+
+          {result && (
+            <div className="result-section">
+              <h2>Your Total Score is: {result.totalScore}</h2>
+              {result.riskCategory && (
+                <h2>Your Risk Category is: {result.riskCategory}</h2>
+              )}
+              {result.riskError && (
+                <h2>Error calculating risk: {result.riskError}</h2>
+              )}
+            </div>
+          )}
+        </div>
+        */}
+
         {/* Options Section */}
         <div className="options-section">
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
@@ -79,12 +130,18 @@ function HealthAssessment() {
               <img src={clinicIcon} alt="Reaction Time Test" />
               <span>Reaction Time Test</span>
             </Link>
-
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
+            </Link>
+            <Link to="/reaction" className="option-card">
+              <img src={clinicIcon} alt="Reaction Time Test" />
+              <span>Reaction Time Test</span>
+            </Link>
           </div>
         </div>
       </main>
 
-      {/* Footer at the bottom */}
       <Footer />
     </div>
   );

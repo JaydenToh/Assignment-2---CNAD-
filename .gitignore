@@ -1,3 +1,4 @@
 .env
-googleCredentials.json
+node_modules
 serviceAccountKey.json
+googleCredentials.json

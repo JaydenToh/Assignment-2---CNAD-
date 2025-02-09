@@ -1,111 +1,126 @@
-/* Make the page fill the screen and center everything */
-.signup-container {
+/* General Page Layout */
+.auth-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 100vh;
-  background-color: #fff;
-  margin: 0;
+  background-color: #f8f9fa; /* Light background */
 }
 
-/* A wrapper for the two columns (image + form) */
-.signup-wrapper {
+/* Left Section */
+.auth-left {
+  flex: 1;
   display: flex;
-  gap: 2rem; /* optional: space between image & form */
-  width: 100%;
-  max-width: 1200px; /* limit how wide it gets on large screens */
-  height: 80%; /* optional, so columns fill ~80% of container */
-  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
 }
 
-/* Left column: image */
-.signup-left {
-  flex: 1; /* let it grow/shrink */
-  overflow: hidden;
+.auth-left img {
+  max-width: 80%;
+  height: auto;
 }
 
-.signup-left img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Right column: sign-up form */
-.signup-right {
+/* Right Section (Form) */
+.auth-right {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 2rem;
-  /* background-color: #fff; you can add if needed */
+  align-items: center;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
 }
 
-/* Title & subtitle */
-.signup-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #000;
-}
-
-.signup-subtitle {
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 24px;
-}
-
-/* The form itself */
-.signup-form {
+/* Form Styling */
+.auth-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.signup-form label {
-  margin-bottom: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #555;
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+  font-size: 24px;
 }
 
-.signup-form input {
+.auth-form input {
+  width: 100%;
   padding: 12px;
-  font-size: 1rem;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.signup-button {
-  background-color: #007bff;
-  color: #fff;
+/* Button Styles */
+.signup-button,
+.login-button {
+  width: 100%;
   padding: 12px;
-  font-size: 1rem;
-  font-weight: 500;
+  background-color: #002855; /* Dark Blue */
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  margin-bottom: 16px;
+  transition: background 0.3s ease-in-out;
 }
 
-.signup-button:hover {
-  background-color: #0056c1;
+.signup-button:hover,
+.login-button:hover {
+  background-color: #0056b3; /* Slightly lighter blue */
 }
 
-/* The little text prompting to Log In instead */
-.login-redirect {
-  color: #555;
-  font-size: 0.9rem;
-  margin-top: 0;
+/* Separator */
+.or-section {
+  text-align: center;
+  margin: 15px 0;
+  position: relative;
 }
 
-.login-link {
-  color: #007bff;
+.or-section span {
+  background-color: white;
+  padding: 0 10px;
+}
+
+/* Terms & Conditions */
+.terms {
+  font-size: 12px;
+  text-align: center;
+  color: #6c757d;
+  margin-bottom: 15px;
+}
+
+.terms a {
+  color: #0056b3;
   text-decoration: none;
-  font-weight: 500;
 }
 
-.login-link:hover {
+.terms a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Text */
+.footer-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.footer-text a {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-text a:hover {
   text-decoration: underline;
 }

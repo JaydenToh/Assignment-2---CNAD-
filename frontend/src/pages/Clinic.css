@@ -59,3 +59,49 @@ button:hover {
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
+.verification-section {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.verification-section h2 {
+  color: #333;
+}
+
+input {
+  width: 60%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background: #ff7f00;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #e66b00;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
+}
+
+.appointment-details {
+  margin-top: 20px;
+  padding: 10px;
+  background: #dff0d8;
+  border-radius: 5px;
+}
