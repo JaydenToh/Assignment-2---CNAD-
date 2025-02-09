@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Styles
 body {
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@ body {
   padding: 20px;
 }
 
-/* Hero Section */
+
 .hero-section {
   display: flex;
   justify-content: space-between;
@@ -52,7 +52,7 @@ body {
   background-color: #45a049;
 }
 
-/* Hero Image */
+/*
 .hero-image {
   position: relative;
 }
@@ -72,7 +72,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Features Section */
+/* Features Sectio
 .features-section {
   display: flex;
   justify-content: space-between;
@@ -103,4 +103,4 @@ body {
 .feature-card p {
   font-size: 1rem;
   color: #555;
-}
+} */

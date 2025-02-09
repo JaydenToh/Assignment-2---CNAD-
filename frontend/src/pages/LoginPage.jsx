@@ -1,96 +1,108 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
-import seniorsImage from "../assets/seniors.png";
+import seniorsImage from "../assets/seniors.png"; // Using seniorsImage instead of logo
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Example: call your login endpoint
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, keepLoggedIn }),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      console.log("Login success:", data);
-      navigate("/home");
-    } else {
-      alert(`Login error: ${data.message}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Logged in successfully!");
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userId", data.userId);
+
+        // Fetch the user role
+        try {
+          const roleResponse = await fetch(
+            `http://localhost:3000/users/${data.userId}/role`
+          );
+          if (roleResponse.ok) {
+            const roleData = await roleResponse.json();
+            localStorage.setItem("userRole", roleData.role);
+          } else {
+            console.error("Error fetching user role.");
+          }
+        } catch (roleError) {
+          console.error("Error fetching user role:", roleError);
+        }
+
+        console.log("Logged in:", localStorage.getItem("isLoggedIn"));
+        console.log("User ID:", localStorage.getItem("userId"));
+        console.log("User Role:", localStorage.getItem("userRole"));
+
+        navigate("/"); // Redirect to homepage
+      } else {
+        alert(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      alert("Failed to log in.");
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-wrapper">
-        {/* Left side: image */}
-        <div className="login-left">
-          <img src={seniorsImage} alt="Seniors knitting" />
-        </div>
+    <div className="auth-page">
+      {/* Left section with the image */}
+      <div className="auth-left">
+        <img src={seniorsImage} alt="Mindsphere Seniors" className="logo" />
+      </div>
 
-        {/* Right side: form */}
-        <div className="login-right">
-          <h1 className="login-title">Login</h1>
-          <p className="login-subtitle">Login your account in a seconds</p>
-
-          <form onSubmit={handleSubmit} className="login-form">
-            <label htmlFor="email">Email Address</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-
-            <div className="login-options">
-              <div className="checkbox">
-                <input
-                  id="keepLoggedIn"
-                  type="checkbox"
-                  checked={keepLoggedIn}
-                  onChange={(e) => setKeepLoggedIn(e.target.checked)}
-                />
-                <label htmlFor="keepLoggedIn" className="checkbox-label">
-                  Keep me logged in
-                </label>
-              </div>
-              <Link to="/forgot-password" className="forgot-link">
-                Forget password?
-              </Link>
-            </div>
-
-            <button type="submit" className="login-button">
-              Log in
+      {/* Right section with the form */}
+      <div className="auth-right">
+        <form onSubmit={handleSubmit} className="auth-form">
+          <h2>Log in</h2>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" className="login-button">
+            Log in
+          </button>
+          <div className="or-section">
+            <span></span>
+          </div>
+          <Link to="/signup">
+            <button type="button" className="signup-button">
+              Create new account
             </button>
-          </form>
-
-          <p className="signup-text">
-            Don’t have an account?{" "}
-            <Link to="/signup" className="signup-link">
-              Sign up
-            </Link>
-          </p>
-        </div>
+          </Link>
+        </form>
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ Currently, two official plugins are available:
 
 ## 📌 Project Description
 
-**Problem Statement** By Lion Befrienders
+**Problem Statement By Lion Befrienders**
 Many seniors are susceptible to falls due to illnesses such as weakness in legs, sarcopenia, deterioration
 in eyesight etc. Currently, assessment for fall risk is usually carried out by healthcare professionals and
 may remain undiscovered till seniors decide to seek healthcare assistance.

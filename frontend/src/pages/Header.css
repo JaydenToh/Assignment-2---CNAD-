@@ -3,10 +3,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 32px; /* Increased padding */
-  background-color: #fff;
-  height: 90px; /* Increased header height */
-  border-bottom: 2px solid #ddd;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  height: 70px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Profile Image in Header */
+.profile-header-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile-img-link {
+  display: flex;
+  align-items: center;
 }
 
 /* Logo adjustments */
@@ -16,8 +30,9 @@
 }
 
 .logo {
-  height: 60px; /* Bigger logo for visibility */
+  height: 60px; /* Adjusted for a well-fitted look */
   width: auto;
+  object-fit: contain;
 }
 
 /* Navigation links - larger font and spacing */

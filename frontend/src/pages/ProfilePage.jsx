@@ -1,46 +1,126 @@
-import React, { useState } from "react";
-import Header from "./Header"; // Adjust the path if Header.jsx is located in a different folder
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header"; // Keep everything the same
 import "./ProfilePage.css";
-import userAvatar from "../assets/seniors.png"; // Placeholder avatar
+import defaultAvatar from "../assets/seniors.png"; // Default profile image
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
-    email: "johndoe@example.com",
-    name: "John Doe",
-    phone: "+65 9123 4567",
-    address: "123 Senior Home, Singapore",
-    lunch: "-- None --",
+    email: "",
+    userName: "",
+    contactNumber: "",
     age: "",
-    interest: "",
-    subscribe: false,
+    profileImage: localStorage.getItem("profileImage") || defaultAvatar, // Ensure profile image persists
   });
 
+  const [editMode, setEditMode] = useState(false);
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) return;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/users/${userId}/details`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        setFormData((prev) => ({
+          ...prev,
+          email: data.email || prev.email,
+          userName: data.userName || prev.userName,
+          contactNumber: data.contactNumber || prev.contactNumber,
+          age: data.age || prev.age,
+          profileImage:
+            localStorage.getItem("profileImage") ||
+            data.profileImage ||
+            prev.profileImage,
+        }));
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newProfileImage = reader.result;
+        setFormData((prev) => ({
+          ...prev,
+          profileImage: newProfileImage,
+        }));
+        localStorage.setItem("profileImage", newProfileImage); // Save to persist after refresh
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement saving logic (e.g., API call)
-    console.log("Saved changes:", formData);
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Profile updated successfully!");
+        setEditMode(false);
+      } else {
+        alert("Error updating profile.");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
   const handleCancel = () => {
-    // TODO: Implement cancel logic (e.g., reset form or navigate away)
-    console.log("Cancelled changes");
+    setEditMode(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("profileImage"); // Clear profile image on logout
+    navigate("/login");
   };
 
   return (
     <div>
-      {/* Include the header component */}
       <Header />
 
       <div className="account-settings-container">
-        {/* Sidebar */}
         <aside className="sidebar">
           <button className="sidebar-btn active" aria-label="Profile">
             <span role="img" aria-hidden="true">
@@ -56,31 +136,40 @@ function ProfilePage() {
           </button>
         </aside>
 
-        {/* Settings / Profile Content */}
         <main className="settings-content">
           <h2 className="settings-title">Account Settings</h2>
           <form className="settings-box" onSubmit={handleSubmit}>
-            {/* Profile Image Section */}
             <div className="profile-image-section">
-              <img src={userAvatar} alt="User Avatar" className="profile-img" />
+              <img
+                src={formData.profileImage}
+                alt="User Avatar"
+                className="profile-img"
+              />
               <button
                 type="button"
                 className="edit-photo-btn"
-                onClick={() => console.log("Edit photo clicked")}
+                onClick={triggerFileInput}
               >
-                📷 Edit Photo
+                📷 Change Photo
               </button>
+              <input
+                type="file"
+                accept="image/*"
+                className="file-input"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+              />
             </div>
 
-            {/* Input Fields */}
             <div className="input-group">
               <div className="input-box">
-                <label htmlFor="name">Full Name</label>
+                <label htmlFor="userName">Full Name</label>
                 <input
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="userName"
+                  name="userName"
+                  value={formData.userName}
                   onChange={handleChange}
+                  disabled={!editMode}
                   required
                 />
               </div>
@@ -90,33 +179,23 @@ function ProfilePage() {
                   id="email"
                   name="email"
                   value={formData.email}
-                  disabled
+                  onChange={handleChange}
+                  disabled={!editMode}
                 />
               </div>
             </div>
 
             <div className="input-group">
               <div className="input-box">
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor="contactNumber">Phone Number</label>
                 <input
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  id="contactNumber"
+                  name="contactNumber"
+                  value={formData.contactNumber}
                   onChange={handleChange}
+                  disabled={!editMode}
                 />
               </div>
-              <div className="input-box">
-                <label htmlFor="address">Address</label>
-                <input
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
               <div className="input-box">
                 <label htmlFor="age">Age</label>
                 <input
@@ -125,60 +204,40 @@ function ProfilePage() {
                   value={formData.age}
                   onChange={handleChange}
                   type="number"
-                />
-              </div>
-              <div className="input-box">
-                <label htmlFor="interest">Interests</label>
-                <input
-                  id="interest"
-                  name="interest"
-                  value={formData.interest}
-                  onChange={handleChange}
+                  disabled={!editMode}
                 />
               </div>
             </div>
 
-            <div className="input-group">
-              <div className="input-box">
-                <label htmlFor="lunch">Lunch Preference</label>
-                <select
-                  id="lunch"
-                  name="lunch"
-                  value={formData.lunch}
-                  onChange={handleChange}
-                  className="select-input"
-                >
-                  <option value="-- None --">-- None --</option>
-                  <option value="Vegetarian">Vegetarian</option>
-                  <option value="Non-Vegetarian">Non-Vegetarian</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="checkbox-group">
-              <label htmlFor="subscribe">
-                <input
-                  type="checkbox"
-                  id="subscribe"
-                  name="subscribe"
-                  checked={formData.subscribe}
-                  onChange={handleChange}
-                />
-                Subscribe to newsletter
-              </label>
-            </div>
-
-            {/* Action Buttons */}
             <div className="button-group">
+              {editMode ? (
+                <>
+                  <button
+                    type="button"
+                    className="cancel-btn"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="save-btn">
+                    Save Changes
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="edit-btn"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit Profile
+                </button>
+              )}
               <button
                 type="button"
-                className="cancel-btn"
-                onClick={handleCancel}
+                className="logout-btn"
+                onClick={handleLogout}
               >
-                Cancel
-              </button>
-              <button type="submit" className="save-btn">
-                Save Changes
+                Log Out
               </button>
             </div>
           </form>

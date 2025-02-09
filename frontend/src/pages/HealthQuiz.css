@@ -1,0 +1,173 @@
+/* General Page Styling */
+  
+  .health-quiz-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+/* General Page Styling */
+.health-quiz-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header and Footer Styling */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: auto;
+  }
+  
+  /* ... rest of your CSS ... */
+  /* Quiz Form */
+  #quiz-form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Headings */
+  h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 18px;
+  }
+  
+  /* Question Container */
+  .question-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Radio Buttons */
+  .radio-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  .radio-button {
+    margin-right: 20px;
+  }
+  .scale-text {
+    text-align: center;
+  }
+  
+  .scale-text p {
+    font-weight: bold;
+    text-align: left;
+    display: inline-block;
+  }
+  /* Submit Button */
+  .quiz-submit-button {
+    display: block;
+    width: 100%;
+    background: #008CBA;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .quiz-submit-button:hover {
+    background: #005f73;
+  }
+  
+  /* Result Section */
+  .result-message {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .result-message.low-risk {
+    color: green;
+  }
+  
+  .result-message.medium-risk {
+    color: orange;
+  }
+  
+  .result-message.high-risk {
+    color: red;
+  }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 800px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    font-size: 36px;
+  }
+  
+  .modal-content p {
+    margin-bottom: 30px;
+  }
+  
+  .modal-content button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .modal-content button:hover {
+    background-color: #005f73;
+  }

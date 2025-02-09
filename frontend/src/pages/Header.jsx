@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import logo from "../assets/seniors.png"; // Adjust if needed
+import logo from "../assets/logo.jpg"; // Ensure correct logo path
+import defaultAvatar from "../assets/seniors.png"; // Default profile icon
 
 function Header() {
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("profileImage") || defaultAvatar
+  );
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setProfileImage(localStorage.getItem("profileImage") || defaultAvatar);
+    };
+
+    window.addEventListener("storage", handleStorageChange); // Listen for localStorage changes
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
   return (
     <header className="header-container">
       {/* Left side: Logo */}
@@ -19,24 +36,22 @@ function Header() {
         <Link to="/assessment">Assessment</Link>
         <Link to="/exercise">Exercise</Link>
         <Link to="/clinic">Clinic</Link>
+        <Link to="/login" className="cta-link">
+          Get Started Today
+        </Link>
       </nav>
 
-      {/* Right side: Icons */}
+      {/* Right side: Profile Image instead of Icon */}
       <div className="header-right">
-        {/* Language / Translate */}
-        <button className="translate-btn" title="Change Language">
-          <span>A</span>
-          <span style={{ fontSize: "0.8em", marginLeft: "4px" }}>言</span>
-        </button>
-
-        {/* Notification Icon */}
         <button className="icon-btn" title="Notifications">
           <i className="bell-icon">🔔</i>
         </button>
-
-        {/* Profile Icon - Links to Profile Page */}
-        <Link to="/profile" className="icon-btn" title="Profile">
-          <i className="user-icon">👤</i>
+        <Link to="/profile" className="profile-img-link">
+          <img
+            src={profileImage}
+            alt="Profile"
+            className="profile-header-img"
+          />
         </Link>
       </div>
     </header>
