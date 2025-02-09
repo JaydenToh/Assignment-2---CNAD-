@@ -157,7 +157,8 @@ We implemented redundancy and failover mechanisms to ensure high availability an
 + REST APIs/External APIs   # Third-party Integrations
 
 + Microsoft SQL Server  # Enterprise Data Management
-+                # Database Administration
++ SupaBase # Postgres database
++ FireBase # NoSQL database
 
 + Postman       # API Testing
 + Git           # Version Control
