@@ -70,50 +70,6 @@ function HealthAssessment() {
           </button>
         </div>
 
-        {/* Questions Section - Commented Out */}
-        {/*
-        <div className="questions-section">
-          <h2>Health Assessment Questions</h2>
-          <form onSubmit={handleSubmit} id="quiz-form">
-            {questions.map((question, index) => (
-              <div key={question._id || index} className="question-block">
-                <h3>Question {index + 1}:</h3>
-                <p>{question.question}</p>
-                <div className="options">
-                  {[1, 2, 3, 4, 5].map((value) => (
-                    <span key={value} className="option">
-                      <input
-                        type="radio"
-                        id={`answer-${index}-${value}`}
-                        name={`answer-${index}`}
-                        value={value}
-                        required
-                      />
-                      <label htmlFor={`answer-${index}-${value}`}>
-                        {value}
-                      </label>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <button type="submit">Submit Quiz</button>
-          </form>
-
-          {result && (
-            <div className="result-section">
-              <h2>Your Total Score is: {result.totalScore}</h2>
-              {result.riskCategory && (
-                <h2>Your Risk Category is: {result.riskCategory}</h2>
-              )}
-              {result.riskError && (
-                <h2>Error calculating risk: {result.riskError}</h2>
-              )}
-            </div>
-          )}
-        </div>
-        */}
-
         {/* Options Section */}
         <div className="options-section">
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
@@ -126,9 +82,9 @@ function HealthAssessment() {
               <img src={exerciseIcon} alt="Recommended Exercise" />
               <span>{translations.exercises}</span>
             </Link>
-            <Link to="/reaction" className="option-card">
-              <img src={clinicIcon} alt="Reaction Time Test" />
-              <span>Reaction Time Test</span>
+            <Link to="/healthquiz" className="option-card">
+              <img src={clinicIcon} alt="Health Quiz" />
+              <span>Health Quiz</span>
             </Link>
             <Link to="/reaction" className="option-card">
               <img src={clinicIcon} alt="Reaction Time Test" />

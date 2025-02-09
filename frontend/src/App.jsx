@@ -1,3 +1,4 @@
+// App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -12,6 +13,7 @@ import RulesPage from "./pages/RulesPage";
 import ResultPage from "./pages/ResultPage";
 import LandingPage from "./pages/LandingPage";
 import ReactionTime from "./pages/ReactionTime";
+import HealthQuiz from "./pages/HealthQuiz";
 
 function App() {
   return (
@@ -24,12 +26,12 @@ function App() {
       <Route path="/clinic" element={<Clinic />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/reaction" element={<ReactionTime />} />
-      <Route path="/" element={<HomePage />} />{" "}
-      {/* Default route to HomePage */}
+      <Route path="/healthquiz" element={<HealthQuiz />} />
       <Route path="/generalTest" element={<GeneralTest />} />
       <Route path="/rules" element={<RulesPage />} />
       <Route path="/resultTest" element={<ResultPage />} />
       <Route path="/landing" element={<LandingPage />} />
+      <Route path="/" element={<HomePage />} /> {/* Default route to HomePage */}
     </Routes>
   );
 }
