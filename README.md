@@ -97,7 +97,7 @@ We implemented redundancy and failover mechanisms to ensure high availability an
            |        Cloud Infrastructure (AWS/GCP/Azure)      |
            |         Kubernetes + Docker + CI/CD Pipeline    |
            +--------------------------------------------------+
-
+```
 **Key Outcomes**  
 ✅
 ✅
