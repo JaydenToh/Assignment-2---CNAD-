@@ -50,3 +50,10 @@ services:
     build: ./eye-test-management
     ports:
       - "8500:8500"
+
+  dvt: # ✅ New DVT service
+    build: ./dvt
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-management
