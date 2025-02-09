@@ -131,9 +131,24 @@ We implemented redundancy and failover mechanisms to ensure high availability an
 
 🔔
 
-- 📅
-- 🆕
-- ✨
+- 📅 Assessment Management
+Function: Generates quiz questions for fall risk assessment.
+Responsibilities:
+Retrieves and organizes quiz questions.
+Ensures relevant questions are presented to the user.
+Works with Question Management to fetch questions.
+- 🧮 Calculator Risk Management
+Function: Calculates the fall risk score based on quiz responses.
+Responsibilities:
+Processes quiz answers and computes a risk score.
+Applies a risk calculation formula or logic.
+Sends results to the frontend for user feedback.
+- ❓ Question Management
+Function: Manages the database of quiz questions.
+Responsibilities:
+Stores and organizes different quiz questions.
+Provides questions to Assessment Management when needed.
+Supports versioning or updates to quiz questions.
 
 ### Haziq
 
