@@ -1,3 +1,4 @@
+// src/pages/HealthAssessment.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/LanguageContext";
@@ -12,24 +13,20 @@ import { FiVolume2 } from "react-icons/fi";
 function HealthAssessment() {
   const { language, setLanguage, translations, loading, updateTranslations } =
     useContext(LanguageContext);
-
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
-  // Load default translations on mount if not already loaded
   useEffect(() => {
     if (!translations.welcome) {
       updateTranslations("en");
     }
   }, [translations, updateTranslations]);
 
-  // Handle language change
   const handleLanguageChange = async (newLang) => {
     setLanguage(newLang);
     await updateTranslations(newLang);
   };
 
-  // Show loading if translations are still loading
   if (loading) {
     return <div className="loading">Loading translations...</div>;
   }
@@ -42,7 +39,7 @@ function HealthAssessment() {
     <div className="page-container">
       <Header />
 
-      {/* Language Selector */}
+      {/* Language Selector: centered */}
       <div className="language-switcher">
         <select
           value={language}
@@ -55,7 +52,7 @@ function HealthAssessment() {
       </div>
 
       <main className="health-assessment-container">
-        {/* Greeting Section */}
+        {/* Greeting Section: centered */}
         <div className="greeting-section">
           <div className="greeting-text">
             <h1>{translations.welcome}</h1>
@@ -90,9 +87,9 @@ function HealthAssessment() {
               <img src={clinicIcon} alt="Eye quiz" />
               <span>Eye quiz</span>
             </Link>
-            <Link to="/reaction" className="option-card">
-              <img src={clinicIcon} alt="Reaction Time Test" />
-              <span>Reaction Time Test</span>
+            <Link to="/dvt-assessment" className="option-card">
+              <img src={assessmentIcon} alt="DVT Assessment" />
+              <span>DVT Assessment</span>
             </Link>
           </div>
         </div>

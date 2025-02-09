@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -19,10 +19,8 @@ import (
 	"cloud.google.com/go/translate"
 	// Google Cloud Text-to-Speech API client
 	texttospeech "google.golang.org/api/texttospeech/v1"
-
 	// For converting string to language.Tag
 	"golang.org/x/text/language"
-
 	// For loading environment variables from a .env file
 	"github.com/joho/godotenv"
 )
@@ -33,25 +31,35 @@ var (
 	ttsService      *texttospeech.Service
 )
 
-// defaultRiskThreshold is used to determine DVT risk (weighted score).
-const defaultRiskThreshold = 4
+// Default thresholds
+const (
+	defaultRiskThreshold = 4 // DVT threshold
+	fallingThreshold     = 3 // Falling risk threshold
+)
 
-// expectedAPIKey is read from the environment variable or set to a default.
-var expectedAPIKey = func() string {
-	if key := os.Getenv("API_KEY"); key != "" {
-		return key
+// Hardcoded API key for this microservice.
+var expectedAPIKey = "AIzaSyBruOTBaUluGiKITRCDXVIuoom8AlyaOow"
+
+// handleCors sets the required CORS headers.  
+// If the request method is OPTIONS, it writes a 200 OK and returns true.
+func handleCors(w http.ResponseWriter, r *http.Request) bool {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-API-Key")
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return true
 	}
-	return "secret_assignment_key"
-}()
+	return false
+}
 
-// setCommonHeaders sets basic security and CORS headers.
+// setCommonHeaders sets basic security and Content-Type headers.
 func setCommonHeaders(w http.ResponseWriter) {
-	w.Header().Set("Access-Control-Allow-Origin", "*") // Adjust for production!
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 }
 
-// requireAPIKey checks for a valid API key in the request headers.
+// requireAPIKey checks that the request has the correct API key.
 func requireAPIKey(w http.ResponseWriter, r *http.Request) bool {
 	apiKey := r.Header.Get("X-API-Key")
 	if apiKey != expectedAPIKey {
@@ -61,10 +69,9 @@ func requireAPIKey(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
-// initFirebase initializes the Firebase Admin SDK.
+// initFirebase initializes Firebase using the service account key.
 func initFirebase() error {
 	ctx := context.Background()
-	// Replace with the path to your Firebase service account key JSON file.
 	opt := option.WithCredentialsFile("./serviceAccountKey.json")
 	app, err := firebase.NewApp(ctx, nil, opt)
 	if err != nil {
@@ -96,7 +103,7 @@ func initTTSService() error {
 	return nil
 }
 
-// getCollectionName returns the Firestore collection name based on the selected language.
+// getCollectionName returns the Firestore collection name based on language.
 func getCollectionName(lang string) string {
 	switch lang {
 	case "en-US":
@@ -105,15 +112,16 @@ func getCollectionName(lang string) string {
 		return "Malay"
 	case "zh-CN":
 		return "Chinese"
-	case "ta-IN":
-		return "Tamil"
 	default:
 		return "English"
 	}
 }
 
-// questionsHandler retrieves the questions from Firestore.
+// questionsHandler retrieves questions from Firestore.
 func questionsHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -126,8 +134,6 @@ func questionsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	collectionName := getCollectionName(lang)
 	ctx := context.Background()
-
-	// Initialize Firestore client from the Firebase app.
 	client, err := firebaseApp.Firestore(ctx)
 	if err != nil {
 		http.Error(w, "Failed to connect to Firestore", http.StatusInternalServerError)
@@ -136,7 +142,6 @@ func questionsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer client.Close()
 
-	// Query the specified collection, ordering by "question_id" (assumed numeric).
 	iter := client.Collection(collectionName).OrderBy("question_id", firestore.Asc).Documents(ctx)
 	docs, err := iter.GetAll()
 	if err != nil {
@@ -150,7 +155,6 @@ func questionsHandler(w http.ResponseWriter, r *http.Request) {
 		questions = append(questions, doc.Data())
 	}
 
-	// Ensure that there are at least 20 questions.
 	if len(questions) < 20 {
 		http.Error(w, "Not enough questions in the database", http.StatusInternalServerError)
 		return
@@ -159,12 +163,10 @@ func questionsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(questions)
 }
 
-// --- The following endpoints (translation, TTS, and assessment submission) remain largely the same ---
-
-// Translate API structures and handler.
+// Translate endpoint structures and handler.
 type TranslateRequest struct {
 	Text       string `json:"text"`
-	TargetLang string `json:"target_lang"` // e.g., "ms", "en-US", etc.
+	TargetLang string `json:"target_lang"`
 }
 
 type TranslateResponse struct {
@@ -172,6 +174,9 @@ type TranslateResponse struct {
 }
 
 func translateHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -193,17 +198,20 @@ func translateHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-// TTS API structures and handler.
+// TTS endpoint structures and handler.
 type TTSRequest struct {
 	Text         string `json:"text"`
-	LanguageCode string `json:"language_code"` // e.g., "en-US", "ms-MY", etc.
+	LanguageCode string `json:"language_code"`
 }
 
 type TTSResponse struct {
-	AudioContent string `json:"audio_content"` // Base64 encoded MP3 audio
+	AudioContent string `json:"audio_content"`
 }
 
 func ttsHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -233,19 +241,27 @@ func ttsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Assessment submission structures and handler.
+// Computes both DVT risk and falling risk and records a unique assessment ID.
 type AssessmentResult struct {
-	UserID      string    `json:"user_id"`
-	Score       int       `json:"score"`
-	Answers     []string  `json:"answers"`
-	RiskStatus  string    `json:"risk_status"`
-	SubmittedAt time.Time `json:"submitted_at"`
+	UserID            string    `json:"user_id"`
+	ScoreDVT          int       `json:"score_dvt"`
+	ScoreFalling      int       `json:"score_falling"`
+	RiskStatusDVT     string    `json:"risk_status_dvt"`
+	RiskStatusFalling string    `json:"risk_status_falling"`
+	Answers           []string  `json:"answers"`
+	SubmittedAt       time.Time `json:"submitted_at"`
+	AssessmentID      string    `json:"assessment_id,omitempty"`
 }
 
 func alertAuthorities(result AssessmentResult) {
-	log.Printf("ALERT: User (%s) is at risk for DVT. Score: %d. Authorities alerted.", result.UserID, result.Score)
+	log.Printf("ALERT: User (%s) is at high risk. DVT Score: %d, Falling Score: %d. Authorities alerted.",
+		result.UserID, result.ScoreDVT, result.ScoreFalling)
 }
 
 func submitAssessmentHandler(w http.ResponseWriter, r *http.Request) {
+	if handleCors(w, r) {
+		return
+	}
 	setCommonHeaders(w)
 	if !requireAPIKey(w, r) {
 		return
@@ -258,43 +274,70 @@ func submitAssessmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result.SubmittedAt = time.Now()
 
-	// Ensure all 20 questions are answered.
 	if len(result.Answers) < 20 {
 		http.Error(w, "All questions must be answered", http.StatusBadRequest)
 		return
 	}
 
-	// Define weights for each question (assumed keys "q1" through "q20").
-	questionWeights := map[string]int{
-		"q1":  1, "q2": 1, "q3": 1, "q4": 1, "q5": 1,
-		"q6":  1, "q7": 3, "q8": 1, "q9": 1, "q10": 1,
-		"q11": 1, "q12": 1, "q13": 1, "q14": 1, "q15": 1,
-		"q16": 1, "q17": 1, "q18": 1, "q19": 1, "q20": 1,
+	// Define weight maps.
+	dvtWeights := map[int]int{
+		1: 1, 2: 1, 3: 1, 4: 1, 5: 1,
+		6: 1, 7: 3, 8: 1, 9: 1, 10: 1,
+		11: 1, 12: 1, 13: 1, 14: 1, 15: 1,
+		16: 1, 17: 1, 18: 1, 19: 1, 20: 1,
 	}
-	score := 0
+	fallingWeights := map[int]int{
+		5:  2, // Age over 60
+		10: 1, // Sedentary lifestyle
+		11: 1, // Smoking
+	}
+
+	dvtScore := 0
+	fallingScore := 0
+
 	for _, answer := range result.Answers {
+		// Expected format: "q{number}: answer"
 		parts := strings.Split(answer, ":")
 		if len(parts) != 2 {
 			continue
 		}
-		qID := strings.TrimSpace(parts[0])
+		qStr := strings.TrimSpace(strings.TrimPrefix(parts[0], "q"))
+		qID, err := strconv.Atoi(qStr)
+		if err != nil {
+			continue
+		}
 		resp := strings.TrimSpace(parts[1])
-		// Here we assume that a "yes" (or an answer containing "option" for MCQ) is a positive response.
+		// Check for a positive response.
 		if strings.EqualFold(resp, "yes") || strings.Contains(strings.ToLower(resp), "option") {
-			if weight, ok := questionWeights[qID]; ok {
-				score += weight
+			if weight, ok := dvtWeights[qID]; ok {
+				dvtScore += weight
+			}
+			if weight, ok := fallingWeights[qID]; ok {
+				fallingScore += weight
 			}
 		}
 	}
-	result.Score = score
-	if score >= defaultRiskThreshold {
-		result.RiskStatus = "at risk"
-		alertAuthorities(result)
+
+	result.ScoreDVT = dvtScore
+	result.ScoreFalling = fallingScore
+
+	if dvtScore >= defaultRiskThreshold {
+		result.RiskStatusDVT = "high risk for DVT"
 	} else {
-		result.RiskStatus = "not at risk"
+		result.RiskStatusDVT = "low risk for DVT"
 	}
 
-	// Connect to Firestore to store the assessment.
+	if fallingScore >= fallingThreshold {
+		result.RiskStatusFalling = "high risk for falling"
+	} else {
+		result.RiskStatusFalling = "low risk for falling"
+	}
+
+	// Call alertAuthorities if either risk is high.
+	if dvtScore >= defaultRiskThreshold || fallingScore >= fallingThreshold {
+		alertAuthorities(result)
+	}
+
 	client, err := firebaseApp.Firestore(ctx)
 	if err != nil {
 		http.Error(w, "Failed to connect to Firestore", http.StatusInternalServerError)
@@ -303,17 +346,15 @@ func submitAssessmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer client.Close()
 
-	_, _, err = client.Collection("assessments").Add(ctx, result)
+	docRef, _, err := client.Collection("assessments").Add(ctx, result)
 	if err != nil {
 		http.Error(w, "Failed to save assessment", http.StatusInternalServerError)
 		log.Printf("Firestore add error: %v", err)
 		return
 	}
+	result.AssessmentID = docRef.ID
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"status":      "success",
-		"risk_status": result.RiskStatus,
-	})
+	json.NewEncoder(w).Encode(result)
 }
 
 func init() {
@@ -340,10 +381,8 @@ func main() {
 	http.HandleFunc("/api/tts", ttsHandler)
 	http.HandleFunc("/api/submit", submitAssessmentHandler)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	// Hardcode port to 8080.
+	port := "8080"
 	log.Printf("Server started at http://localhost:%s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
