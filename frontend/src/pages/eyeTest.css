@@ -14,16 +14,16 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%; /* Full width */
-  padding: 20px;
+  width: 100%;
+  padding: 30px;
 }
 
 /* Question Styling */
 .question-text {
-  font-size: 24px;
+  font-size: 30px; /* Increased font size */
   font-weight: bold;
-  margin-bottom: 20px;
-  max-width: 800px;
+  margin-bottom: 25px;
+  max-width: 900px;
 }
 
 /* Image Container */
@@ -31,14 +31,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .question-image {
-  width: 250px;
-  height: auto;
-  border-radius: 10px;
-  border: 2px solid #ddd;
+  width: 650px; /* Wider images */
+  height: 400px; /* Increased height */
+  object-fit: cover; /* Ensures images are properly cropped */
+  border-radius: 15px;
+  border: 4px solid #ddd;
 }
 
 /* Answer Options - Now Below the Image */
@@ -47,25 +48,25 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 /* Answer Buttons - Centered Below */
 .answer-options {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Allows wrapping if needed */
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 15px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
-/* Make buttons smaller */
+/* Answer Buttons - Larger Size */
 .answer-btn {
-  padding: 14px 22px;
-  font-size: 16px;
+  padding: 20px 36px; /* Increased padding */
+  font-size: 22px; /* Bigger text */
   font-weight: bold;
-  min-width: 140px;
+  min-width: 220px;
   border: none;
   border-radius: 50px;
   background-color: #FFB000;
@@ -74,7 +75,7 @@
   transition: background 0.3s ease, transform 0.1s ease-in-out;
   text-align: center;
   flex: 1;
-  max-width: 180px;
+  max-width: 260px;
 }
 
 /* Hover & Click Effects */
@@ -93,13 +94,13 @@
 
 /* Text Input (Matching Button Size) */
 .text-input {
-  width: 180px;
-  padding: 12px;
-  font-size: 16px;
+  width: 260px; /* Bigger width */
+  padding: 18px; /* Bigger padding */
+  font-size: 22px; /* Bigger text */
   text-align: center;
-  border: 2px solid #FFB000;
+  border: 3px solid #FFB000;
   border-radius: 50px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 /* Next Button Positioned to the Right */
@@ -107,13 +108,13 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
+  max-width: 1000px;
+  margin-top: 30px;
 }
 
 .next-btn {
-  padding: 14px 24px;
-  font-size: 16px;
+  padding: 20px 36px; /* Bigger size */
+  font-size: 22px; /* Bigger text */
   font-weight: bold;
   background-color: #FFB000;
   color: white;
@@ -130,33 +131,41 @@
 /* Error Message */
 .error-message {
   color: red;
-  font-size: 16px;
-  margin-top: 10px;
+  font-size: 20px; /* Bigger text */
+  margin-top: 15px;
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .question-image {
+    width: 550px;
+    height: 350px;
+  }
+}
+
 @media (max-width: 1024px) {
   .eye-quiz-container {
     max-width: 100%;
   }
 
   .question-text {
-    font-size: 22px;
+    font-size: 26px;
   }
 
   .question-image {
-    width: 220px;
+    width: 500px;
+    height: 320px;
   }
 
   .answer-btn, .next-btn {
-    font-size: 16px;
-    padding: 12px 20px;
-    min-width: 130px;
+    font-size: 20px;
+    padding: 18px 30px;
+    min-width: 200px;
   }
 
   .text-input {
-    font-size: 14px;
-    width: 160px;
+    font-size: 20px;
+    width: 240px;
   }
 }
 
@@ -164,30 +173,120 @@
   .answer-options {
     flex-direction: row;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
+  }
+
+  .question-image {
+    width: 450px;
+    height: 280px;
   }
 
   .answer-btn, .next-btn {
-    font-size: 14px;
-    padding: 10px 18px;
-    min-width: 120px;
+    font-size: 18px;
+    padding: 16px 28px;
+    min-width: 180px;
   }
 
   .text-input {
-    font-size: 12px;
-    width: 140px;
+    font-size: 18px;
+    width: 220px;
   }
 }
 
 @media (max-width: 480px) {
+  .question-image {
+    width: 400px;
+    height: 250px;
+  }
+
   .answer-btn, .next-btn {
-    font-size: 12px;
-    padding: 8px 16px;
-    min-width: 110px;
+    font-size: 16px;
+    padding: 14px 24px;
+    min-width: 160px;
   }
 
   .text-input {
-    font-size: 12px;
-    width: 130px;
+    font-size: 16px;
+    width: 200px;
   }
+}
+
+/* Results Page Container */
+.results-container {
+  text-align: center;
+  padding: 40px;
+}
+
+/* Enlarged Quiz Result Title */
+.results-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Enlarged Total Score */
+.result-score {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Enlarged Risk Category */
+.risk-category {
+  font-size: 34px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Enlarged Fall Risk Text */
+.fall-risk-text {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Colors for Different Risk Levels */
+.fall-risk-text.high-risk {
+  color: red;
+  background-color: #ffe6e6;
+  border: 3px solid red;
+}
+
+.fall-risk-text.medium-risk {
+  color: orange;
+  background-color: #fff3cd;
+  border: 3px solid orange;
+}
+
+.fall-risk-text.good {
+  color: green;
+  background-color: #d4edda;
+  border: 3px solid green;
+}
+
+.fall-risk-text.excellent {
+  color: green;
+  background-color: #ffffff;
+  border: 3px solid green;
+}
+
+/* ⚠️ High-Risk Warning Message */
+.high-risk-warning {
+  font-size: 26px;
+  font-weight: bold;
+  color: red;
+  background-color: #ffe6e6;
+  border: 4px solid red;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 25px;
 }

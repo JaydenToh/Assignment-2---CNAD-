@@ -14,8 +14,8 @@ import sampleImage9 from "../assets/vision.jpg"; // Replace with actual images
 import sampleImage10 from "../assets/squint.jpg"; // Replace with actual images
 
 import trueFalseImage1 from "../assets/cat.jpg"; // Replace with actual images
-import trueFalseImage2 from "../assets/4animal.jpg"; // Replace with actual images
-import trueFalseImage3 from "../assets/visiontext.png"; // Replace with actual images
+import trueFalseImage2 from "../assets/4animals.jpg"; // Replace with actual images
+import trueFalseImage3 from "../assets/visionimage.png"; // Replace with actual images
 
 
 const questions = [
@@ -122,6 +122,8 @@ const EyeQuiz = () => {
       console.error("❌ Error saving eye quiz result:", error);
       alert("❌ Error saving results. Please check console logs.");
     }
+
+    
   };
 
   return (
@@ -137,7 +139,26 @@ const EyeQuiz = () => {
             <h3 className={`risk-category ${riskMessage.replace(" ", "-").toLowerCase()}`}>
               {riskMessage}
             </h3>
+
+            {/* ✅ Fall Risk Category Display */}
+            <p className={`fall-risk-text ${riskMessage.replace(" ", "-").toLowerCase()}`}>
+              <strong>Fall Risk:</strong> {riskMessage === "Excellent"
+                ? "Minimal fall risk. Your vision health is in great condition!"
+                : riskMessage === "Good"
+                ? "Moderate fall risk. Consider regular eye check-ups."
+                : riskMessage === "Medium Risk"
+                ? "Increased fall risk. You may need corrective measures."
+                : "High fall risk. Urgent medical attention is recommended!"}
+            </p>
+
+            {/* ⚠️ High-Risk Warning Message */}
+            {riskMessage === "High Risk" && (
+              <p className="high-risk-warning">
+                ⚠️ **WARNING:** Your results indicate a **High Fall Risk**. It is strongly recommended that you **consult an eye specialist immediately** for further clinical assessment.
+              </p>
+            )}
           </div>
+
         ) : (
           // ✅ Show quiz while taking the test
           <>
