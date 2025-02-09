@@ -13,7 +13,6 @@ import { FiVolume2 } from "react-icons/fi";
 function HealthAssessment() {
   const { language, setLanguage, translations, loading, updateTranslations } =
     useContext(LanguageContext);
-
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
@@ -40,7 +39,7 @@ function HealthAssessment() {
     <div className="page-container">
       <Header />
 
-      {/* Language Selector */}
+      {/* Language Selector: centered */}
       <div className="language-switcher">
         <select
           value={language}
@@ -53,7 +52,7 @@ function HealthAssessment() {
       </div>
 
       <main className="health-assessment-container">
-        {/* Greeting Section */}
+        {/* Greeting Section: centered */}
         <div className="greeting-section">
           <div className="greeting-text">
             <h1>{translations.welcome}</h1>
