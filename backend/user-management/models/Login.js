@@ -3,21 +3,12 @@ const dbConfig = require("../dbConfig");
 const poolPromise = new sql.ConnectionPool(dbConfig).connect();
 
 class Login {
-  constructor(
-    userID,
-    userName,
-    email,
-    password,
-    contactNumber,
-    preferredLunch,
-    role
-  ) {
+  constructor(userID, userName, email, password, contactNumber, role) {
     this.userID = userID;
     this.userName = userName;
     this.email = email;
     this.password = password;
     this.contactNumber = contactNumber;
-    this.preferredLunch = preferredLunch;
     this.role = role;
   }
 
@@ -37,14 +28,7 @@ class Login {
   }
 
   // Create a new user
-  static async createUser(
-    userName,
-    email,
-    password,
-    contactNumber,
-    preferredLunch,
-    role
-  ) {
+  static async createUser(userName, email, password, contactNumber, role) {
     try {
       const pool = await poolPromise;
       const result = await pool
@@ -53,12 +37,11 @@ class Login {
         .input("email", sql.VarChar, email)
         .input("password", sql.VarChar, password)
         .input("contactNumber", sql.VarChar, contactNumber)
-        .input("preferredLunch", sql.VarChar, preferredLunch || null)
         .input("role", sql.VarChar, role)
         .query(
-          `INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
-           VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role);
-           SELECT SCOPE_IDENTITY() AS userID, userName, email, password, contactNumber, preferredLunch, role
+          `INSERT INTO endUser (userName, email, password, contactNumber,\ role)
+           VALUES (@userName, @email, @password, @contactNumber, @role);
+           SELECT SCOPE_IDENTITY() AS userID, userName, email, password, contactNumber, role
            FROM endUser WHERE userID = SCOPE_IDENTITY();`
         );
 
@@ -69,7 +52,6 @@ class Login {
         newUser.email,
         newUser.password,
         newUser.contactNumber,
-        newUser.preferredLunch,
         newUser.role.trim()
       );
     } catch (err) {

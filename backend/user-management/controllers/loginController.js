@@ -4,7 +4,7 @@ const Login = require("../models/Login");
 
 // Register a new user
 async function registerUser(req, res) {
-  const { userName, email, password, contactNumber, preferredLunch } = req.body;
+  const { userName, email, password, contactNumber } = req.body;
 
   try {
     const existingUser = await Login.getUserByEmail(email);
@@ -21,7 +21,6 @@ async function registerUser(req, res) {
       email,
       hashedPassword,
       contactNumber,
-      preferredLunch,
       role
     );
     res

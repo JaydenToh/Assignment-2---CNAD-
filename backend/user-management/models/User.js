@@ -2,28 +2,14 @@ const sql = require("mssql");
 const dbConfig = require("../dbConfig");
 
 class User {
-  constructor(
-    userID,
-    userName,
-    email,
-    password,
-    contactNumber,
-    preferredLunch,
-    role,
-    subscribe,
-    age,
-    interest
-  ) {
+  constructor(userID, userName, email, password, contactNumber, role, age) {
     this.userID = userID;
     this.userName = userName;
     this.email = email;
     this.password = password;
     this.contactNumber = contactNumber;
-    this.preferredLunch = preferredLunch;
     this.role = role;
-    this.subscribe = subscribe;
     this.age = age;
-    this.interest = interest;
   }
 
   static async getAllById(userID) {
@@ -130,8 +116,8 @@ class User {
         .input("role", sql.VarChar, data.role)
         .input("age", sql.Int, data.age || null)
         .input("interest", sql.VarChar, data.interest || null).query(`
-          INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
-          VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role, @age, @interest);
+          INSERT INTO endUser (userName, email, password, contactNumber, role)
+          VALUES (@userName, @email, @password, @contactNumber, @role, @age);
           SELECT SCOPE_IDENTITY() AS userID;
         `);
       return result.recordset[0].userID;
@@ -166,14 +152,6 @@ class User {
         sqlQuery += `, password = @password`;
         request.input("password", sql.VarChar(255), hashedPassword);
       }
-      if (newUserData.preferredLunch) {
-        sqlQuery += `, preferredLunch = @preferredLunch`;
-        request.input(
-          "preferredLunch",
-          sql.VarChar(255),
-          newUserData.preferredLunch
-        );
-      }
       if (newUserData.role) {
         sqlQuery += `, role = @role`;
         request.input("role", sql.VarChar(10), newUserData.role);
@@ -181,10 +159,6 @@ class User {
       if (newUserData.age) {
         sqlQuery += `, age = @age`;
         request.input("age", sql.Int, newUserData.age);
-      }
-      if (newUserData.interest) {
-        sqlQuery += `, interest = @interest`;
-        request.input("interest", sql.VarChar(255), newUserData.interest);
       }
       sqlQuery += ` WHERE userID = @userID`;
 
