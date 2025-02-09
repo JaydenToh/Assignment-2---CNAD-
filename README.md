@@ -129,8 +129,6 @@ We implemented redundancy and failover mechanisms to ensure high availability an
 
 ### Teo Yuan Mao
 
-🔔
-
 - 📅 Assessment Management
 Function: Generates quiz questions for fall risk assessment.
 Responsibilities:
