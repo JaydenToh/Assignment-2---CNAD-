@@ -11,8 +11,6 @@
 .health-assessment-container {
   width: 100%;
   padding: 40px 10px; /* 40px top & bottom, 10px left & right */
-  max-width: 1200px; /* Add a maximum width */
-  padding: 40px 20px; /* 40px top & bottom, 20px left & right */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   box-sizing: border-box;
@@ -151,7 +149,6 @@
 /* Options Grid - now centered */
 .options-grid {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center; /* Center the option boxes */
   gap: 50px; /* Increased gap between cards */
 }
