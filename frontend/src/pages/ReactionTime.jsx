@@ -4,22 +4,23 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const ReactionTimeTest = () => {
-  const [gameState, setGameState] = useState("idle"); // 'idle' | 'waiting' | 'tooSoon' | 'ready' | 'result' | 'complete'
-  const [reactionTimes, setReactionTimes] = useState([]); // Stores multiple attempts
+  const [gameState, setGameState] = useState("idle");
+  const [reactionTimes, setReactionTimes] = useState([]);
   const [startTime, setStartTime] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
-  const [attempts, setAttempts] = useState(0); // Track 3 attempts
+  const [attempts, setAttempts] = useState(0);
   const [currentReactionTime, setCurrentReactionTime] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
-  const [totalTime, setTotalTime] = useState(0); // ✅ New state for total time
+  const [totalTime, setTotalTime] = useState(0);
+  const [warningMessage, setWarningMessage] = useState("");
 
   const startTest = () => {
-    if (attempts >= 3) return; // Limit to 3 turns
+    if (attempts >= 3) return;
 
     setGameState("waiting");
     setCurrentReactionTime(null);
 
-    const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2s-5s delay
+    const randomDelay = Math.floor(Math.random() * 3000) + 2000;
 
     const id = setTimeout(() => {
       setStartTime(Date.now());
@@ -32,36 +33,43 @@ const ReactionTimeTest = () => {
   const handleClick = () => {
     if (gameState === "waiting") {
       clearTimeout(timeoutId);
-      setGameState("tooSoon"); // Change state to tooSoon
+      setGameState("tooSoon");
       return;
     }
 
     if (gameState === "ready") {
-      const timeTaken = (Date.now() - startTime) / 1000; // Convert ms to seconds
-      setCurrentReactionTime(timeTaken.toFixed(2) + " seconds"); // Round to 2 decimal places
+      const timeTaken = (Date.now() - startTime) / 1000;
+      setCurrentReactionTime(timeTaken.toFixed(2) + " seconds");
       setReactionTimes([...reactionTimes, timeTaken]);
       setAttempts(attempts + 1);
 
       if (attempts === 2) {
         calculateFinalScore([...reactionTimes, timeTaken]);
       } else {
-        setGameState("result"); // Switch to result screen
+        setGameState("result");
       }
     }
   };
 
   const calculateFinalScore = async (times) => {
     const total = times.reduce((sum, time) => sum + time, 0);
-    setTotalTime(total.toFixed(2)); // ✅ Store total time in state
+    setTotalTime(total.toFixed(2));
 
-    let message = "Good";
-    if (total >= 20) message = "High Risk"; // Adjusted for seconds
-    else if (total >= 15) message = "Okay";
+    let message = "Low";
+    let warning = "";
+
+    if (total >= 2.5) {
+      message = "High Risk";
+      warning =
+        "⚠️ WARNING: Your reaction time suggests a higher fall risk. Vulnerable cases should undergo further clinical assessment by a doctor.";
+    } else if (total >= 1.5) {
+      message = "Okay";
+    }
 
     setFinalMessage(message);
-    setGameState("complete"); // Change gameState to "complete"
+    setWarningMessage(warning);
+    setGameState("complete");
 
-    // Save to backend
     try {
       const response = await fetch("http://localhost:3000/api/reaction-tests", {
         method: "POST",
@@ -70,7 +78,8 @@ const ReactionTimeTest = () => {
           test_1: times[0],
           test_2: times[1],
           test_3: times[2],
-          total_time: total, // ✅ Sending total time
+          total_time: total,
+          result_category: message,
         }),
       });
       const data = await response.json();
@@ -84,8 +93,12 @@ const ReactionTimeTest = () => {
     <div className="reaction-test-page">
       <Header />
 
-      {/* Reaction Test Box (TOP) */}
-      <div className={`reaction-test-container ${gameState}`} onClick={gameState === "ready" || gameState === "waiting" ? handleClick : null}>
+      <div
+        className={`reaction-test-container ${gameState}`}
+        onClick={
+          gameState === "ready" || gameState === "waiting" ? handleClick : null
+        }
+      >
         {gameState === "idle" && (
           <div className="reaction-box idle">
             <h1>Reaction Time Test</h1>
@@ -105,7 +118,9 @@ const ReactionTimeTest = () => {
         {gameState === "tooSoon" && (
           <div className="reaction-box tooSoon">
             <p className="big-text">Clicked too soon!</p>
-            <button className="start-btn" onClick={startTest}>Try Again</button>
+            <button className="start-btn" onClick={startTest}>
+              Try Again
+            </button>
           </div>
         )}
 
@@ -117,7 +132,9 @@ const ReactionTimeTest = () => {
 
         {gameState === "result" && (
           <div className="reaction-box result">
-            <p className="big-text">Your reaction time: <strong>{currentReactionTime}</strong></p>
+            <p className="big-text">
+              Your reaction time: <strong>{currentReactionTime}</strong>
+            </p>
             <button className="start-btn" onClick={startTest}>
               Next Test ({attempts + 1}/3)
             </button>
@@ -125,28 +142,46 @@ const ReactionTimeTest = () => {
         )}
 
         {gameState === "complete" && (
-          <div className={`reaction-box final ${finalMessage.toLowerCase().replace(" ", "-")}`}>
+          <div
+            className={`reaction-box final ${finalMessage
+              .toLowerCase()
+              .replace(" ", "-")}`}
+          >
             <h1>Test Complete!</h1>
             <p className="big-text">Your Risk Level:</p>
-            <h2 className={`risk-text ${finalMessage.toLowerCase().replace(" ", "-")}`}>{finalMessage}</h2>
-            <p className="big-text">Total Time Taken: <strong>{totalTime} seconds</strong></p> {/* ✅ Display total time */}
+            <h2
+              className={`risk-text ${finalMessage
+                .toLowerCase()
+                .replace(" ", "-")}`}
+            >
+              {finalMessage}
+            </h2>
+            <p className="big-text">
+              Total Time Taken: <strong>{totalTime} seconds</strong>
+            </p>
+
+            {finalMessage === "High Risk" && (
+              <p className="warning-text">{warningMessage}</p>
+            )}
           </div>
         )}
       </div>
 
-      {/* Instructions Section (BOTTOM) */}
       <div className="instructions-container">
         <div className="instruction-step" data-step="1">
-          Click on <span className="highlight">"Start Test"</span>.
+          Click on "Start Test".
         </div>
         <div className="instruction-step" data-step="2">
           Wait for the screen <br /> to turn green.
         </div>
         <div className="instruction-step" data-step="3">
-          Repeat the test <br /> 3 times.
+          If you click too early, <br /> you must restart.
         </div>
         <div className="instruction-step" data-step="4">
-          Your reaction time <br />determines your fall risk.
+          Repeat the test <br /> 3 times.
+        </div>
+        <div className="instruction-step" data-step="5">
+          Your reaction time <br /> determines your fall risk.
         </div>
       </div>
 

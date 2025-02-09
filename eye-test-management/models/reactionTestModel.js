@@ -2,20 +2,24 @@ const supabase = require("../dbConfig");
 
 // ✅ Insert a new reaction test result
 const insertReactionTest = async (test_1, test_2, test_3) => {
-    const totalTime = Math.round((test_1 + test_2 + test_3) * 1000); // Convert to ms integer
+    // Convert seconds to milliseconds (integer values)
+    const test_1_ms = Math.round(test_1 * 1000);
+    const test_2_ms = Math.round(test_2 * 1000);
+    const test_3_ms = Math.round(test_3 * 1000);
+    const totalTime = test_1_ms + test_2_ms + test_3_ms; // Total time in milliseconds
 
-    let category = "Good";
-    if (totalTime >= 20000) category = "High Risk";
-    else if (totalTime >= 15000) category = "Okay";
+    let category = "Low";
+    if (totalTime > 2500) category = "High Risk";  // Adjusted to milliseconds
+    else if (totalTime >= 1500) category = "Okay";
 
-    console.log("📤 Inserting into DB:", { test_1, test_2, test_3, totalTime, category });
+    console.log("📤 Inserting into DB:", { test_1_ms, test_2_ms, test_3_ms, totalTime, category });
 
     const { data, error } = await supabase
         .from("reaction_tests")
         .insert([{ 
-            test_1: Math.round(test_1 * 1000), // Convert float to int (ms)
-            test_2: Math.round(test_2 * 1000), 
-            test_3: Math.round(test_3 * 1000), 
+            test_1: test_1_ms,
+            test_2: test_2_ms, 
+            test_3: test_3_ms, 
             total_time: totalTime, 
             result_category: category 
         }]);
@@ -27,6 +31,7 @@ const insertReactionTest = async (test_1, test_2, test_3) => {
     console.log("✅ Insert Success:", data);
     return data;
 };
+
 
 
 

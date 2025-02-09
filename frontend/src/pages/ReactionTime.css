@@ -92,7 +92,7 @@
 }
 
 /* 🟢 Risk Level - Good */
-.risk-text.good {
+.risk-text.low {
   color: green;
 }
 
@@ -163,4 +163,21 @@
   align-items: center;
   justify-content: center;
   border: 3px solid #FFB000; /* Slightly thicker border */
+}
+
+/* ⚠️ Enlarged Warning Message for High-Risk Cases */
+.warning-text {
+  color: red;
+  font-size: 24px; /* Increased font size */
+  font-weight: bold;
+  margin-top: 20px;
+  border: 4px solid red; /* Thicker border for emphasis */
+  padding: 20px; /* More padding for better spacing */
+  border-radius: 12px; /* Slightly larger rounded edges */
+  background-color: #ffe6e6;
+  text-align: center;
+  max-width: 80%; /* Prevents it from being too wide */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 4px 8px rgba(255, 0, 0, 0.3); /* Subtle shadow for emphasis */
 }
