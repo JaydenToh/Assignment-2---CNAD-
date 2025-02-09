@@ -330,7 +330,7 @@ This system is designed to assess fall risks in elderly individuals through two 
 The goal is to provide early detection of fall risks by evaluating reaction time and vision health.
 
 
-📌 Features
+📌 Features       
 🎥 Reaction Time Test  
 Measures how fast an elderly individual reacts to a stimulus.  
 Stores reaction times to analyze trends over multiple attempts.
