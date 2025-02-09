@@ -5,6 +5,9 @@ services:
       - "3000:80"
     depends_on:
       - user-management
+      - assessment-management
+      - calculaterisk-management # ✅ Fixed name
+      - questions-management
 
   user-management:
     build: ./user-management
@@ -20,3 +23,18 @@ services:
     build: ./clinic-video-management
     ports:
       - "6000:6000"
+
+  assessment-management:
+    build: ./assessment-management
+    ports:
+      - "7000:3001" # Map external 7000 to internal 3001
+
+  calculaterisk-management: # ✅ Fixed name
+    build: ./calculaterisk-management
+    ports:
+      - "8000:3002" # Map external 8000 to internal 3002
+
+  questions-management:
+    build: ./questions-management
+    ports:
+      - "9000:3000" # Map external 9000 to internal 3000
