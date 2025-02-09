@@ -14,7 +14,7 @@ const Notification = () => {
     // Fetch notifications from the backend
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/notifications");
+        const response = await axios.get("http://localhost:3010/notifications");
         setNotifications(response.data); // Assuming response.data is the array of notifications
         setLoading(false);
       } catch (err) {
