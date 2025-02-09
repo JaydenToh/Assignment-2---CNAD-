@@ -59,7 +59,7 @@ Our microservices are designed to communicate with each other seamlessly, using 
 We implemented redundancy and failover mechanisms to ensure high availability and reliability. Our solution can detect and recover from failures, minimizing downtime and ensuring continuous service.
 
 
-## **Architecture Diagram (Text-Based Representation)**
+## **📈 Architecture Diagram (Text-Based Representation)**
 
 ```plaintext
            +--------------------------------------------------+
