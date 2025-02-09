@@ -14,8 +14,8 @@ const sendEmail = async (req, res) => {
   const mailOptions = {
     from: `"Notification Service" <${process.env.EMAIL_USER}>`,
     to: "liewzhanyang@gmail.com",
-    subject: "Notification Service",
-    text:"hi hihi",
+    subject: "Urgent Notification <High Risk Information of your kin>",
+    text: "We are writing to inform you of a health concern regarding [Family Member's Name/Relationship - e.g., your son, John]. Please contact us at [Phone Number] or [Email Address] as soon as possible to discuss this further.",
   };
 
   try {
