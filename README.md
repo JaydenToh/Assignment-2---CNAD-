@@ -59,9 +59,44 @@ Our microservices are designed to communicate with each other seamlessly, using 
 We implemented redundancy and failover mechanisms to ensure high availability and reliability. Our solution can detect and recover from failures, minimizing downtime and ensuring continuous service.
 
 
-**Architecture diagram**
-🔹  
-🔹
+## **Architecture Diagram (Text-Based Representation)**
+
+```plaintext
+           +--------------------------------------------------+
+           |               React Frontend (UI)               |
+           +--------------------------------------------------+
+                               |
+                               v
+           +--------------------------------------------------+
+           |              API Gateway (Optional)             |
+           |      (Handles request routing & security)       |
+           +--------------------------------------------------+
+                               |
+    ---------------------------------------------------------------
+    |                         |                                   |
++------------------+   +-----------------------+   +----------------------+
+| Assessment       |   | Calculator Risk       |   | Notification Service  |
+| Management      |   | Management            |   | (Alerts & Reminders)  |
+| (Quiz Logic)    |   | (Risk Calculation)    |   |                      |
++------------------+   +-----------------------+   +----------------------+
+          |                      |                            |
++------------------+   +-----------------------+   +----------------------+
+| Question         |   | Eye-Test Management   |   | Exercise Management  |
+| Management      |   | (Vision-Related Quiz) |   | (Exercise Plans)      |
+| (Quiz DB)       |   |                       |   |                      |
++------------------+   +-----------------------+   +----------------------+
+          |                                                 |
++------------------+                           +----------------------+
+| Clinic Video     |                           | Database             |
+| Management       |                           | (User Data,          |
+| (Videos API)     |                           | Assessments, Scores) |
++------------------+                           +----------------------+
+                               |
+                               v
+           +--------------------------------------------------+
+           |        Cloud Infrastructure (AWS/GCP/Azure)      |
+           |         Kubernetes + Docker + CI/CD Pipeline    |
+           +--------------------------------------------------+
 
 **Key Outcomes**  
 ✅
@@ -72,7 +107,6 @@ We implemented redundancy and failover mechanisms to ensure high availability an
 - Each microservice runs in its own **Docker container**.
 - Kubernetes is used for **scalability** and **fault tolerance**.
 - Services communicate via **REST APIs**.
-- Cloud provider (AWS/GCP/Azure) hosts the system for accessibility.
 
 ---
 
