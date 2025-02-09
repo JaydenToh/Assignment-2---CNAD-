@@ -290,3 +290,24 @@
   text-align: center;
   margin-top: 25px;
 }
+
+.language-switch {
+  text-align: center;
+  margin: 20px;
+}
+
+.language-switch button {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.language-switch button.active {
+  background-color: #FFB000;
+  color: white;
+}
