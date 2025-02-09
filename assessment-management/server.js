@@ -6,14 +6,17 @@ const mongoose = require("mongoose");
 app.use(bodyParser.json());
 
 // Load Mongoose models
-const Question = require("../questions-management/Question");
+const axios = require("axios");
+
 const Assessment = require("./Assessment");
 const Submission = require("./Submission");
 
 // Connect to MongoDB
 async function connectToMongoDB() {
   try {
-    await mongoose.connect("mongodb+srv://ym:Password123@cluster0.sswvw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    await mongoose.connect(
+      "mongodb+srv://ym:Password123@cluster0.sswvw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
     console.log("Database is connected!");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
@@ -25,14 +28,17 @@ connectToMongoDB();
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
 // Define routes
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send("This is the mainpoint");
-})
+});
 
 app.post("/assessment", (req, res) => {
   const newAssessment = {
@@ -41,53 +47,63 @@ app.post("/assessment", (req, res) => {
   };
 
   const assessment = new Assessment(newAssessment);
-  assessment.save().then(() => {
-    console.log("Assessment created!");
-    res.send("Assessment created successfully!");
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send("Error creating assessment.");
-  });
+  assessment
+    .save()
+    .then(() => {
+      console.log("Assessment created!");
+      res.send("Assessment created successfully!");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error creating assessment.");
+    });
 });
 
 app.get("/assessments", (req, res) => {
-  Assessment.find().then((assessments) => {
-    console.log(assessments);
-    res.send(assessments);
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send("Error retrieving assessments.");
-  });
+  Assessment.find()
+    .then((assessments) => {
+      console.log(assessments);
+      res.send(assessments);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving assessments.");
+    });
 });
 
-app.get("/random-questions", (req, res) => {
-  Question.aggregate([
-    { $sample: { size: 5 } }
-  ]).then((questions) => {
-    res.send(questions);
-  }).catch((err) => {
-    console.error(err);
+app.get("/random-questions", async (req, res) => {
+  try {
+    // Call the questions-management service API
+    const response = await axios.get(
+      "http://questions-management:9000/questions"
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching questions:", error);
     res.status(500).send("Error retrieving random questions.");
-  });
+  }
 });
 
-app.post('/submit-survey', (req, res) => {
+app.post("/submit-survey", (req, res) => {
   const { answers, totalScore } = req.body;
   const newSubmission = new Submission({ answers, totalScore });
-  newSubmission.save().then(() => {
-    console.log("Submission saved!");
-    res.json({ message: 'Survey submitted successfully' });
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send("Error submitting survey.");
-  });
+  newSubmission
+    .save()
+    .then(() => {
+      console.log("Submission saved!");
+      res.json({ message: "Survey submitted successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error submitting survey.");
+    });
 });
 
-app.get('/quiz', (req, res) => {
-  res.sendFile(__dirname + '/quiz.html');
+app.get("/quiz", (req, res) => {
+  res.sendFile(__dirname + "/quiz.html");
 });
 
 // Start the server on port 3001
-app.listen(3001, () => {
+app.listen(7000, () => {
   console.log("Up and running on port 3001!");
-})
+});

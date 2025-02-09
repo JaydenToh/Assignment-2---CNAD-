@@ -27,14 +27,16 @@ services:
   assessment-management:
     build: ./assessment-management
     ports:
-      - "7000:3001" # Map external 7000 to internal 3001
+      - "7000:7000"
+    depends_on:
+      - questions-management
 
-  calculaterisk-management: # ✅ Fixed name
+  calculaterisk-management:
     build: ./calculaterisk-management
     ports:
-      - "8000:3002" # Map external 8000 to internal 3002
+      - "8000:8000"
 
   questions-management:
     build: ./questions-management
     ports:
-      - "9000:3000" # Map external 9000 to internal 3000
+      - "9000:9000"

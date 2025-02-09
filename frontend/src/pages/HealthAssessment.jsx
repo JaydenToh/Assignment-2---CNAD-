@@ -70,10 +70,6 @@ function HealthAssessment() {
           </button>
         </div>
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 74cf70b07d6f47986e499f4c6e456450d97d3679
         {/* Options Section */}
         <div className="options-section">
           <p className="options-prompt">{translations.whatWouldYouLikeToDo}</p>
