@@ -130,7 +130,7 @@ function HealthAssessment() {
               <img src={clinicIcon} alt="Reaction Time Test" />
               <span>Reaction Time Test</span>
             </Link>
-            <Link to="/reaction" className="option-card">
+            <Link to="/eye-test" className="option-card">
               <img src={clinicIcon} alt="Eye quiz" />
               <span>Eye quiz</span>
             </Link>
