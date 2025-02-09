@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Header from "./Header"; // Adjust the path if needed
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header"; // Keep everything the same
 import "./ProfilePage.css";
-import userAvatar from "../assets/seniors.png"; // Placeholder avatar
+import defaultAvatar from "../assets/seniors.png"; // Default profile image
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
@@ -9,9 +10,12 @@ function ProfilePage() {
     userName: "",
     contactNumber: "",
     age: "",
+    profileImage: localStorage.getItem("profileImage") || defaultAvatar, // Ensure profile image persists
   });
 
   const [editMode, setEditMode] = useState(false);
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -27,12 +31,17 @@ function ProfilePage() {
           throw new Error("Failed to fetch user data");
         }
         const data = await response.json();
-        setFormData({
-          email: data.email || "",
-          userName: data.userName || "",
-          contactNumber: data.contactNumber || "",
-          age: data.age || "",
-        });
+        setFormData((prev) => ({
+          ...prev,
+          email: data.email || prev.email,
+          userName: data.userName || prev.userName,
+          contactNumber: data.contactNumber || prev.contactNumber,
+          age: data.age || prev.age,
+          profileImage:
+            localStorage.getItem("profileImage") ||
+            data.profileImage ||
+            prev.profileImage,
+        }));
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -47,6 +56,26 @@ function ProfilePage() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newProfileImage = reader.result;
+        setFormData((prev) => ({
+          ...prev,
+          profileImage: newProfileImage,
+        }));
+        localStorage.setItem("profileImage", newProfileImage); // Save to persist after refresh
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
@@ -79,6 +108,14 @@ function ProfilePage() {
     setEditMode(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("profileImage"); // Clear profile image on logout
+    navigate("/login");
+  };
+
   return (
     <div>
       <Header />
@@ -103,14 +140,25 @@ function ProfilePage() {
           <h2 className="settings-title">Account Settings</h2>
           <form className="settings-box" onSubmit={handleSubmit}>
             <div className="profile-image-section">
-              <img src={userAvatar} alt="User Avatar" className="profile-img" />
+              <img
+                src={formData.profileImage}
+                alt="User Avatar"
+                className="profile-img"
+              />
               <button
                 type="button"
                 className="edit-photo-btn"
-                onClick={() => console.log("Edit photo clicked")}
+                onClick={triggerFileInput}
               >
-                📷 Edit Photo
+                📷 Change Photo
               </button>
+              <input
+                type="file"
+                accept="image/*"
+                className="file-input"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+              />
             </div>
 
             <div className="input-group">
@@ -132,7 +180,7 @@ function ProfilePage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  disabled={!editMode} // Now email is editable when "Edit Profile" is clicked
+                  disabled={!editMode}
                 />
               </div>
             </div>
@@ -184,6 +232,13 @@ function ProfilePage() {
                   Edit Profile
                 </button>
               )}
+              <button
+                type="button"
+                className="logout-btn"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
             </div>
           </form>
         </main>

@@ -123,6 +123,38 @@ app.post("/api/appointments/reminders", async (req, res) => {
   }
 });
 
+// Verification Key API: Check if the key matches a stored one
+app.post("/api/verify-key", async (req, res) => {
+  try {
+    const { clinicId, verificationKey } = req.body;
+
+    // Replace with your actual column name if different
+    const request = new sql.Request();
+    request.input("clinicId", sql.Int, clinicId);
+    request.input("verificationKey", sql.NVarChar, verificationKey);
+
+    const result = await request.query(`
+      SELECT * FROM Appointments 
+      WHERE ClinicID = @clinicId AND VerificationKey = @verificationKey
+    `);
+
+    if (result.recordset.length > 0) {
+      res.json({
+        success: true,
+        message: "Verification successful!",
+        appointment: result.recordset[0],
+      });
+    } else {
+      res
+        .status(401)
+        .json({ success: false, message: "Invalid verification key." });
+    }
+  } catch (error) {
+    console.error("Error verifying key:", error);
+    res.status(500).json({ error: "Server error while verifying key." });
+  }
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

@@ -79,7 +79,6 @@ function HealthAssessment() {
               <img src={clinicIcon} alt="Reaction Time Test" />
               <span>Reaction Time Test</span>
             </Link>
-
           </div>
         </div>
       </main>
