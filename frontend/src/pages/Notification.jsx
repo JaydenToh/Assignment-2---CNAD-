@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-// import axios from "axios";
 import styles from "./Notification.module.css";
 
 const Notification = () => {
   const [activeTab, setActiveTab] = useState("general");
-  const [notifications, setNotifications] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const navigate = useNavigate(); // Initialize the navigate function
 
-  useEffect(() => {
-    // Fetch notifications from the backend
-    const fetchNotifications = async () => {
-      try {
-        const response = await axios.get("http://localhost:3010/notifications");
-        setNotifications(response.data); // Assuming response.data is the array of notifications
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch notifications");
-        setLoading(false);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
+  // Hardcoded notification data
+  const notifications = [
+    {
+      notificationId: 1,
+      title: "New Program Introduced",
+      content: "The new program will be introduced at 10 Jan",
+      status: "general",
+    },
+    {
+      notificationId: 3,
+      title: "Health Alert(High Risk)",
+      content:
+        " We recommend you visit the nearest clinic as soon as possible ",
+      status: "urgent",
+    },
+  ];
 
   // Filter notifications based on the active tab
   const filteredNotifications = notifications.filter(
@@ -39,7 +36,7 @@ const Notification = () => {
           className={styles["back-button"]}
           onClick={() => navigate("/home")}
         >
-          ◀
+          ◀️
         </button>
         <h1 className={styles["notification-title"]}>Notification</h1>
       </header>
@@ -62,11 +59,7 @@ const Notification = () => {
         </button>
       </div>
       <div className={styles["notification-list"]}>
-        {loading ? (
-          <p>Loading notifications...</p>
-        ) : error ? (
-          <p className={styles["notification-error"]}>{error}</p>
-        ) : filteredNotifications.length > 0 ? (
+        {filteredNotifications.length > 0 ? (
           filteredNotifications.map((notification) => (
             <div
               key={notification.notificationId}

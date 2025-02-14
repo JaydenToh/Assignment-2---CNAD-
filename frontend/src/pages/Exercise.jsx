@@ -10,7 +10,7 @@ const Exercise = () => {
 
   // Fetch exercise details from backend
   useEffect(() => {
-    fetch(`http://localhost:3000/api/exercises/${riskLevel}`)
+    fetch(`http://localhost:5000/api/exercises/${riskLevel}`)
       .then((res) => res.json())
       .then((data) => setExercise(data))
       .catch((error) => console.error("Error fetching exercises:", error));

@@ -5,7 +5,7 @@ const sql = require("mssql");
 const nodemailer = require("nodemailer");
 
 const app = express();
-const PORT = 3060;
+const PORT = 6000;
 
 app.use(cors());
 app.use(express.json());

@@ -17,7 +17,7 @@ const Clinic = () => {
 
   // Fetch clinics from backend
   useEffect(() => {
-    fetch("http://localhost:3000/api/clinics")
+    fetch("http://localhost:6000/api/clinics")
       .then((res) => res.json())
       .then((data) => setClinics(data))
       .catch((error) => console.error("Error fetching clinics:", error));
@@ -25,7 +25,7 @@ const Clinic = () => {
 
   // Fetch doctors for selected clinic
   const fetchDoctors = (clinicId) => {
-    fetch(`http://localhost:3000/api/doctors/${clinicId}`)
+    fetch(`http://localhost:6000/api/doctors/${clinicId}`)
       .then((res) => res.json())
       .then((data) => setDoctors(data))
       .catch((error) => console.error("Error fetching doctors:", error));
@@ -33,7 +33,7 @@ const Clinic = () => {
 
   // Function to verify the entered key
   const verifyKey = () => {
-    fetch("http://localhost:3000/api/verify-key", {
+    fetch("http://localhost:6000/api/verify-key", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ clinicId: selectedClinic, verificationKey }),

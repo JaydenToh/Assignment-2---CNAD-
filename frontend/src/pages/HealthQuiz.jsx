@@ -13,7 +13,7 @@ function HealthQuiz() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3001/random-questions")
+    fetch("http://localhost:7000/random-questions")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -47,7 +47,7 @@ function HealthQuiz() {
     setTotalScore(score);
 
     try {
-      const riskResponse = await fetch("http://localhost:3002/calculate-risk", {
+      const riskResponse = await fetch("http://localhost:8000/calculate-risk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalScore: score }),
@@ -63,7 +63,7 @@ function HealthQuiz() {
     }
 
     try {
-      await fetch("http://localhost:3001/submit-survey", {
+      await fetch("http://localhost:7000/submit-survey", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ answers, totalScore: score }),

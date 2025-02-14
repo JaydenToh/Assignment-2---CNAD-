@@ -13,7 +13,7 @@ app.use(express.json()); // Middleware to parse JSON body
 app.use("/notifications", notificationRoutes); // Notification routes
 app.use("/send-email", emailRoutes); // Email routes
 
-const PORT = process.env.PORT || 3050;
+const PORT = process.env.PORT || 3053;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
